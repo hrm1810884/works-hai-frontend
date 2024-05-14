@@ -1,0 +1,10 @@
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "cSpell.words": ["clsx", "codegen", "mantine", "remeda", "stylelint", "tanstack"],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.fixAll.stylelint": "explicit",
+        "source.addMissingImports": "explicit"
+    }
+}
