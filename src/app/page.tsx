@@ -1,94 +1,41 @@
-import Image from "next/image";
+"use client";
 
-import styles from "./page.module.css";
+import { Button } from "@mantine/core";
+import { Info, WarningCircle, CheckCircle } from "@phosphor-icons/react";
+import { toast } from "react-toastify";
+import { match } from "ts-pattern";
 
 export default function Home() {
+    const ICON_SIZE = "1.5rem";
+    type ToastType = "info" | "error" | "success";
+
+    const type: ToastType = "info";
+
+    const toastIcon = (type: ToastType) =>
+        match(type)
+            .with("info", () => <Info size={ICON_SIZE} />)
+            .with("error", () => <WarningCircle size={ICON_SIZE} />)
+            .with("success", () => <CheckCircle size={ICON_SIZE} />)
+            .exhaustive();
+
     return (
-        <main className={styles.main}>
-            <div className={styles.description}>
-                <p>
-                    Get started by editing&nbsp;
-                    <code className={styles.code}>src/app/page.tsx</code>
-                </p>
-                <div>
-                    <a
-                        href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        By{" "}
-                        <Image
-                            src="/vercel.svg"
-                            alt="Vercel Logo"
-                            className={styles.vercelLogo}
-                            width={100}
-                            height={24}
-                            priority
-                        />
-                    </a>
-                </div>
-            </div>
-
-            <div className={styles.center}>
-                <Image
-                    className={styles.logo}
-                    src="/next.svg"
-                    alt="Next.js Logo"
-                    width={180}
-                    height={37}
-                    priority
-                />
-            </div>
-
-            <div className={styles.grid}>
-                <a
-                    href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        Docs <span>-&gt;</span>
-                    </h2>
-                    <p>Find in-depth information about Next.js features and API.</p>
-                </a>
-
-                <a
-                    href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        Learn <span>-&gt;</span>
-                    </h2>
-                    <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-                </a>
-
-                <a
-                    href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        Templates <span>-&gt;</span>
-                    </h2>
-                    <p>Explore starter templates for Next.js.</p>
-                </a>
-
-                <a
-                    href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        Deploy <span>-&gt;</span>
-                    </h2>
-                    <p>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
-                </a>
-            </div>
-        </main>
+        <>
+            <p>hoge</p>
+            <Button
+                onClick={() => {
+                    toast("hai.", {
+                        type: "info",
+                        icon: toastIcon(type),
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                    });
+                }}
+            >
+                Show Toast
+            </Button>
+        </>
     );
 }
