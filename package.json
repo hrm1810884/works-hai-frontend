@@ -12,9 +12,16 @@
     "format": "prettier --write . && npm run lint:js -- --fix && npm run lint:css -- --fix"
   },
   "dependencies": {
+    "@mantine/core": "^7.9.1",
+    "@mantine/hooks": "^7.9.1",
+    "@mantine/vanilla-extract": "^7.9.1",
+    "@phosphor-icons/react": "^2.1.5",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-error-boundary": "^4.0.13",
+    "react-toastify": "^10.0.5",
+    "ts-pattern": "^5.1.1"
   },
   "devDependencies": {
     "@types/node": "^20",
