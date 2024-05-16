@@ -1,7 +1,34 @@
-import React, { useState, useContext, useRef, useEffect, useCallback } from "react";
+import React, { useState, useContext, useRef, useCallback } from "react";
 
 import { DrawingContext } from "@/states/DrawingContext";
 import { CanvasPoint } from "@/types";
+
+export const usePaintingState = () => {
+    const [painting, setPainting] = useState({
+        isPainting: false,
+        startX: 0,
+        startY: 0,
+    });
+
+    const resetPainting = useCallback(() => {
+        setPainting({ isPainting: false, startX: 0, startY: 0 });
+    }, [setPainting]);
+
+    const updatePainting = useCallback(
+        (x: number, y: number) => {
+            setPainting({ isPainting: true, startX: x, startY: y });
+        },
+        [setPainting]
+    );
+
+    return {
+        painting,
+        mutators: {
+            resetPainting,
+            updatePainting,
+        },
+    };
+};
 
 export const useDrawingBoard = () => {
     const [points, setPoints] = useState(Array<CanvasPoint>());
@@ -17,54 +44,16 @@ export const useDrawingBoard = () => {
         currentHistoryIndex,
     } = useContext(DrawingContext);
 
-    const [painting, setPainting] = useState({
-        isPainting: false,
-        startX: 0,
-        startY: 0,
-    });
-
-    const resetPainting = useCallback(() => {
-        setPainting({ isPainting: false, startX: 0, startY: 0 });
-    }, [setPainting]);
+    const {
+        painting,
+        mutators: { resetPainting, updatePainting },
+    } = usePaintingState();
 
     const canvasElement = useRef<HTMLCanvasElement>(null);
 
-    useEffect(() => {
+    const updateCanvasContext = useCallback(() => {
         setCanvasContext(canvasElement.current?.getContext("2d"));
-        if (canvasElement.current) {
-            canvasElement.current.width = canvasElement.current.clientWidth;
-            canvasElement.current.height = canvasElement.current.clientHeight;
-            (canvasElement.current.getContext("2d") as any).fillStyle = "white";
-            canvasElement.current
-                .getContext("2d")
-                ?.fillRect(
-                    0,
-                    0,
-                    canvasElement.current.clientWidth,
-                    canvasElement.current.clientHeight
-                );
-        }
-    }, [canvasElement, setCanvasContext]);
-
-    useEffect(() => {
-        const canvas = canvasElement.current;
-
-        if (canvasContext && canvas) {
-            canvas.addEventListener("touchstart", handleTouchStart, {
-                passive: false,
-            });
-            canvas.addEventListener("touchmove", handleMobileDraw, {
-                passive: false,
-            });
-            canvas.addEventListener("touchend", handleTouchEnd, { passive: false });
-        }
-
-        return () => {
-            canvas?.removeEventListener("touchstart", handleTouchStart);
-            canvas?.removeEventListener("touchmove", handleMobileDraw);
-            canvas?.removeEventListener("touchend", handleTouchEnd);
-        };
-    }, [canvasContext, canvasElement]);
+    }, [setCanvasContext]);
 
     const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
         e.preventDefault();
@@ -80,11 +69,8 @@ export const useDrawingBoard = () => {
             let x = (e.clientX - rect.left) / zoom;
             let y = (e.clientY - rect.top) / zoom;
 
-            setPainting({
-                isPainting: true,
-                startX: x,
-                startY: y,
-            });
+            updatePainting(x, y);
+
             setPoints([]);
         }
     };
@@ -106,11 +92,7 @@ export const useDrawingBoard = () => {
             ...history,
         ]);
 
-        setPainting({
-            isPainting: false,
-            startX: 0,
-            startY: 0,
-        });
+        resetPainting();
 
         setPoints([]);
         if (canvasContext) {
@@ -156,11 +138,8 @@ export const useDrawingBoard = () => {
                 let x = (e.touches[0].clientX - rect.left) / zoom;
                 let y = (e.touches[0].clientY - rect.top) / zoom;
 
-                setPainting({
-                    isPainting: true,
-                    startX: x,
-                    startY: y,
-                });
+                updatePainting(x, y);
+
                 setPoints([]);
             }
         }
@@ -209,11 +188,7 @@ export const useDrawingBoard = () => {
             ...history,
         ]);
 
-        setPainting({
-            isPainting: false,
-            startX: 0,
-            startY: 0,
-        });
+        resetPainting();
 
         setPoints([]);
         if (canvasContext) {
@@ -224,14 +199,14 @@ export const useDrawingBoard = () => {
 
     return {
         canvasElement,
-        zoom,
+        updateCanvasContext,
         handlers: {
             handleDraw,
             handleMouseUp,
             handleMouseDown,
-        },
-        mutators: {
-            resetPainting,
+            handleTouchStart,
+            handleTouchEnd,
+            handleMobileDraw,
         },
     };
 };
