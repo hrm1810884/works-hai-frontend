@@ -7,6 +7,7 @@ import ClientProviders from "./providers/client";
 import ServerProviders from "./providers/server";
 
 import { ErrorHandler, Loader } from "@/components/common/functional";
+import { GlobalStateProvider } from "@/components/common/states/globalStates";
 
 const notoSansJP = Noto_Sans_JP({
     subsets: ["latin"],
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ServerProviders>
                     <ClientProviders>
                         <ErrorHandler>
-                            <Loader>{children}</Loader>
+                            <Loader>
+                                <GlobalStateProvider>{children}</GlobalStateProvider>
+                            </Loader>
                         </ErrorHandler>
                     </ClientProviders>
                 </ServerProviders>
