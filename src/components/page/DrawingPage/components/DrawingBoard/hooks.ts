@@ -1,6 +1,7 @@
 import React, { useState, useContext, useRef, useCallback } from "react";
 
 import { DrawingContext } from "@/states/DrawingContext";
+import { useHistory } from "@/states/History";
 import { CanvasPoint } from "@/types";
 
 export const usePaintingState = () => {
@@ -33,16 +34,12 @@ export const usePaintingState = () => {
 export const useDrawingBoard = () => {
     const [points, setPoints] = useState(Array<CanvasPoint>());
 
+    const { brush, canvasContext, setCanvasContext, zoom } = useContext(DrawingContext);
+
     const {
-        brush,
-        canvasContext,
-        setCanvasContext,
-        zoom,
-        history,
-        setHistory,
-        setCurrentHistoryIndex,
-        currentHistoryIndex,
-    } = useContext(DrawingContext);
+        flag: { isNewestHistory },
+        mutator: { initializeHistory, inclementHistory },
+    } = useHistory();
 
     const {
         painting,
@@ -59,10 +56,9 @@ export const useDrawingBoard = () => {
         e.preventDefault();
 
         if (canvasContext && canvasElement.current) {
-            // Reset redo option
-            if (currentHistoryIndex !== 0) {
-                setHistory([...history].slice(currentHistoryIndex));
-                setCurrentHistoryIndex(0);
+            // Reset history
+            if (!isNewestHistory) {
+                initializeHistory();
             }
 
             let rect = (e.target as HTMLElement).getBoundingClientRect();
@@ -82,15 +78,12 @@ export const useDrawingBoard = () => {
         let x = (e.clientX - rect.left) / zoom;
         let y = (e.clientY - rect.top) / zoom;
 
-        setHistory([
-            {
-                type: brush.type,
-                color: brush.color,
-                width: brush.width,
-                points: [...points, { x: x, y: y }],
-            },
-            ...history,
-        ]);
+        inclementHistory({
+            type: brush.type,
+            color: brush.color,
+            width: brush.width,
+            points: [...points, { x: x, y: y }],
+        });
 
         resetPainting();
 
@@ -129,9 +122,8 @@ export const useDrawingBoard = () => {
             let rect = (e.target as HTMLElement).getBoundingClientRect();
             if (e.touches.length === 1) {
                 // Reset redo option
-                if (currentHistoryIndex !== 0) {
-                    setHistory([...history].slice(currentHistoryIndex));
-                    setCurrentHistoryIndex(0);
+                if (!isNewestHistory) {
+                    initializeHistory();
                 }
 
                 e.preventDefault();
@@ -178,15 +170,12 @@ export const useDrawingBoard = () => {
         handleMobileDraw(e);
         e.preventDefault();
 
-        setHistory([
-            {
-                type: brush.type,
-                color: brush.color,
-                width: brush.width,
-                points: [...points],
-            },
-            ...history,
-        ]);
+        inclementHistory({
+            type: brush.type,
+            color: brush.color,
+            width: brush.width,
+            points: [...points],
+        });
 
         resetPainting();
 
@@ -201,12 +190,12 @@ export const useDrawingBoard = () => {
         canvasElement,
         updateCanvasContext,
         handlers: {
+            handleMouseDown,
             handleDraw,
             handleMouseUp,
-            handleMouseDown,
             handleTouchStart,
-            handleTouchEnd,
             handleMobileDraw,
+            handleTouchEnd,
         },
     };
 };
