@@ -5,12 +5,9 @@ import { useBrush } from "@/states/Brush";
 
 import { colorPickerStyle, modalStyle } from "./ModalContents.css";
 
-type props = {
-    loc?: { x: number; y: number };
-};
+type props = {};
 
-export const ColorModalContents: FC<props> = (props) => {
-    const { loc } = props;
+export const ColorModalContent: FC<props> = () => {
     const {
         brush,
         mutator: { changeBrushColor },
@@ -28,7 +25,6 @@ export const ColorModalContents: FC<props> = (props) => {
                 e.stopPropagation();
             }}
             className={modalStyle}
-            style={{ left: loc?.x, top: loc?.y }}
         >
             <HexColorPicker color={color} onChange={setColor} className={colorPickerStyle} />
         </div>

@@ -14,7 +14,9 @@ export type canvasContext = CanvasRenderingContext2D | undefined | null;
 
 export type BrushType = "PENCIL" | "ERASER";
 
-export type lineWidth = 1 | 3 | 5 | 8;
+export const lineWidthList = [1, 3, 5, 8] as const;
+
+export type lineWidth = (typeof lineWidthList)[number];
 
 export type Brush = {
     type: BrushType;

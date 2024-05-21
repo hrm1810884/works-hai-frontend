@@ -1,1 +1,2 @@
-export { ColorModalContents } from "./ColorModalContents";
+export { ColorModalContent } from "./ColorModalContent";
+export { LineWidthModalContent } from "./LineWidthModalContent";

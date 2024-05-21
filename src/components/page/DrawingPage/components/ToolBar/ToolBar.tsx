@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import { BiPencil, BiEraser, BiRedo, BiUndo } from "react-icons/bi";
-// import { BsBorderWidth } from "react-icons/bs";
+import { BsBorderWidth } from "react-icons/bs";
 
 import { DrawingContext } from "@/states/DrawingContext";
 import { useHistory } from "@/states/History";
 import { BrushType } from "@/types";
 
-import { ColorModalContents } from "../ToolButton/modalContents/ColorModalContents";
+import { LineWidthModalContent } from "../ToolButton/modalContents";
+import { ColorModalContent } from "../ToolButton/modalContents/ColorModalContent";
 import { ToolButton } from "../ToolButton/ToolButton";
 import { ToolButtonWithModal } from "../ToolButton/ToolButtonWithModal";
 
@@ -110,10 +111,10 @@ export const ToolBar = () => {
                 {/* <ToolButton icon={<RiPaintLine className='icon-accessibility icon-inactive'></RiPaintLine>}></ToolButton> */}
 
                 {/* Line width */}
-                {/* <ToolButtonWithModal
+                <ToolButtonWithModal
                     icon={<BsBorderWidth className="icon-accessibility"></BsBorderWidth>}
-                    modal={<LineWidthModal></LineWidthModal>}
-                ></ToolButtonWithModal> */}
+                    modalContent={<LineWidthModalContent></LineWidthModalContent>}
+                ></ToolButtonWithModal>
 
                 {/* Color */}
                 <ToolButtonWithModal
@@ -123,7 +124,7 @@ export const ToolBar = () => {
                             style={{ backgroundColor: brush.color }}
                         ></div>
                     }
-                    modalContent={<ColorModalContents></ColorModalContents>}
+                    modalContent={<ColorModalContent></ColorModalContent>}
                 ></ToolButtonWithModal>
             </div>
         </div>
