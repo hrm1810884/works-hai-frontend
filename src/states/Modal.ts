@@ -1,3 +1,4 @@
+import { useClickOutside } from "@mantine/hooks";
 import React, { useCallback, useRef, useState } from "react";
 
 export const useModal = () => {
@@ -28,10 +29,15 @@ export const useModal = () => {
         [setIsOpen, decideModalLoc]
     );
 
+    const modalRef = useClickOutside(() => setIsOpen(false));
+
     return {
         isOpen,
         modalLoc,
-        buttonRef,
+        ref: {
+            modalRef,
+            buttonRef,
+        },
         mutator: {
             closeModal,
             decideModalLoc,

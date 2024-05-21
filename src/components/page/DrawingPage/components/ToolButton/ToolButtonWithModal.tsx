@@ -14,7 +14,7 @@ export const ToolButtonWithModal: FC<props> = (props) => {
     const {
         isOpen,
         modalLoc,
-        buttonRef,
+        ref: { modalRef, buttonRef },
         mutator: { closeModal, decideModalLoc },
         handler: { handleClick: onClick },
     } = useModal();
@@ -28,11 +28,12 @@ export const ToolButtonWithModal: FC<props> = (props) => {
     }, [decideModalLoc]);
 
     return (
-        <div className="relative">
-            <button ref={buttonRef} onClick={onClick} className="relative">
-                <span className="peer">{icon}</span>
+        <div>
+            <button ref={buttonRef} onClick={onClick}>
+                <span>{icon}</span>
             </button>
             <Modal
+                ref={modalRef}
                 opened={isOpen}
                 onClose={closeModal}
                 withCloseButton={false}

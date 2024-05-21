@@ -25,10 +25,12 @@ export const LineWidthModalContent: FC<props> = () => {
                 return (
                     <div
                         id={"width_" + width}
-                        onClick={() => changeBrushWidth(width)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            changeBrushWidth(width);
+                        }}
                         key={width}
                         className={`${brush.width === width ? selectedWidthBackground : undefined} ${widthSlectButtonStyle}`}
-                        // className={`${brush.width === width ?? selectedWidthBackground} ${widthSlectButtonStyle}`}
                     >
                         <span>{width}px</span>
                         <div className={widthBarStyle} style={{ height: width + "px" }}></div>

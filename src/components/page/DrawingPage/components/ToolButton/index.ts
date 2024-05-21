@@ -1,2 +1,2 @@
 export { ToolButton } from "./ToolButton";
-export { ColorModalContents } from "./modalContents";
+export { ColorModalContent } from "./modalContents";

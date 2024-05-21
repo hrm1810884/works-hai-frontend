@@ -20,7 +20,6 @@ export const modalStyle = style({
     padding: "0.5rem",
     left: "50%",
     borderRadius: "0.5rem",
-    zIndex: 50,
     transform: "translateX(-50%)",
 });
 
