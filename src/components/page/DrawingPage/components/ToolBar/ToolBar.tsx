@@ -1,23 +1,31 @@
 import { useContext } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import { BiPencil, BiEraser, BiRedo, BiUndo } from "react-icons/bi";
+// import { BsBorderWidth } from "react-icons/bs";
 
-// import { BsBorderWidth } from 'react-icons/bs'
 import { DrawingContext } from "@/states/DrawingContext";
+import { useHistory } from "@/states/History";
 import { BrushType } from "@/types";
 
+import { ColorModalContents } from "../ToolButton/modalContents/ColorModalContents";
 import { ToolButton } from "../ToolButton/ToolButton";
+import { ToolButtonWithModal } from "../ToolButton/ToolButtonWithModal";
+
+import {
+    barContainer,
+    buttonContainer,
+    colorPaletteIcon,
+    toolButtonContainer,
+} from "./ToolBar.css";
 
 export const ToolBar = () => {
+    const { canvasContext, brush, setBrush } = useContext(DrawingContext);
+
     const {
-        canvasContext,
-        brush,
-        setBrush,
-        currentHistoryIndex,
-        setCurrentHistoryIndex,
-        history,
-        setHistory,
-    } = useContext(DrawingContext);
+        mutator: { undoHistory, redoHistory, initializeHistory },
+        flag: { isNewestHistory, isOldestHistory },
+    } = useHistory();
+
     const setBrushType = (type: BrushType) => {
         if (type) {
             setBrush({
@@ -29,38 +37,35 @@ export const ToolBar = () => {
     };
 
     return (
-        <div className="w-full py-2 md:py-0 h-32 md:h-12 bg-neutral-100 border-b border-neutral-300 px-5 flex flex-col md:flex-row justify-between items-center text-neutral-600 z-50">
+        <div className={barContainer}>
             {/* Save, undo, redo */}
-            <div className="flex h-full gap-3 justify-center items-center">
+            <div className={buttonContainer}>
                 {/* Undo history */}
                 <ToolButton
-                    onClick={() =>
-                        history.length !== currentHistoryIndex &&
-                        setCurrentHistoryIndex(currentHistoryIndex + 1)
-                    }
+                    onClick={undoHistory}
                     icon={
                         <BiUndo
-                            className={
-                                "icon-accessibility " +
-                                (history.length === currentHistoryIndex && "icon-inactive")
-                            }
+                        // className={
+                        //     "icon-accessibility " +
+                        //     (history.length === currentHistoryIndex && "icon-inactive")
+                        // }
                         ></BiUndo>
                     }
+                    isDisabled={isOldestHistory}
                 ></ToolButton>
 
                 {/* Redo history */}
                 <ToolButton
-                    onClick={() =>
-                        currentHistoryIndex > 0 && setCurrentHistoryIndex(currentHistoryIndex - 1)
-                    }
+                    onClick={redoHistory}
                     icon={
                         <BiRedo
-                            className={
-                                "icon-accessibility " +
-                                (currentHistoryIndex === 0 && "icon-inactive")
-                            }
+                        // className={
+                        //     "icon-accessibility " +
+                        //     (currentHistoryIndex === 0 && "icon-inactive")
+                        // }
                         ></BiRedo>
                     }
+                    isDisabled={isNewestHistory}
                 ></ToolButton>
 
                 {/* Clear canvas */}
@@ -81,15 +86,14 @@ export const ToolBar = () => {
                                 canvasContext.canvas.height
                             );
                         }
-                        setHistory([]);
-                        setCurrentHistoryIndex(0);
+                        initializeHistory();
                     }}
                     icon={<AiOutlineClear className="icon-accessibility"></AiOutlineClear>}
                 ></ToolButton>
             </div>
 
             {/* Tools */}
-            <div className="flex h-full gap-3 justify-center items-center order-3 md:order-none">
+            <div className={toolButtonContainer}>
                 {/* Pen */}
                 <ToolButton
                     onClick={() => setBrushType("PENCIL")}
@@ -106,10 +110,21 @@ export const ToolBar = () => {
                 {/* <ToolButton icon={<RiPaintLine className='icon-accessibility icon-inactive'></RiPaintLine>}></ToolButton> */}
 
                 {/* Line width */}
-                {/* <ToolButton icon={<BsBorderWidth className='icon-accessibility'></BsBorderWidth>} modal={<LineWidthModal></LineWidthModal>}></ToolButton> */}
+                {/* <ToolButtonWithModal
+                    icon={<BsBorderWidth className="icon-accessibility"></BsBorderWidth>}
+                    modal={<LineWidthModal></LineWidthModal>}
+                ></ToolButtonWithModal> */}
 
                 {/* Color */}
-                {/* <ToolButton icon={<div className='h-6 w-6 border border-neutral-300 rounded-lg cursor-pointer' style={{ backgroundColor: brush.color}}></div>} modal={<ColorModal></ColorModal>}></ToolButton> */}
+                <ToolButtonWithModal
+                    icon={
+                        <div
+                            className={colorPaletteIcon}
+                            style={{ backgroundColor: brush.color }}
+                        ></div>
+                    }
+                    modalContent={<ColorModalContents></ColorModalContents>}
+                ></ToolButtonWithModal>
             </div>
         </div>
     );
