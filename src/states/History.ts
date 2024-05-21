@@ -1,0 +1,92 @@
+import { useCallback, useContext } from "react";
+
+import { HistoryItem } from "@/types";
+
+import { DrawingContext } from "./DrawingContext";
+
+export const useHistory = () => {
+    const { history, setHistory, currentHistoryIndex, setCurrentHistoryIndex, canvasContext } =
+        useContext(DrawingContext);
+
+    const initializeHistory = useCallback(() => {
+        setHistory([]);
+        setCurrentHistoryIndex(0);
+    }, [setHistory, setCurrentHistoryIndex]);
+
+    const isOldestHistory = currentHistoryIndex === history.length;
+    const isNewestHistory = currentHistoryIndex === 0;
+
+    const undoHistory = useCallback(() => {
+        setCurrentHistoryIndex((prev) => prev + 1);
+    }, [setCurrentHistoryIndex]); //NOTE: historyの構造上インデックスが増えるほど過去となる
+    const redoHistory = useCallback(() => {
+        setCurrentHistoryIndex((prev) => prev - 1);
+    }, [setCurrentHistoryIndex]);
+
+    const inclementHistory = useCallback(
+        (newHistoryItem: HistoryItem) => {
+            setHistory([newHistoryItem, ...history]);
+        },
+        [history, setHistory]
+    );
+
+    const trashUnnecessaryHistory = useCallback(() => {
+        setHistory(history.slice(currentHistoryIndex));
+    }, [history, setHistory, currentHistoryIndex]);
+
+    const redrawHistory = useCallback(
+        (index: number) => {
+            const toRedraw = history.slice(index);
+            if (canvasContext) {
+                canvasContext.clearRect(
+                    0,
+                    0,
+                    canvasContext.canvas.width,
+                    canvasContext.canvas.height
+                );
+                canvasContext.fillStyle = "white";
+                canvasContext.fillRect(
+                    0,
+                    0,
+                    canvasContext.canvas.width,
+                    canvasContext.canvas.height
+                );
+
+                toRedraw.reverse().forEach((historyItem) => {
+                    canvasContext.lineWidth = historyItem.width;
+                    if (historyItem.type === "PENCIL") {
+                        canvasContext.strokeStyle = historyItem.color;
+                    } else if (historyItem.type === "ERASER") {
+                        canvasContext.strokeStyle = "white";
+                    }
+                    canvasContext.lineCap = "round";
+                    canvasContext.lineJoin = "round";
+                    historyItem.points.forEach((point) => {
+                        canvasContext.lineTo(point.x, point.y);
+                        canvasContext.stroke();
+                    });
+                    canvasContext.stroke();
+                    canvasContext.beginPath();
+                });
+            }
+        },
+        [history, canvasContext]
+    );
+
+    return {
+        history,
+        currentHistoryIndex,
+        mutator: {
+            initializeHistory,
+            undoHistory,
+            redoHistory,
+            inclementHistory,
+            trashUnnecessaryHistory,
+            redrawHistory,
+        },
+        flag: {
+            isOldestHistory,
+            isNewestHistory,
+        },
+    };
+};
