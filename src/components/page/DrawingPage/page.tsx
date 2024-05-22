@@ -2,9 +2,10 @@
 import { useEffect } from "react";
 
 import { useHistory } from "@/states/History";
-import { styleUtils } from "@/styles/utils.css";
 
-import { DrawingBoard, ToolBar } from "./components";
+import { styleUtils } from "@/styles";
+
+import { ToolBar, DrawingBoard } from "./components";
 
 export const DrawingPage = () => {
     const {

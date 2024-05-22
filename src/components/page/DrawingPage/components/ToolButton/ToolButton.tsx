@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import React, { FC } from "react";
 
-import { toolButtonStyle, selectedIconHighlightStyle } from "./ToolButton.css";
+import { selectedIconHighlightStyle, toolButtonStyle } from "./ToolButton.css";
 
 type props = {
     icon: React.ReactElement;
@@ -15,7 +15,11 @@ export const ToolButton: FC<props> = (props) => {
 
     return (
         <div style={{ position: "relative" }}>
-            <Button onClick={onClick} disabled={isDisabled} className={toolButtonStyle}>
+            <Button
+                onClick={onClick}
+                disabled={isDisabled}
+                className={`${isSelected ? selectedIconHighlightStyle : undefined} ${toolButtonStyle}`}
+            >
                 <span>{icon}</span>
                 {isSelected && <div className={selectedIconHighlightStyle}></div>}
             </Button>

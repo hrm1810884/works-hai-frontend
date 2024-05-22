@@ -1,2 +1,3 @@
 export { ToolButton } from "./ToolButton";
-export { ColorModalContent } from "./modalContents";
+export { LineWidthMenu } from "./LineWidthMenu";
+export { ColorPicker } from "./ColorPicker";

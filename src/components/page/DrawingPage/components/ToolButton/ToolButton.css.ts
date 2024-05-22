@@ -11,16 +11,11 @@ export const toolButtonStyle = style({
     height: "2.5rem",
     vars: {
         "--button-bg": vars.colors.primary[4],
-        "--button-hover": "red",
+        "--button-hover": vars.colors.primary[1],
         "--button-bd": "none",
     },
 });
 
 export const selectedIconHighlightStyle = style({
-    display: "flex",
-    height: "0.5rem", // h-1 (1rem = 16px)
-    width: "2.5rem", // w-5 (1rem = 16px)
-    backgroundColor: "#FFFFFF", // bg-indigo-500
-    borderTopLeftRadius: "0.5rem", // rounded-t-lg (1rem = 16px, top-left and top-right)
-    borderTopRightRadius: "0.5rem", // rounded-t-lg (1rem = 16px, top-left and top-right)
+    border: `1px solid ${vars.colors.primary[1]}`,
 });

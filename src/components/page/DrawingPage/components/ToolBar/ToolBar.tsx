@@ -1,21 +1,17 @@
 import { useContext } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import { BiPencil, BiEraser, BiRedo, BiUndo } from "react-icons/bi";
-import { BsBorderWidth } from "react-icons/bs";
 
 import { useBrush } from "@/states/Brush";
 import { DrawingContext } from "@/states/DrawingContext";
 import { useHistory } from "@/states/History";
 
-import { LineWidthModalContent } from "../ToolButton/modalContents";
-import { ColorModalContent } from "../ToolButton/modalContents/ColorModalContent";
+import { ColorPicker, LineWidthMenu } from "../ToolButton";
 import { ToolButton } from "../ToolButton/ToolButton";
-import { ToolButtonWithModal } from "../ToolButton/ToolButtonWithModal";
 
 import {
     barContainerStyle,
     buttonsContainerStyle,
-    colorPaletteIcon,
     iconStyle,
     toolButtonsContainerStyle,
 } from "./ToolBar.css";
@@ -96,21 +92,10 @@ export const ToolBar = () => {
                 ></ToolButton>
 
                 {/* Line width */}
-                <ToolButtonWithModal
-                    icon={<BsBorderWidth className={iconStyle}></BsBorderWidth>}
-                    modalContent={<LineWidthModalContent></LineWidthModalContent>}
-                ></ToolButtonWithModal>
+                <LineWidthMenu></LineWidthMenu>
 
                 {/* Color */}
-                <ToolButtonWithModal
-                    icon={
-                        <div
-                            className={`${colorPaletteIcon} ${iconStyle}`}
-                            style={{ backgroundColor: brush.color }}
-                        ></div>
-                    }
-                    modalContent={<ColorModalContent></ColorModalContent>}
-                ></ToolButtonWithModal>
+                <ColorPicker></ColorPicker>
             </div>
         </div>
     );
