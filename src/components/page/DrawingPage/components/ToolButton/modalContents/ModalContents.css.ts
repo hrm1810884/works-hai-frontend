@@ -65,3 +65,25 @@ export const selectedWidthHighlight = style({
 export const selectedWidthBackground = style({
     backgroundColor: `${vars.colors.gray[0]}`,
 });
+
+export const lineWidthInputWrapper = style({
+    width: "100%", // w-full
+    paddingLeft: "0.25rem", // px-1 (1rem = 16px)
+    paddingRight: "0.25rem", // px-1 (1rem = 16px)
+    borderRadius: "0.5rem", // rounded-lg (1rem = 16px)
+    fontSize: "0.75rem", // text-xs (1rem = 16px)
+    display: "flex", // flex
+    alignItems: "center", // items-center
+    gap: "0.5rem", // gap-2 (1rem = 16px)
+    position: "relative", // relative
+});
+
+export const lineWidthInputStyle = style({
+    paddingLeft: "0.5rem", // px-2 (1rem = 16px)
+    paddingRight: "0.5rem", // px-2 (1rem = 16px)
+    width: "5rem", // w-20 (1rem = 16px)
+    height: "1.5rem", // h-6 (1rem = 16px)
+    backgroundColor: "#ffffff", // bg-white
+    border: "1px solid #d1d5db", // border border-neutral-300
+    borderRadius: "0.5rem", // rounded-lg (1rem = 16px)
+});

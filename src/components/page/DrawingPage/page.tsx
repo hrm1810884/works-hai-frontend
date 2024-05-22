@@ -2,8 +2,9 @@
 import { useEffect } from "react";
 
 import { useHistory } from "@/states/History";
+import { styleUtils } from "@/styles/utils.css";
 
-import { ToolBar } from "./components";
+import { DrawingBoard, ToolBar } from "./components";
 
 export const DrawingPage = () => {
     const {
@@ -13,15 +14,14 @@ export const DrawingPage = () => {
 
     useEffect(() => {
         redrawHistory(currentHistoryIndex);
-    }, [currentHistoryIndex]);
+    }, [currentHistoryIndex, redrawHistory]);
 
     return (
         <>
-            <ToolBar></ToolBar>
-            {/* Canvas */}
-            {/* <div className="w-full h-full overflow-auto relative">
-                <DrawingBoard></DrawingBoard>
-            </div> */}
+            <div className={styleUtils.contentWrapper}>
+                <ToolBar />
+                <DrawingBoard />
+            </div>
         </>
     );
 };

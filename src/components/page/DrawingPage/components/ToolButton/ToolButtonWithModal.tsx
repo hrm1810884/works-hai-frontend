@@ -3,6 +3,8 @@ import React, { FC, useEffect } from "react";
 
 import { useModal } from "@/states/Modal";
 
+import { toolButtonStyle } from "./ToolButton.css";
+
 type props = {
     icon: React.ReactElement;
     modalContent: React.ReactElement;
@@ -29,7 +31,7 @@ export const ToolButtonWithModal: FC<props> = (props) => {
 
     return (
         <div>
-            <button ref={buttonRef} onClick={onClick}>
+            <button ref={buttonRef} onClick={onClick} className={toolButtonStyle}>
                 <span>{icon}</span>
             </button>
             <Modal

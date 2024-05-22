@@ -1,4 +1,7 @@
+import { Button } from "@mantine/core";
 import React, { FC } from "react";
+
+import { toolButtonStyle, selectedIconHighlightStyle } from "./ToolButton.css";
 
 type props = {
     icon: React.ReactElement;
@@ -11,13 +14,11 @@ export const ToolButton: FC<props> = (props) => {
     const { icon, onClick, isSelected, isDisabled } = props;
 
     return (
-        <div className="relative">
-            <button onClick={onClick} className="relative" disabled={isDisabled}>
-                <span className={"peer " + (isSelected && "text-indigo-600")}>{icon}</span>
-                {isSelected && (
-                    <div className="absolute h-1 w-5 bg-indigo-500 rounded-t-lg left-1/2 -translate-x-1/2 translate-y-1.5"></div>
-                )}
-            </button>
+        <div style={{ position: "relative" }}>
+            <Button onClick={onClick} disabled={isDisabled} className={toolButtonStyle}>
+                <span>{icon}</span>
+                {isSelected && <div className={selectedIconHighlightStyle}></div>}
+            </Button>
         </div>
     );
 };

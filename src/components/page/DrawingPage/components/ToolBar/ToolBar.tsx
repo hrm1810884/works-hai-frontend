@@ -3,9 +3,9 @@ import { AiOutlineClear } from "react-icons/ai";
 import { BiPencil, BiEraser, BiRedo, BiUndo } from "react-icons/bi";
 import { BsBorderWidth } from "react-icons/bs";
 
+import { useBrush } from "@/states/Brush";
 import { DrawingContext } from "@/states/DrawingContext";
 import { useHistory } from "@/states/History";
-import { BrushType } from "@/types";
 
 import { LineWidthModalContent } from "../ToolButton/modalContents";
 import { ColorModalContent } from "../ToolButton/modalContents/ColorModalContent";
@@ -13,59 +13,41 @@ import { ToolButton } from "../ToolButton/ToolButton";
 import { ToolButtonWithModal } from "../ToolButton/ToolButtonWithModal";
 
 import {
-    barContainer,
-    buttonContainer,
+    barContainerStyle,
+    buttonsContainerStyle,
     colorPaletteIcon,
-    toolButtonContainer,
+    iconStyle,
+    toolButtonsContainerStyle,
 } from "./ToolBar.css";
 
 export const ToolBar = () => {
-    const { canvasContext, brush, setBrush } = useContext(DrawingContext);
+    const { canvasContext } = useContext(DrawingContext);
 
     const {
         mutator: { undoHistory, redoHistory, initializeHistory },
         flag: { isNewestHistory, isOldestHistory },
     } = useHistory();
 
-    const setBrushType = (type: BrushType) => {
-        if (type) {
-            setBrush({
-                width: brush.width,
-                type: type,
-                color: brush.color,
-            });
-        }
-    };
+    const {
+        brush,
+        mutator: { setBrushType },
+    } = useBrush();
 
     return (
-        <div className={barContainer}>
-            {/* Save, undo, redo */}
-            <div className={buttonContainer}>
+        <div className={barContainerStyle}>
+            {/* undo, redo, trash */}
+            <div className={buttonsContainerStyle}>
                 {/* Undo history */}
                 <ToolButton
                     onClick={undoHistory}
-                    icon={
-                        <BiUndo
-                        // className={
-                        //     "icon-accessibility " +
-                        //     (history.length === currentHistoryIndex && "icon-inactive")
-                        // }
-                        ></BiUndo>
-                    }
+                    icon={<BiUndo className={iconStyle}></BiUndo>}
                     isDisabled={isOldestHistory}
                 ></ToolButton>
 
                 {/* Redo history */}
                 <ToolButton
                     onClick={redoHistory}
-                    icon={
-                        <BiRedo
-                        // className={
-                        //     "icon-accessibility " +
-                        //     (currentHistoryIndex === 0 && "icon-inactive")
-                        // }
-                        ></BiRedo>
-                    }
+                    icon={<BiRedo className={iconStyle}></BiRedo>}
                     isDisabled={isNewestHistory}
                 ></ToolButton>
 
@@ -89,30 +71,33 @@ export const ToolBar = () => {
                         }
                         initializeHistory();
                     }}
-                    icon={<AiOutlineClear className="icon-accessibility"></AiOutlineClear>}
+                    icon={<AiOutlineClear className={iconStyle}></AiOutlineClear>}
                 ></ToolButton>
             </div>
 
             {/* Tools */}
-            <div className={toolButtonContainer}>
+            <div className={toolButtonsContainerStyle}>
                 {/* Pen */}
                 <ToolButton
-                    onClick={() => setBrushType("PENCIL")}
-                    icon={<BiPencil className="icon-accessibility"></BiPencil>}
+                    onClick={() => {
+                        setBrushType("PENCIL");
+                    }}
+                    icon={<BiPencil className={iconStyle}></BiPencil>}
+                    isSelected={brush.type === "PENCIL"}
                 ></ToolButton>
 
                 {/* Eraser */}
                 <ToolButton
-                    onClick={() => setBrushType("ERASER")}
-                    icon={<BiEraser className="icon-accessibility"></BiEraser>}
+                    onClick={() => {
+                        setBrushType("ERASER");
+                    }}
+                    icon={<BiEraser className={iconStyle}></BiEraser>}
+                    isSelected={brush.type === "ERASER"}
                 ></ToolButton>
-
-                {/* Fill */}
-                {/* <ToolButton icon={<RiPaintLine className='icon-accessibility icon-inactive'></RiPaintLine>}></ToolButton> */}
 
                 {/* Line width */}
                 <ToolButtonWithModal
-                    icon={<BsBorderWidth className="icon-accessibility"></BsBorderWidth>}
+                    icon={<BsBorderWidth className={iconStyle}></BsBorderWidth>}
                     modalContent={<LineWidthModalContent></LineWidthModalContent>}
                 ></ToolButtonWithModal>
 
@@ -120,7 +105,7 @@ export const ToolBar = () => {
                 <ToolButtonWithModal
                     icon={
                         <div
-                            className={colorPaletteIcon}
+                            className={`${colorPaletteIcon} ${iconStyle}`}
                             style={{ backgroundColor: brush.color }}
                         ></div>
                     }

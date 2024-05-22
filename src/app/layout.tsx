@@ -1,3 +1,5 @@
+import "./globals.css";
+
 import { ColorSchemeScript } from "@mantine/core";
 import { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";

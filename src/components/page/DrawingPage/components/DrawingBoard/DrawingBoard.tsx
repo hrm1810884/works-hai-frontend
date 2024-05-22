@@ -4,17 +4,19 @@ import { DrawingContext } from "@/states/DrawingContext";
 
 import { useDrawingBoard, usePaintingState } from "./hooks";
 
+import { canvasStyle } from "./DrawingBoard.css";
+
 export const DrawingBoard = () => {
     const {
         canvasElement,
         updateCanvasContext,
         handlers: {
-            handleDraw,
             handleMouseDown,
+            handleDraw,
             handleMouseUp,
             handleTouchStart,
-            handleTouchEnd,
             handleMobileDraw,
+            handleTouchEnd,
         },
     } = useDrawingBoard();
 
@@ -72,7 +74,7 @@ export const DrawingBoard = () => {
                 resetPainting();
             }}
             id="canvasElement"
-            className="absolute cursor-crosshair origin-top-left"
+            className={canvasStyle}
             style={{ width: "1920px", height: "1080px", transform: "scale(" + zoom + ")" }}
         ></canvas>
     );

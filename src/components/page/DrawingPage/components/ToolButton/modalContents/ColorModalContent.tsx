@@ -10,14 +10,14 @@ type props = {};
 export const ColorModalContent: FC<props> = () => {
     const {
         brush,
-        mutator: { changeBrushColor },
+        mutator: { setBrushColor },
     } = useBrush();
 
     const [color, setColor] = useState(brush.color);
 
     useEffect(() => {
-        changeBrushColor(color);
-    }, [changeBrushColor, color]);
+        setBrushColor(color);
+    }, [setBrushColor, color]);
 
     return (
         <div

@@ -1,13 +1,13 @@
 import { useCallback, useContext } from "react";
 
-import { lineWidth } from "@/types";
+import { BrushType, lineWidth } from "@/types";
 
 import { DrawingContext } from "./DrawingContext";
 
 export const useBrush = () => {
     const { brush, setBrush } = useContext(DrawingContext);
 
-    const changeBrushColor = useCallback(
+    const setBrushColor = useCallback(
         (color: string) => {
             setBrush((prev) => ({
                 ...prev,
@@ -17,7 +17,7 @@ export const useBrush = () => {
         [setBrush]
     );
 
-    const changeBrushWidth = useCallback(
+    const setBrushWidth = useCallback(
         (width: lineWidth) => {
             setBrush((prev) => ({
                 ...prev,
@@ -27,11 +27,22 @@ export const useBrush = () => {
         [setBrush]
     );
 
+    const setBrushType = useCallback(
+        (type: BrushType) => {
+            setBrush((prev) => ({
+                ...prev,
+                type: type,
+            }));
+        },
+        [setBrush]
+    );
+
     return {
         brush,
         mutator: {
-            changeBrushColor,
-            changeBrushWidth,
+            setBrushColor,
+            setBrushWidth,
+            setBrushType,
         },
     };
 };

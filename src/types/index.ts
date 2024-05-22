@@ -5,9 +5,9 @@ export type CanvasPoint = {
 
 export type HistoryItem = {
     points: Array<CanvasPoint>;
-    type: string;
-    color: string;
+    type: BrushType;
     width: number;
+    color: string;
 };
 
 export type canvasContext = CanvasRenderingContext2D | undefined | null;
@@ -20,6 +20,6 @@ export type lineWidth = (typeof lineWidthList)[number];
 
 export type Brush = {
     type: BrushType;
-    width: lineWidth;
+    width: number;
     color: string;
 };

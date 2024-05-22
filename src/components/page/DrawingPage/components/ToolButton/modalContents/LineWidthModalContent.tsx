@@ -4,6 +4,8 @@ import { useBrush } from "@/states/Brush";
 import { lineWidth, lineWidthList } from "@/types";
 
 import {
+    lineWidthInputStyle,
+    lineWidthInputWrapper,
     modalStyle,
     selectedWidthBackground,
     selectedWidthHighlight,
@@ -16,7 +18,7 @@ type props = {};
 export const LineWidthModalContent: FC<props> = () => {
     const {
         brush,
-        mutator: { changeBrushWidth },
+        mutator: { setBrushWidth },
     } = useBrush();
 
     return (
@@ -27,7 +29,7 @@ export const LineWidthModalContent: FC<props> = () => {
                         id={"width_" + width}
                         onClick={(e) => {
                             e.stopPropagation();
-                            changeBrushWidth(width);
+                            setBrushWidth(width);
                         }}
                         key={width}
                         className={`${brush.width === width ? selectedWidthBackground : undefined} ${widthSlectButtonStyle}`}
@@ -43,14 +45,14 @@ export const LineWidthModalContent: FC<props> = () => {
                     </div>
                 );
             })}
-            <hr className="my-2" />
-            <div className="w-full px-1 rounded-lg text-xs flex items-center gap-2 relative">
+            <hr style={{ marginTop: "2px", marginBottom: "2px" }} />
+            <div className={lineWidthInputWrapper}>
                 <input
                     onClick={(e) => e.stopPropagation()}
                     type="number"
                     value={brush.width}
-                    onChange={(e) => changeBrushWidth(parseInt(e.target.value) as lineWidth)}
-                    className="px-2 w-20 h-6 bg-white border border-neutral-300 rounded-lg"
+                    onChange={(e) => setBrushWidth(parseInt(e.target.value) as lineWidth)}
+                    className={lineWidthInputStyle}
                 />
                 <span>px</span>
             </div>
