@@ -1,5 +1,3 @@
-import "./globals.css";
-
 import { ColorSchemeScript } from "@mantine/core";
 import { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
@@ -11,14 +9,15 @@ import ServerProviders from "./providers/server";
 import { ErrorHandler, Loader } from "@/components/common/functional";
 import { GlobalStateProvider } from "@/components/common/states/globalStates";
 
+import "./globals.css";
+import "@mantine/core/styles.css";
+
 const notoSansJP = Noto_Sans_JP({
     subsets: ["latin"],
     variable: "--font-noto-sans-jp",
 });
 
 export const metadata: Metadata = {
-    title: "III-Exhibition Extra Works-HAI.",
-    description: "human-AI pair drawing app",
     title: "III-Exhibition Extra Works-HAI.",
     description: "human-AI pair drawing app",
 };
