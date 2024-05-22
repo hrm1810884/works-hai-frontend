@@ -1,3 +1,5 @@
+import "./globals.css";
+
 import { ColorSchemeScript } from "@mantine/core";
 import { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
@@ -7,6 +9,7 @@ import ClientProviders from "./providers/client";
 import ServerProviders from "./providers/server";
 
 import { ErrorHandler, Loader } from "@/components/common/functional";
+import { GlobalStateProvider } from "@/components/common/states/globalStates";
 
 const notoSansJP = Noto_Sans_JP({
     subsets: ["latin"],
@@ -14,6 +17,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
+    title: "III-Exhibition Extra Works-HAI.",
+    description: "human-AI pair drawing app",
     title: "III-Exhibition Extra Works-HAI.",
     description: "human-AI pair drawing app",
 };
@@ -28,7 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ServerProviders>
                     <ClientProviders>
                         <ErrorHandler>
-                            <Loader>{children}</Loader>
+                            <Loader>
+                                <GlobalStateProvider>{children}</GlobalStateProvider>
+                            </Loader>
                         </ErrorHandler>
                     </ClientProviders>
                 </ServerProviders>
