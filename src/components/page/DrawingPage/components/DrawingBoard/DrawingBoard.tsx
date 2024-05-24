@@ -4,7 +4,7 @@ import { DrawingContext } from "@/states/DrawingContext";
 
 import { useDrawingBoard, usePaintingState } from "./hooks";
 
-import { canvasStyle } from "./DrawingBoard.css";
+import { styleUtils } from "@/styles";
 
 export const DrawingBoard = () => {
     const {
@@ -20,7 +20,7 @@ export const DrawingBoard = () => {
         },
     } = useDrawingBoard();
 
-    const { canvasContext, zoom } = useContext(DrawingContext);
+    const { canvasContext } = useContext(DrawingContext);
 
     const {
         mutators: { resetPainting },
@@ -74,8 +74,7 @@ export const DrawingBoard = () => {
                 resetPainting();
             }}
             id="canvasElement"
-            className={canvasStyle}
-            style={{ width: "1920px", height: "1080px", transform: "scale(" + zoom + ")" }}
+            className={styleUtils.canvasStyle({ cursor: "human" })}
         ></canvas>
     );
 };

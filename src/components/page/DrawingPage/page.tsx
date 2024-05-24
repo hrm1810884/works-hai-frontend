@@ -3,9 +3,9 @@ import { useEffect } from "react";
 
 import { useHistory } from "@/states/History";
 
-import { styleUtils } from "@/styles";
-
 import { ToolBar, DrawingBoard } from "./components";
+
+import { wrapper } from "./page.css";
 
 export const DrawingPage = () => {
     const {
@@ -19,7 +19,7 @@ export const DrawingPage = () => {
 
     return (
         <>
-            <div className={styleUtils.contentWrapper}>
+            <div className={wrapper}>
                 <ToolBar />
                 <DrawingBoard />
             </div>

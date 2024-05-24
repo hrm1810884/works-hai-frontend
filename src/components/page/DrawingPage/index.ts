@@ -1,0 +1,1 @@
+export { DrawingPage } from "./page";

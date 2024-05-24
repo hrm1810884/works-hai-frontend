@@ -1,26 +1,25 @@
 import { ActionIcon, Menu } from "@mantine/core";
-import { FC } from "react";
-import { BsBorderWidth } from "react-icons/bs";
+import React, { FC } from "react";
 
 import { useBrush } from "@/states/Brush";
 import { lineWidthList } from "@/types";
 
 import { vars } from "@/styles";
 
-import { selectedStyle, widthBar } from "./LineWidthMenu.css";
+import { menuItemStyle, lineWidthBar } from "./LineWidthMenu.css";
 
-type props = {};
+type props = { icon: React.ReactElement };
 
-export const LineWidthMenu: FC<props> = () => {
+export const LineWidthMenu: FC<props> = ({ icon }) => {
     const {
         brush,
         mutator: { setBrushWidth },
     } = useBrush();
     return (
-        <Menu shadow="md" width={200} offset={-20}>
+        <Menu shadow="md" width={200} offset={30}>
             <Menu.Target>
                 <ActionIcon variant="transparent" color={vars.colors.white}>
-                    <BsBorderWidth />
+                    {icon}
                 </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
@@ -33,9 +32,9 @@ export const LineWidthMenu: FC<props> = () => {
                         onClick={() => {
                             setBrushWidth(val);
                         }}
-                        className={brush.width === val ? selectedStyle : undefined}
+                        className={menuItemStyle({ selected: val === brush.width })}
                     >
-                        <div className={widthBar} style={{ height: val + "px" }}></div>
+                        <div className={lineWidthBar} style={{ height: val + "px" }}></div>
                     </Menu.Item>
                 ))}
             </Menu.Dropdown>

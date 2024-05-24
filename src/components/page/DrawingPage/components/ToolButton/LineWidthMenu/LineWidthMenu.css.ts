@@ -1,23 +1,31 @@
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "@/styles";
 
-export const widthBar = style({
+export const menuItemStyle = recipe({
+    base: {
+        selectors: {
+            "&[data-hovered='true']": {
+                backgroundColor: vars.colors.gray[4],
+            },
+        },
+    },
+
+    variants: {
+        selected: {
+            true: { backgroundColor: vars.colors.gray[2] },
+            false: { backgroundColor: "transparent" },
+        },
+    },
+
+    defaultVariants: {
+        selected: false,
+    },
+});
+
+export const lineWidthBar = style({
     display: "flex",
     width: "16px",
-    backgroundColor: "#4b5563",
-});
-
-export const menuDropDownStyle = style({
-    display: "flex",
-    flexDirection: "column",
-});
-
-export const menuStyle = style({
-    display: "flex",
-    flexDirection: "column",
-});
-
-export const selectedStyle = style({
-    backgroundColor: vars.colors.primary[2],
+    backgroundColor: vars.colors.gray[5],
 });

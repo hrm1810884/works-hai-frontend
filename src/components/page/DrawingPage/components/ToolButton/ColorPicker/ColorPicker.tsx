@@ -1,31 +1,30 @@
-import { Button, ColorPicker as MantineColorPicker, Popover } from "@mantine/core";
-import { FC } from "react";
+import { ActionIcon, ColorPicker as MantineColorPicker, Popover } from "@mantine/core";
+import React, { FC } from "react";
 
 import { useBrush } from "@/states/Brush";
 
-import { styleUtils } from "@/styles";
+import { colorPaletteStyle, popoverDropdownStyle } from "./ColorPicker.css";
 
-type props = {};
+type props = {
+    icon: React.ReactElement;
+};
 
-export const ColorPicker: FC<props> = () => {
+export const ColorPicker: FC<props> = ({ icon }) => {
     const {
         brush,
         mutator: { setBrushColor },
     } = useBrush();
     return (
-        <Popover>
+        <Popover offset={30}>
             <Popover.Target>
-                <Button
-                    className={styleUtils.iconStyle}
-                    style={{ backgroundColor: brush.color }}
-                ></Button>
+                <ActionIcon>{icon}</ActionIcon>
             </Popover.Target>
-            <Popover.Dropdown style={{ padding: "0", backgroundColor: "transparent" }}>
+            <Popover.Dropdown className={popoverDropdownStyle}>
                 <MantineColorPicker
                     format="hex"
                     value={brush.color}
                     onChange={setBrushColor}
-                    style={{ backgroundColor: "transparent" }}
+                    className={colorPaletteStyle}
                 ></MantineColorPicker>
             </Popover.Dropdown>
         </Popover>

@@ -9,9 +9,14 @@ export const useHistory = () => {
         useContext(DrawingContext);
 
     const initializeHistory = useCallback(() => {
+        if (canvasContext) {
+            canvasContext.clearRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
+            canvasContext.fillStyle = "white";
+            canvasContext.fillRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
+        }
         setHistory([]);
         setCurrentHistoryIndex(0);
-    }, [setHistory, setCurrentHistoryIndex]);
+    }, [canvasContext, setHistory, setCurrentHistoryIndex]);
 
     const isOldestHistory = currentHistoryIndex === history.length;
     const isNewestHistory = currentHistoryIndex === 0;
@@ -23,7 +28,7 @@ export const useHistory = () => {
         setCurrentHistoryIndex((prev) => prev - 1);
     }, [setCurrentHistoryIndex]);
 
-    const inclementHistory = useCallback(
+    const incrementHistory = useCallback(
         (newHistoryItem: HistoryItem) => {
             setHistory([newHistoryItem, ...history]);
         },
@@ -80,7 +85,7 @@ export const useHistory = () => {
             initializeHistory,
             undoHistory,
             redoHistory,
-            inclementHistory,
+            incrementHistory,
             trashUnnecessaryHistory,
             redrawHistory,
         },
