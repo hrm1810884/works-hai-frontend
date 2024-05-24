@@ -38,7 +38,7 @@ export const useDrawingBoard = () => {
 
     const {
         flag: { isNewestHistory },
-        mutator: { initializeHistory, inclementHistory },
+        mutator: { initializeHistory, incrementHistory },
     } = useHistory();
 
     const {
@@ -78,7 +78,7 @@ export const useDrawingBoard = () => {
         let x = (e.clientX - rect.left) / zoom;
         let y = (e.clientY - rect.top) / zoom;
 
-        inclementHistory({
+        incrementHistory({
             type: brush.type,
             color: brush.color,
             width: brush.width,
@@ -170,7 +170,7 @@ export const useDrawingBoard = () => {
         handleMobileDraw(e);
         e.preventDefault();
 
-        inclementHistory({
+        incrementHistory({
             type: brush.type,
             color: brush.color,
             width: brush.width,

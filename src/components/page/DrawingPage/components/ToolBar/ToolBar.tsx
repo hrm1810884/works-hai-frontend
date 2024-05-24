@@ -1,24 +1,18 @@
-import { useContext } from "react";
+import { FC } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import { BiPencil, BiEraser, BiRedo, BiUndo } from "react-icons/bi";
+import { BsBorderWidth } from "react-icons/bs";
 
 import { useBrush } from "@/states/Brush";
-import { DrawingContext } from "@/states/DrawingContext";
 import { useHistory } from "@/states/History";
 
-import { ColorPicker, LineWidthMenu } from "../ToolButton";
-import { ToolButton } from "../ToolButton/ToolButton";
+import { ToolButton, ColorPicker, LineWidthMenu } from "../ToolButton";
 
-import {
-    barContainerStyle,
-    buttonsContainerStyle,
-    iconStyle,
-    toolButtonsContainerStyle,
-} from "./ToolBar.css";
+import { colorPaletteIcon, toolBarStyle, toolButtonsContainerStyle } from "./ToolBar.css";
 
-export const ToolBar = () => {
-    const { canvasContext } = useContext(DrawingContext);
+type props = {};
 
+export const ToolBar: FC<props> = () => {
     const {
         mutator: { undoHistory, redoHistory, initializeHistory },
         flag: { isNewestHistory, isOldestHistory },
@@ -29,45 +23,30 @@ export const ToolBar = () => {
         mutator: { setBrushType },
     } = useBrush();
 
+    const ICON_SIZE = "2rem";
+
     return (
-        <div className={barContainerStyle}>
+        <div className={toolBarStyle}>
             {/* undo, redo, trash */}
-            <div className={buttonsContainerStyle}>
+            <div className={toolButtonsContainerStyle}>
                 {/* Undo history */}
                 <ToolButton
                     onClick={undoHistory}
-                    icon={<BiUndo className={iconStyle}></BiUndo>}
+                    icon={<BiUndo size={ICON_SIZE}></BiUndo>}
                     isDisabled={isOldestHistory}
                 ></ToolButton>
 
                 {/* Redo history */}
                 <ToolButton
                     onClick={redoHistory}
-                    icon={<BiRedo className={iconStyle}></BiRedo>}
+                    icon={<BiRedo size={ICON_SIZE}></BiRedo>}
                     isDisabled={isNewestHistory}
                 ></ToolButton>
 
                 {/* Clear canvas */}
                 <ToolButton
-                    onClick={() => {
-                        if (canvasContext) {
-                            canvasContext.clearRect(
-                                0,
-                                0,
-                                canvasContext.canvas.width,
-                                canvasContext.canvas.height
-                            );
-                            canvasContext.fillStyle = "white";
-                            canvasContext.fillRect(
-                                0,
-                                0,
-                                canvasContext.canvas.width,
-                                canvasContext.canvas.height
-                            );
-                        }
-                        initializeHistory();
-                    }}
-                    icon={<AiOutlineClear className={iconStyle}></AiOutlineClear>}
+                    onClick={initializeHistory}
+                    icon={<AiOutlineClear size={ICON_SIZE}></AiOutlineClear>}
                 ></ToolButton>
             </div>
 
@@ -78,7 +57,7 @@ export const ToolBar = () => {
                     onClick={() => {
                         setBrushType("PENCIL");
                     }}
-                    icon={<BiPencil className={iconStyle}></BiPencil>}
+                    icon={<BiPencil size={ICON_SIZE}></BiPencil>}
                     isSelected={brush.type === "PENCIL"}
                 ></ToolButton>
 
@@ -87,15 +66,26 @@ export const ToolBar = () => {
                     onClick={() => {
                         setBrushType("ERASER");
                     }}
-                    icon={<BiEraser className={iconStyle}></BiEraser>}
+                    icon={<BiEraser size={ICON_SIZE}></BiEraser>}
                     isSelected={brush.type === "ERASER"}
                 ></ToolButton>
 
                 {/* Line width */}
-                <LineWidthMenu></LineWidthMenu>
+                <LineWidthMenu icon={<BsBorderWidth size={ICON_SIZE} />}></LineWidthMenu>
 
                 {/* Color */}
-                <ColorPicker></ColorPicker>
+                <ColorPicker
+                    icon={
+                        <div
+                            className={colorPaletteIcon}
+                            style={{
+                                backgroundColor: brush.color,
+                                width: ICON_SIZE,
+                                height: ICON_SIZE,
+                            }}
+                        ></div>
+                    }
+                ></ColorPicker>
             </div>
         </div>
     );

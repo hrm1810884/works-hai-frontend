@@ -1,8 +1,14 @@
 import { style } from "@vanilla-extract/css";
 
-export const colorPaletteIcon = style({
-    border: "1px solid #d1d1d1",
-    borderRadius: "0.5rem",
-    cursor: "pointer",
-    width: "100%",
+export const popoverDropdownStyle = style({
+    width: "auto",
+    height: "auto",
+    padding: "0",
+    backgroundColor: "transparent",
+    border: "none",
+});
+
+export const colorPaletteStyle = style({
+    width: "15rem",
+    height: "15rem",
 });

@@ -1602,6 +1602,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vanilla-extract/recipes@npm:^0.5.3":
+  version: 0.5.3
+  resolution: "@vanilla-extract/recipes@npm:0.5.3"
+  peerDependencies:
+    "@vanilla-extract/css": ^1.0.0
+  checksum: 2ddf10ce3413ad892cec2cc03480af987c59d01bc23f4dfcefb5426cfafd3a4107277a560418332603f8f4c8e8a51032500e522db128d205821a488d05b71875
+  languageName: node
+  linkType: hard
+
 "@vanilla-extract/webpack-plugin@npm:^2.3.7":
   version: 2.3.8
   resolution: "@vanilla-extract/webpack-plugin@npm:2.3.8"
@@ -3748,6 +3757,7 @@ __metadata:
     "@types/react-dom": ^18
     "@vanilla-extract/css": ^1.15.1
     "@vanilla-extract/next-plugin": ^2.4.0
+    "@vanilla-extract/recipes": ^0.5.3
     axios: ^1.7.2
     eslint: ^8
     eslint-config-next: 14.2.3
