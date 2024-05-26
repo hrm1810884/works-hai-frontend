@@ -1,8 +1,9 @@
 import React, { useState, useContext, useRef, useCallback } from "react";
 
+import { CanvasPoint } from "@/model";
+
 import { DrawingContext } from "@/states/DrawingContext";
 import { useHistory } from "@/states/History";
-import { CanvasPoint } from "@/types";
 
 export const usePaintingState = () => {
     const [painting, setPainting] = useState({

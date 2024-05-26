@@ -1,8 +1,9 @@
 import { ActionIcon, Menu } from "@mantine/core";
 import React, { FC } from "react";
 
+import { lineWidthList } from "@/model";
+
 import { useBrush } from "@/states/Brush";
-import { lineWidthList } from "@/types";
 
 import { vars } from "@/styles";
 

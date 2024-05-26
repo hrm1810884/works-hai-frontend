@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react";
 
-import { HistoryItem } from "@/types";
+import { HistoryItem } from "@/model";
 
 import { DrawingContext } from "./DrawingContext";
 

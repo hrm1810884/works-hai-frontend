@@ -15,6 +15,7 @@ export default function ClientProviders({ children }: { children: React.ReactNod
     const baseUrl = getBaseUrl();
 
     axios.defaults.baseURL = baseUrl;
+
     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
     if (apiKey) {
         axios.defaults.headers.common["x-api-key"] = apiKey;

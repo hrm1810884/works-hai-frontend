@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { Dispatch, SetStateAction, createContext } from "react";
 
-import { Brush, HistoryItem, canvasContext } from "@/types";
+import { Brush, HistoryItem, canvasContext } from "@/model";
 
 interface DrawingContextInterface {
     canvasContext: canvasContext;

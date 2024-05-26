@@ -3,7 +3,7 @@
 import React, { FC, useState } from "react";
 
 import { DrawingContext } from "@/states/DrawingContext";
-import { canvasContext, Brush, HistoryItem } from "@/types";
+import { canvasContext, Brush, HistoryItem } from "@/model";
 
 type Props = {
     children: React.ReactNode;
