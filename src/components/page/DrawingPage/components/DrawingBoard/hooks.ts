@@ -35,7 +35,7 @@ export const usePaintingState = () => {
 export const useDrawingBoard = () => {
     const [points, setPoints] = useState(Array<CanvasPoint>());
 
-    const { brush, canvasContext, setCanvasContext, zoom } = useContext(DrawingContext);
+    const { brush, canvasContext, setCanvasContext } = useContext(DrawingContext);
 
     const {
         flag: { isNewestHistory },
@@ -63,8 +63,8 @@ export const useDrawingBoard = () => {
             }
 
             let rect = (e.target as HTMLElement).getBoundingClientRect();
-            let x = (e.clientX - rect.left) / zoom;
-            let y = (e.clientY - rect.top) / zoom;
+            let x = e.clientX - rect.left;
+            let y = e.clientY - rect.top;
 
             updatePainting(x, y);
 
@@ -76,8 +76,8 @@ export const useDrawingBoard = () => {
         handleDraw(e);
 
         let rect = (e.target as HTMLElement).getBoundingClientRect();
-        let x = (e.clientX - rect.left) / zoom;
-        let y = (e.clientY - rect.top) / zoom;
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
 
         incrementHistory({
             type: brush.type,
@@ -99,8 +99,8 @@ export const useDrawingBoard = () => {
         if (!painting.isPainting) return;
 
         let rect = (e.target as HTMLElement).getBoundingClientRect();
-        let x = (e.clientX - rect.left) / zoom;
-        let y = (e.clientY - rect.top) / zoom;
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
 
         if (canvasContext && canvasElement.current) {
             setPoints([...points, { x: x, y: y }]);
@@ -128,8 +128,8 @@ export const useDrawingBoard = () => {
                 }
 
                 e.preventDefault();
-                let x = (e.touches[0].clientX - rect.left) / zoom;
-                let y = (e.touches[0].clientY - rect.top) / zoom;
+                let x = e.touches[0].clientX - rect.left;
+                let y = e.touches[0].clientY - rect.top;
 
                 updatePainting(x, y);
 
@@ -145,8 +145,8 @@ export const useDrawingBoard = () => {
 
         if (e.touches.length === 1) {
             e.preventDefault();
-            let x = (e.touches[0].clientX - rect.left) / zoom;
-            let y = (e.touches[0].clientY - rect.top) / zoom;
+            let x = e.touches[0].clientX - rect.left;
+            let y = e.touches[0].clientY - rect.top;
 
             if (canvasContext && canvasElement.current) {
                 setPoints([...points, { x: x, y: y }]);
