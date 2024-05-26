@@ -29,7 +29,6 @@ import type {
 } from 'axios'
 import type {
   GetAiDrawing200,
-  GetDevAiDrawing200,
   GetUploadUrl200,
   GetUploadUrl400,
   PostSavedUrl200,
@@ -196,8 +195,8 @@ export const usePostSavedUrl = <TError = AxiosError<PostSavedUrl400>,
     }
     
 /**
- * Retrieve presigned URLs for downloading surrounding drawings from cloud storage.
- * @summary Get presigned URLs for surrounding drawings
+ * Retrieve surrounding drawings only for dev mode.
+ * @summary Get 4 surrounding AI-drawings
  */
 export const getAiDrawing = (
      options?: AxiosRequestConfig
@@ -236,7 +235,7 @@ export type GetAiDrawingQueryResult = NonNullable<Awaited<ReturnType<typeof getA
 export type GetAiDrawingQueryError = AxiosError<void>
 
 /**
- * @summary Get presigned URLs for surrounding drawings
+ * @summary Get 4 surrounding AI-drawings
  */
 export const useGetAiDrawing = <TData = Awaited<ReturnType<typeof getAiDrawing>>, TError = AxiosError<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAiDrawing>>, TError, TData>>, axios?: AxiosRequestConfig}
@@ -276,7 +275,7 @@ export type GetAiDrawingSuspenseQueryResult = NonNullable<Awaited<ReturnType<typ
 export type GetAiDrawingSuspenseQueryError = AxiosError<void>
 
 /**
- * @summary Get presigned URLs for surrounding drawings
+ * @summary Get 4 surrounding AI-drawings
  */
 export const useGetAiDrawingSuspense = <TData = Awaited<ReturnType<typeof getAiDrawing>>, TError = AxiosError<void>>(
   options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAiDrawing>>, TError, TData>>, axios?: AxiosRequestConfig}
@@ -284,106 +283,6 @@ export const useGetAiDrawingSuspense = <TData = Awaited<ReturnType<typeof getAiD
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 
   const queryOptions = getGetAiDrawingSuspenseQueryOptions(options)
-
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-
-/**
- * Retrieve surrounding drawings only for dev mode.
- * @summary Get 4 surrounding AI-drawings
- */
-export const getDevAiDrawing = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetDevAiDrawing200>> => {
-    
-    return axios.get(
-      `/dev/ai-drawing`,options
-    );
-  }
-
-
-export const getGetDevAiDrawingQueryKey = () => {
-    return [`/dev/ai-drawing`] as const;
-    }
-
-    
-export const getGetDevAiDrawingQueryOptions = <TData = Awaited<ReturnType<typeof getDevAiDrawing>>, TError = AxiosError<void>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getDevAiDrawing>>, TError, TData>>, axios?: AxiosRequestConfig}
-) => {
-
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetDevAiDrawingQueryKey();
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getDevAiDrawing>>> = ({ signal }) => getDevAiDrawing({ signal, ...axiosOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getDevAiDrawing>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetDevAiDrawingQueryResult = NonNullable<Awaited<ReturnType<typeof getDevAiDrawing>>>
-export type GetDevAiDrawingQueryError = AxiosError<void>
-
-/**
- * @summary Get 4 surrounding AI-drawings
- */
-export const useGetDevAiDrawing = <TData = Awaited<ReturnType<typeof getDevAiDrawing>>, TError = AxiosError<void>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getDevAiDrawing>>, TError, TData>>, axios?: AxiosRequestConfig}
-
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-
-  const queryOptions = getGetDevAiDrawingQueryOptions(options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-export const getGetDevAiDrawingSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getDevAiDrawing>>, TError = AxiosError<void>>( options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getDevAiDrawing>>, TError, TData>>, axios?: AxiosRequestConfig}
-) => {
-
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetDevAiDrawingQueryKey();
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getDevAiDrawing>>> = ({ signal }) => getDevAiDrawing({ signal, ...axiosOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getDevAiDrawing>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetDevAiDrawingSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getDevAiDrawing>>>
-export type GetDevAiDrawingSuspenseQueryError = AxiosError<void>
-
-/**
- * @summary Get 4 surrounding AI-drawings
- */
-export const useGetDevAiDrawingSuspense = <TData = Awaited<ReturnType<typeof getDevAiDrawing>>, TError = AxiosError<void>>(
-  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getDevAiDrawing>>, TError, TData>>, axios?: AxiosRequestConfig}
-
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-
-  const queryOptions = getGetDevAiDrawingSuspenseQueryOptions(options)
 
   const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
 

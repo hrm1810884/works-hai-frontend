@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetDevAiDrawing200 = {
+export type GetAiDrawing200Result = {
   bottomDrawing?: string;
   leftDrawing?: string;
   rightDrawing?: string;

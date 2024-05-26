@@ -7,8 +7,7 @@
  */
 
 export * from './getAiDrawing200';
-export * from './getAiDrawing200ResultItem';
-export * from './getDevAiDrawing200';
+export * from './getAiDrawing200Result';
 export * from './getUploadUrl200';
 export * from './getUploadUrl400';
 export * from './postSavedUrl200';
