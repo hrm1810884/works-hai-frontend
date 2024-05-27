@@ -7,5 +7,5 @@
  */
 
 export type PostSavedUrl200 = {
-  message?: string;
+    message?: string;
 };

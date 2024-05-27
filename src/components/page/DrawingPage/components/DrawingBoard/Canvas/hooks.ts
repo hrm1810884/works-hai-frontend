@@ -32,7 +32,7 @@ export const usePaintingState = () => {
     };
 };
 
-export const useDrawingBoard = () => {
+export const useCanvas = () => {
     const [points, setPoints] = useState(Array<CanvasPoint>());
 
     const { brush, canvasContext, setCanvasContext } = useContext(DrawingContext);

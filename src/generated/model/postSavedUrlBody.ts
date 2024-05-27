@@ -7,5 +7,5 @@
  */
 
 export type PostSavedUrlBody = {
-  file_url?: string;
+    file_url?: string;
 };

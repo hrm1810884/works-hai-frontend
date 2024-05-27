@@ -7,5 +7,5 @@
  */
 
 export type PostSavedUrl400 = {
-  error?: string;
+    error?: string;
 };

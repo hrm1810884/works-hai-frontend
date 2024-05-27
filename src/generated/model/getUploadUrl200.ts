@@ -7,5 +7,5 @@
  */
 
 export type GetUploadUrl200 = {
-  presigned_url?: string;
+    presigned_url?: string;
 };

@@ -1,80 +1,26 @@
-import { useContext, useEffect } from "react";
+import { AiDrawing } from "./AiDrawing";
+import { Canvas } from "./Canvas";
 
-import { DrawingContext } from "@/states/DrawingContext";
-
-import { useDrawingBoard, usePaintingState } from "./hooks";
-
-import { styleUtils } from "@/styles";
+import {
+    drawingBoardContainerStyle,
+    horizontalDrawingContainerStyle,
+    verticalDrawingContainerStyle,
+} from "./DrawingBoard.css";
 
 export const DrawingBoard = () => {
-    const {
-        canvasElement,
-        updateCanvasContext,
-        handlers: {
-            handleMouseDown,
-            handleDraw,
-            handleMouseUp,
-            handleTouchStart,
-            handleMobileDraw,
-            handleTouchEnd,
-        },
-    } = useDrawingBoard();
-
-    const { canvasContext } = useContext(DrawingContext);
-
-    const {
-        mutators: { resetPainting },
-    } = usePaintingState();
-
-    useEffect(() => {
-        updateCanvasContext();
-        if (canvasElement.current) {
-            canvasElement.current.width = canvasElement.current.clientWidth;
-            canvasElement.current.height = canvasElement.current.clientHeight;
-            (canvasElement.current.getContext("2d") as any).fillStyle = "white";
-            canvasElement.current
-                .getContext("2d")
-                ?.fillRect(
-                    0,
-                    0,
-                    canvasElement.current.clientWidth,
-                    canvasElement.current.clientHeight
-                );
-        }
-    }, [canvasElement, updateCanvasContext]);
-
-    useEffect(() => {
-        const canvas = canvasElement.current;
-
-        if (canvasContext && canvas) {
-            canvas.addEventListener("touchstart", handleTouchStart, {
-                passive: false,
-            });
-            canvas.addEventListener("touchmove", handleMobileDraw, {
-                passive: false,
-            });
-            canvas.addEventListener("touchend", handleTouchEnd, { passive: false });
-        }
-
-        return () => {
-            canvas?.removeEventListener("touchstart", handleTouchStart);
-            canvas?.removeEventListener("touchmove", handleMobileDraw);
-            canvas?.removeEventListener("touchend", handleTouchEnd);
-        };
-    }, [canvasContext, canvasElement, handleMobileDraw, handleTouchEnd, handleTouchStart]);
-
     return (
-        <canvas
-            ref={canvasElement}
-            onMouseDown={(e) => handleMouseDown(e)}
-            onMouseUp={(e) => handleMouseUp(e)}
-            onMouseMove={(e) => handleDraw(e)}
-            onMouseLeave={(e) => {
-                handleDraw(e);
-                resetPainting();
-            }}
-            id="canvasElement"
-            className={styleUtils.canvasStyle({ cursor: "human" })}
-        ></canvas>
+        <div className={drawingBoardContainerStyle}>
+            <div className={verticalDrawingContainerStyle({ position: "top" })}>
+                <AiDrawing position="top"></AiDrawing>
+            </div>
+            <div className={horizontalDrawingContainerStyle}>
+                <AiDrawing position="left"></AiDrawing>
+                <Canvas />
+                <AiDrawing position="right"></AiDrawing>
+            </div>
+            <div className={verticalDrawingContainerStyle({ position: "bottom" })}>
+                <AiDrawing position="bottom"></AiDrawing>
+            </div>
+        </div>
     );
 };
