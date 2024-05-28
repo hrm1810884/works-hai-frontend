@@ -4,7 +4,7 @@ import { match } from "ts-pattern";
 
 import { useGetAiDrawingService } from "@/service/aiDrawings/reader";
 
-import { imageContainerStyle } from "./AiDrawing.css";
+import { imageContainerStyle, noImageStyle } from "./AiDrawing.css";
 
 export type props = {
     position: "top" | "right" | "bottom" | "left";
@@ -13,7 +13,7 @@ export type props = {
 export const AiDrawing: FC<props> = ({ position }) => {
     const { data: aiDrawingUrls } = useGetAiDrawingService();
     const aiDrawingUrl = match(position)
-        .with("top", () => aiDrawingUrls.topDrawing)
+        .with("top", () => undefined)
         .with("right", () => aiDrawingUrls.rightDrawing)
         .with("bottom", () => aiDrawingUrls.bottomDrawing)
         .with("left", () => aiDrawingUrls.leftDrawing)
@@ -21,7 +21,11 @@ export const AiDrawing: FC<props> = ({ position }) => {
 
     return (
         <div className={imageContainerStyle}>
-            <Image src={aiDrawingUrl!} alt={"hoge"} fill />
+            {aiDrawingUrl ? (
+                <Image src={aiDrawingUrl!} alt={`AI drawing at ${position}`} fill />
+            ) : (
+                <div className={noImageStyle}></div>
+            )}
         </div>
     );
 };

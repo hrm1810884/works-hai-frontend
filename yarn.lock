@@ -2022,12 +2022,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vanilla-extract/babel-plugin-debug-ids@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@vanilla-extract/babel-plugin-debug-ids@npm:1.0.5"
+"@vanilla-extract/babel-plugin-debug-ids@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@vanilla-extract/babel-plugin-debug-ids@npm:1.0.6"
   dependencies:
     "@babel/core": ^7.23.9
-  checksum: ae03622d2bd1411da6f538fe5092bd2bf4e7327c03d23f2522704f1998cf41f8831b18e635ea292a620b8d73498763eae62d1c8234d4794201c2c7e961e1b2ca
+  checksum: 55f173c0c6a95a8da35a8625e6400dd90a126a4cd3d52d6a5583573e957c0f13c408fd86873d1d65ac1cfa9dfd743306ed866ad8ed1793370b3857e0636b88df
   languageName: node
   linkType: hard
 
@@ -2050,14 +2050,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vanilla-extract/integration@npm:^7.1.3":
-  version: 7.1.4
-  resolution: "@vanilla-extract/integration@npm:7.1.4"
+"@vanilla-extract/css@npm:^1.15.2":
+  version: 1.15.2
+  resolution: "@vanilla-extract/css@npm:1.15.2"
+  dependencies:
+    "@emotion/hash": ^0.9.0
+    "@vanilla-extract/private": ^1.0.5
+    css-what: ^6.1.0
+    cssesc: ^3.0.0
+    csstype: ^3.0.7
+    dedent: ^1.5.3
+    deep-object-diff: ^1.1.9
+    deepmerge: ^4.2.2
+    media-query-parser: ^2.0.2
+    modern-ahocorasick: ^1.0.0
+    picocolors: ^1.0.0
+  checksum: acb08a943de47daee6d339bbb5c5487a3f3dc26a38a9681babffe244dc2469c54595d39ffdb4b36e08511dd2d3eb2399110acb1bb767a0411d01d599a7300756
+  languageName: node
+  linkType: hard
+
+"@vanilla-extract/integration@npm:^7.1.5":
+  version: 7.1.5
+  resolution: "@vanilla-extract/integration@npm:7.1.5"
   dependencies:
     "@babel/core": ^7.23.9
     "@babel/plugin-syntax-typescript": ^7.23.3
-    "@vanilla-extract/babel-plugin-debug-ids": ^1.0.5
-    "@vanilla-extract/css": ^1.15.1
+    "@vanilla-extract/babel-plugin-debug-ids": ^1.0.6
+    "@vanilla-extract/css": ^1.15.2
     dedent: ^1.5.3
     esbuild: "npm:esbuild@~0.17.6 || ~0.18.0 || ~0.19.0"
     eval: 0.1.8
@@ -2066,18 +2085,18 @@ __metadata:
     mlly: ^1.4.2
     vite: ^5.0.11
     vite-node: ^1.2.0
-  checksum: 8ba118fd7d052bb6b020c2f63d46b6becf513d2b9667258c74bee1885f558d601217f46650d5e079180ee0f8cd23005f823e71eff331dfffc71f82a5e7b615ec
+  checksum: 14c85f3c7f99a67a1f34bbcf336bd2994a9642ac7364d35d18e8ecf2e937e07fdc899a52e773e7379b1752588e8b71bab2a17bf17576b2b2165e2ee144bd233b
   languageName: node
   linkType: hard
 
-"@vanilla-extract/next-plugin@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "@vanilla-extract/next-plugin@npm:2.4.0"
+"@vanilla-extract/next-plugin@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "@vanilla-extract/next-plugin@npm:2.4.1"
   dependencies:
-    "@vanilla-extract/webpack-plugin": ^2.3.7
+    "@vanilla-extract/webpack-plugin": ^2.3.9
   peerDependencies:
     next: ">=12.1.7"
-  checksum: 4c02cb3f97fbacf8f7fdca36e542a9aac73364f8ec3d9aef74216dbd7aeed5d4d364e307face63add3b93ca0843a486f946fa1b1f18d22b21429bbe6d3934ed9
+  checksum: 83fce38a2507bc37c55de830e10fb9850f41acc20292b71cd119e91d40a4af61f7dcd9d4e32672c09651506b49f9ac93aa637d264df448e81f2ef6f8a1df8fef
   languageName: node
   linkType: hard
 
@@ -2085,6 +2104,13 @@ __metadata:
   version: 1.0.4
   resolution: "@vanilla-extract/private@npm:1.0.4"
   checksum: 12d85d0e02d39e7ea27e63a4a623040ac1cce1cee2f39292185661803792457d80bdd21a60620764713fff87dffa0bf5744fe7e0d7f0740eb7dfb61210ed7171
+  languageName: node
+  linkType: hard
+
+"@vanilla-extract/private@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@vanilla-extract/private@npm:1.0.5"
+  checksum: 147acf9b1795f0681372db92e483bc27eeddad050b7d517e9ab87c5e9bcbdce69c0be300c4948f42e3bdeb81b8dd16b8243f3404ce74e6bc9acbb31112429ff4
   languageName: node
   linkType: hard
 
@@ -2097,17 +2123,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vanilla-extract/webpack-plugin@npm:^2.3.7":
-  version: 2.3.8
-  resolution: "@vanilla-extract/webpack-plugin@npm:2.3.8"
+"@vanilla-extract/webpack-plugin@npm:^2.3.9":
+  version: 2.3.9
+  resolution: "@vanilla-extract/webpack-plugin@npm:2.3.9"
   dependencies:
-    "@vanilla-extract/integration": ^7.1.3
+    "@vanilla-extract/integration": ^7.1.5
     debug: ^4.3.1
     loader-utils: ^2.0.0
     picocolors: ^1.0.0
   peerDependencies:
     webpack: ^4.30.0 || ^5.20.2
-  checksum: 1ccf1ed00167a2c7e0c3b041c969db2225f4ead585b7f64c49158eb1800b0f0007ed80450c3091f55ae1fc4aa611496abafc062bd4f690745f25c31729038db3
+  checksum: 0f5775f086b94519270a175b8615567f0c924f54edc3811a9082509c1a5934fe6c75f4f6978de7a411eb623269cc0f2bd11c89aca38fcc9d866e7e60a0e5fbc8
   languageName: node
   linkType: hard
 
@@ -4516,8 +4542,9 @@ __metadata:
     "@types/react": ^18
     "@types/react-dom": ^18
     "@vanilla-extract/css": ^1.15.1
-    "@vanilla-extract/next-plugin": ^2.4.0
+    "@vanilla-extract/next-plugin": ^2.4.1
     "@vanilla-extract/recipes": ^0.5.3
+    "@vanilla-extract/webpack-plugin": ^2.3.9
     axios: ^1.7.2
     eslint: ^8
     eslint-config-next: 14.2.3

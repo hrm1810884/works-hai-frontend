@@ -11,7 +11,7 @@ export const pageWrapperStyle = style({
     backgroundColor: vars.colors.gray[1],
     display: "flex",
     flexDirection: "column",
-    justifyContent: "start",
+    justifyContent: "flex-start",
     alignItems: "center",
 });
 
