@@ -11,5 +11,5 @@ export const useAiDrawingRepository = () => {
 
     const convertedData = convertAiDrawingsFromData(AiDrawing);
 
-    return convertedData;
+    return { convertedData };
 };
