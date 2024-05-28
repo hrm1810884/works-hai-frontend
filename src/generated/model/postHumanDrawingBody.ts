@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostSavedUrl400 = {
-  error?: string;
+export type PostHumanDrawingBody = {
+  /** The image file to upload */
+  image?: Blob;
 };

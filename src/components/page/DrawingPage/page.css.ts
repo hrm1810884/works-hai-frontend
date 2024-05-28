@@ -21,3 +21,10 @@ export const drawingWrapperStyle = style({
     alignItems: "center",
     height: "100%",
 });
+
+export const sendButtonWrapperStyle = style({
+    position: "absolute",
+    left: "50%",
+    bottom: vars.spacing.lg,
+    transform: "translateX(-50%)",
+});

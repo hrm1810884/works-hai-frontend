@@ -8,7 +8,7 @@ import { canvasStyle } from "./Canvas.css";
 
 export const Canvas = () => {
     const {
-        canvasElement,
+        canvasRef,
         updateCanvasContext,
         handlers: {
             handleMouseDown,
@@ -28,23 +28,18 @@ export const Canvas = () => {
 
     useEffect(() => {
         updateCanvasContext();
-        if (canvasElement.current) {
-            canvasElement.current.width = canvasElement.current.clientWidth;
-            canvasElement.current.height = canvasElement.current.clientHeight;
-            (canvasElement.current.getContext("2d") as any).fillStyle = "white";
-            canvasElement.current
+        if (canvasRef?.current) {
+            canvasRef.current.width = canvasRef?.current.clientWidth;
+            canvasRef.current.height = canvasRef?.current.clientHeight;
+            (canvasRef?.current.getContext("2d") as any).fillStyle = "white";
+            canvasRef?.current
                 .getContext("2d")
-                ?.fillRect(
-                    0,
-                    0,
-                    canvasElement.current.clientWidth,
-                    canvasElement.current.clientHeight
-                );
+                ?.fillRect(0, 0, canvasRef?.current.clientWidth, canvasRef?.current.clientHeight);
         }
-    }, [canvasElement, updateCanvasContext]);
+    }, [canvasRef, updateCanvasContext]);
 
     useEffect(() => {
-        const canvas = canvasElement.current;
+        const canvas = canvasRef?.current;
 
         if (canvasContext && canvas) {
             canvas.addEventListener("touchstart", handleTouchStart, {
@@ -61,11 +56,11 @@ export const Canvas = () => {
             canvas?.removeEventListener("touchmove", handleMobileDraw);
             canvas?.removeEventListener("touchend", handleTouchEnd);
         };
-    }, [canvasContext, canvasElement, handleMobileDraw, handleTouchEnd, handleTouchStart]);
+    }, [canvasContext, canvasRef, handleMobileDraw, handleTouchEnd, handleTouchStart]);
 
     return (
         <canvas
-            ref={canvasElement}
+            ref={canvasRef}
             onMouseDown={(e) => handleMouseDown(e)}
             onMouseUp={(e) => handleMouseUp(e)}
             onMouseMove={(e) => handleDraw(e)}

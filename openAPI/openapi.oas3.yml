@@ -34,7 +34,44 @@ paths:
                                     error:
                                         type: string
                                         example: Invalid input data
-
+    /human-drawing:
+        post:
+            summary: Upload human drawing
+            description: Upload human drawing using the presigned URL obtained from /upload-url.
+            tags:
+                - Upload
+            requestBody:
+                required: true
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                image:
+                                    type: string
+                                    format: binary
+                                    description: The image file to upload
+            responses:
+                "200":
+                    description: Image uploaded successfully
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: Image uploaded successfully
+                "400":
+                    description: Invalid request
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                                        example: Invalid input data
     /saved-url:
         post:
             summary: Save drawing URL
@@ -48,8 +85,10 @@ paths:
                         schema:
                             type: object
                             properties:
-                                file_url:
+                                image:
                                     type: string
+                                    format: binary
+                                    description: The image file to upload
             responses:
                 "200":
                     description: Drawing saved successfully

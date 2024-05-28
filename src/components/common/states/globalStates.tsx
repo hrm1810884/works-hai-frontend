@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 
 import { canvasContext, Brush, HistoryItem } from "@/model";
 
@@ -11,8 +11,8 @@ type Props = {
 };
 
 export const GlobalStateProvider: FC<Props> = ({ children }) => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
     const [canvasContext, setCanvasContext] = useState<canvasContext>(null);
-    const [zoom, setZoom] = useState<number>(0.5);
     const [brush, setBrush] = useState<Brush>({ type: "PENCIL", width: 3, color: "#000000" });
     const [history, setHistory] = useState<HistoryItem[]>([]);
     const [currentHistoryIndex, setCurrentHistoryIndex] = useState<number>(0);
@@ -20,10 +20,9 @@ export const GlobalStateProvider: FC<Props> = ({ children }) => {
     return (
         <DrawingContext.Provider
             value={{
+                canvasRef,
                 canvasContext,
                 setCanvasContext,
-                zoom,
-                setZoom,
                 brush,
                 setBrush,
                 history,

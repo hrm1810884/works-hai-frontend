@@ -23,6 +23,9 @@ import type {
     GetAiDrawing200,
     GetUploadUrl200,
     GetUploadUrl400,
+    PostHumanDrawing200,
+    PostHumanDrawing400,
+    PostHumanDrawingBody,
     PostSavedUrl200,
     PostSavedUrl400,
     PostSavedUrlBody,
@@ -132,6 +135,84 @@ export const useGetUploadUrlSuspense = <
     query.queryKey = queryOptions.queryKey;
 
     return query;
+};
+
+/**
+ * Upload human drawing using the presigned URL obtained from /upload-url.
+ * @summary Upload human drawing
+ */
+export const postHumanDrawing = (
+    postHumanDrawingBody: PostHumanDrawingBody,
+    options?: AxiosRequestConfig
+): Promise<AxiosResponse<PostHumanDrawing200>> => {
+    const formData = new FormData();
+    if (postHumanDrawingBody.image !== undefined) {
+        formData.append("image", postHumanDrawingBody.image);
+    }
+
+    return axios.post(`/human-drawing`, formData, options);
+};
+
+export const getPostHumanDrawingMutationOptions = <
+    TError = AxiosError<PostHumanDrawing400>,
+    TContext = unknown,
+>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postHumanDrawing>>,
+        TError,
+        { data: PostHumanDrawingBody },
+        TContext
+    >;
+    axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof postHumanDrawing>>,
+    TError,
+    { data: PostHumanDrawingBody },
+    TContext
+> => {
+    const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
+
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postHumanDrawing>>,
+        { data: PostHumanDrawingBody }
+    > = (props) => {
+        const { data } = props ?? {};
+
+        return postHumanDrawing(data, axiosOptions);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PostHumanDrawingMutationResult = NonNullable<
+    Awaited<ReturnType<typeof postHumanDrawing>>
+>;
+export type PostHumanDrawingMutationBody = PostHumanDrawingBody;
+export type PostHumanDrawingMutationError = AxiosError<PostHumanDrawing400>;
+
+/**
+ * @summary Upload human drawing
+ */
+export const usePostHumanDrawing = <
+    TError = AxiosError<PostHumanDrawing400>,
+    TContext = unknown,
+>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postHumanDrawing>>,
+        TError,
+        { data: PostHumanDrawingBody },
+        TContext
+    >;
+    axios?: AxiosRequestConfig;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof postHumanDrawing>>,
+    TError,
+    { data: PostHumanDrawingBody },
+    TContext
+> => {
+    const mutationOptions = getPostHumanDrawingMutationOptions(options);
+
+    return useMutation(mutationOptions);
 };
 
 /**
