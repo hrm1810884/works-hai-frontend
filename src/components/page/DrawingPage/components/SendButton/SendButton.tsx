@@ -1,11 +1,16 @@
-import { Button } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { useCallback } from "react";
+import { IoMdSend } from "react-icons/io";
 import { match } from "ts-pattern";
 
 import { sendHumanDrawing } from "@/service/humanDrawing";
 import { showToast } from "@/utils";
 
 import { useCanvas } from "../DrawingBoard/Canvas/hooks";
+
+import { vars } from "@/styles";
+
+import { sendButtonStyle } from "./SendButton.css";
 
 export const SendButton = () => {
     const { canvasRef } = useCanvas();
@@ -18,7 +23,7 @@ export const SendButton = () => {
 
         match(result)
             .with({ status: "ok" }, () => {
-                showToast({ message: "画像のアップロードしました", type: "success" });
+                showToast({ message: "画像をアップロードしました", type: "success" });
             })
             .with({ status: "err" }, () => {
                 showToast({ message: "画像のアップロードに失敗しました", type: "error" });
@@ -26,5 +31,17 @@ export const SendButton = () => {
             .exhaustive();
     }, [canvasRef]);
 
-    return <Button type="submit" variant="outline" onClick={onSubmit}></Button>;
+    return (
+        <ActionIcon
+            type="submit"
+            variant="filled"
+            color={vars.colors.white}
+            radius={vars.radius.lg}
+            onClick={onSubmit}
+            className={sendButtonStyle}
+        >
+            <span style={{ marginRight: vars.spacing.sm }}>{"Send"}</span>
+            <IoMdSend style={{ display: "flex" }}></IoMdSend>
+        </ActionIcon>
+    );
 };

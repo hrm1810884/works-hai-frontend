@@ -7,7 +7,7 @@ import { SendButton } from "./components/SendButton";
 
 import { ToolBar, DrawingBoard } from "./components";
 
-import { pageWrapperStyle, drawingWrapperStyle } from "./page.css";
+import { pageWrapperStyle, drawingWrapperStyle, sendButtonWrapperStyle } from "./page.css";
 
 export const DrawingPage = () => {
     const {
@@ -25,7 +25,9 @@ export const DrawingPage = () => {
             <div className={drawingWrapperStyle}>
                 <DrawingBoard></DrawingBoard>
             </div>
-            <SendButton></SendButton>
+            <div className={sendButtonWrapperStyle}>
+                <SendButton />
+            </div>
         </div>
     );
 };
