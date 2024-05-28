@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useCallback } from "react";
+import React, { useState, useContext, useCallback } from "react";
 
 import { CanvasPoint } from "@/model";
 
@@ -35,7 +35,7 @@ export const usePaintingState = () => {
 export const useCanvas = () => {
     const [points, setPoints] = useState(Array<CanvasPoint>());
 
-    const { brush, canvasContext, setCanvasContext } = useContext(DrawingContext);
+    const { canvasRef, brush, canvasContext, setCanvasContext } = useContext(DrawingContext);
 
     const {
         flag: { isNewestHistory },
@@ -47,16 +47,14 @@ export const useCanvas = () => {
         mutators: { resetPainting, updatePainting },
     } = usePaintingState();
 
-    const canvasElement = useRef<HTMLCanvasElement>(null);
-
     const updateCanvasContext = useCallback(() => {
-        setCanvasContext(canvasElement.current?.getContext("2d"));
+        setCanvasContext(canvasRef?.current?.getContext("2d"));
     }, [setCanvasContext]);
 
     const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
         e.preventDefault();
 
-        if (canvasContext && canvasElement.current) {
+        if (canvasContext && canvasRef?.current) {
             // Reset history
             if (!isNewestHistory) {
                 initializeHistory();
@@ -102,7 +100,7 @@ export const useCanvas = () => {
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
 
-        if (canvasContext && canvasElement.current) {
+        if (canvasContext && canvasRef?.current) {
             setPoints([...points, { x: x, y: y }]);
 
             canvasContext.lineWidth = brush.width;
@@ -119,7 +117,7 @@ export const useCanvas = () => {
     };
 
     const handleTouchStart = (e: TouchEvent) => {
-        if (canvasContext && canvasElement.current) {
+        if (canvasContext && canvasRef?.current) {
             let rect = (e.target as HTMLElement).getBoundingClientRect();
             if (e.touches.length === 1) {
                 // Reset redo option
@@ -148,7 +146,7 @@ export const useCanvas = () => {
             let x = e.touches[0].clientX - rect.left;
             let y = e.touches[0].clientY - rect.top;
 
-            if (canvasContext && canvasElement.current) {
+            if (canvasContext && canvasRef?.current) {
                 setPoints([...points, { x: x, y: y }]);
 
                 canvasContext.lineWidth = brush.width;
@@ -188,7 +186,7 @@ export const useCanvas = () => {
     };
 
     return {
-        canvasElement,
+        canvasRef,
         updateCanvasContext,
         handlers: {
             handleMouseDown,

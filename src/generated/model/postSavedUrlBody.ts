@@ -7,5 +7,6 @@
  */
 
 export type PostSavedUrlBody = {
-    file_url?: string;
+  /** The image file to upload */
+  image?: Blob;
 };

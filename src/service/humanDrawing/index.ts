@@ -1,0 +1,1 @@
+export { sendHumanDrawing } from "./usecase";

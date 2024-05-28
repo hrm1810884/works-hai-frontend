@@ -5,8 +5,8 @@
  * API specification for interactions between Frontend, Backend, and Cloud Storage.
  * OpenAPI spec version: 1.0.0
  */
-import type { GetAiDrawing200Result } from "./getAiDrawing200Result";
+import type { GetAiDrawing200Result } from './getAiDrawing200Result';
 
 export type GetAiDrawing200 = {
-    result: GetAiDrawing200Result;
+  result: GetAiDrawing200Result;
 };

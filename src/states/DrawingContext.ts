@@ -1,10 +1,11 @@
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { Dispatch, SetStateAction, createContext } from "react";
+import { Dispatch, RefObject, SetStateAction, createContext } from "react";
 
 import { Brush, HistoryItem, canvasContext } from "@/model";
 
 interface DrawingContextInterface {
+    canvasRef: RefObject<HTMLCanvasElement> | null;
     canvasContext: canvasContext;
     setCanvasContext: Dispatch<SetStateAction<canvasContext>>;
     brush: Brush;
@@ -16,6 +17,7 @@ interface DrawingContextInterface {
 }
 
 export const DrawingContext = createContext<DrawingContextInterface>({
+    canvasRef: null,
     canvasContext: null,
     setCanvasContext: () => {},
     brush: { type: "PENCIL", width: 3, color: "#000000" },

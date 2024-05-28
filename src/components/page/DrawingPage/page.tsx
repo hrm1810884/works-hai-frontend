@@ -3,6 +3,8 @@ import { useEffect } from "react";
 
 import { useHistory } from "@/states/History";
 
+import { SendButton } from "./components/SendButton";
+
 import { ToolBar, DrawingBoard } from "./components";
 
 import { pageWrapperStyle, drawingWrapperStyle } from "./page.css";
@@ -23,6 +25,7 @@ export const DrawingPage = () => {
             <div className={drawingWrapperStyle}>
                 <DrawingBoard></DrawingBoard>
             </div>
+            <SendButton></SendButton>
         </div>
     );
 };

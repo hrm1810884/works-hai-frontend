@@ -1,4 +1,3 @@
-import { AiDrawing } from "./AiDrawing";
 import { Canvas } from "./Canvas";
 
 import {
@@ -11,15 +10,15 @@ export const DrawingBoard = () => {
     return (
         <div className={drawingBoardContainerStyle}>
             <div className={verticalDrawingContainerStyle({ position: "top" })}>
-                <AiDrawing position="top"></AiDrawing>
+                {/* <AiDrawing position="top"></AiDrawing> */}
             </div>
             <div className={horizontalDrawingContainerStyle}>
-                <AiDrawing position="left"></AiDrawing>
+                {/* <AiDrawing position="left"></AiDrawing> */}
                 <Canvas />
-                <AiDrawing position="right"></AiDrawing>
+                {/* <AiDrawing position="right"></AiDrawing> */}
             </div>
             <div className={verticalDrawingContainerStyle({ position: "bottom" })}>
-                <AiDrawing position="bottom"></AiDrawing>
+                {/* <AiDrawing position="bottom"></AiDrawing> */}
             </div>
         </div>
     );
