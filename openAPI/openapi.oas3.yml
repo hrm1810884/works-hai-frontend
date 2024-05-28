@@ -71,43 +71,7 @@ paths:
                                     error:
                                         type: string
                                         example: Invalid input data
-
     /ai-drawing:
-        get:
-            summary: Get presigned URLs for surrounding drawings
-            description: Retrieve presigned URLs for downloading surrounding drawings from cloud storage.
-            tags:
-                - Download
-            responses:
-                "200":
-                    description: Presigned URLs generated successfully
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    result:
-                                        type: array
-                                        items:
-                                            type: object
-                                            properties:
-                                                presigned_url:
-                                                    type: string
-                            example:
-                                result:
-                                    [
-                                        {
-                                            presigned-url: "https://example-cloud-storage.com/drawing1.png?signature=...",
-                                        },
-                                        { presigned_url: "hogehoge" },
-                                        { presigned_url: "fugafuga" },
-                                        { presigned_url: "piyopiyo" },
-                                    ]
-                "400":
-                    description: Bad Request
-                "500":
-                    description: Internal Server Error
-    /dev/ai-drawing:
         get:
             summary: Get 4 surrounding AI-drawings
             description: Retrieve surrounding drawings only for dev mode.
@@ -121,20 +85,30 @@ paths:
                             schema:
                                 type: object
                                 properties:
-                                    topDrawing:
-                                        type: string
-                                    rightDrawing:
-                                        type: string
-                                    bottomDrawing:
-                                        type: string
-                                    leftDrawing:
-                                        type: string
+                                    result:
+                                        type: object
+                                        properties:
+                                            topDrawing:
+                                                type: string
+                                            rightDrawing:
+                                                type: string
+                                            bottomDrawing:
+                                                type: string
+                                            leftDrawing:
+                                                type: string
+                                required:
+                                    - result
+
                             example:
-                                result:
-                                    topDrawing: https://placehold.jp/3697c7/ffffff/512x512.png?text=hoge,
-                                    rightDrawing: https://placehold.jp/3697c7/ffffff/512x512.png?text=fuga,
-                                    bottomDrawing: https://placehold.jp/3697c7/ffffff/512x512.png?text=piyo,
-                                    leftDrawing: https://placehold.jp/3697c7/ffffff/512x512.png?text=blar,
+                                {
+                                    "result":
+                                        {
+                                            "topDrawing": "https://placehold.jp/3697c7/ffffff/512x512.png?text=hoge",
+                                            "rightDrawing": "https://placehold.jp/3697c7/ffffff/512x512.png?text=fuga",
+                                            "bottomDrawing": "https://placehold.jp/3697c7/ffffff/512x512.png?text=piyo",
+                                            "leftDrawing": "https://placehold.jp/3697c7/ffffff/512x512.png?text=blar",
+                                        },
+                                }
                 "400":
                     description: Bad Request
                 "500":

@@ -2,13 +2,11 @@
 /* eslint-disable no-unused-vars */
 import { Dispatch, SetStateAction, createContext } from "react";
 
-import { Brush, HistoryItem, canvasContext } from "@/types";
+import { Brush, HistoryItem, canvasContext } from "@/model";
 
 interface DrawingContextInterface {
     canvasContext: canvasContext;
     setCanvasContext: Dispatch<SetStateAction<canvasContext>>;
-    zoom: number;
-    setZoom: Dispatch<SetStateAction<number>>;
     brush: Brush;
     setBrush: Dispatch<SetStateAction<Brush>>;
     history: HistoryItem[];
@@ -20,8 +18,6 @@ interface DrawingContextInterface {
 export const DrawingContext = createContext<DrawingContextInterface>({
     canvasContext: null,
     setCanvasContext: () => {},
-    zoom: 0.5,
-    setZoom: () => {},
     brush: { type: "PENCIL", width: 3, color: "#000000" },
     setBrush: () => {},
     history: [],

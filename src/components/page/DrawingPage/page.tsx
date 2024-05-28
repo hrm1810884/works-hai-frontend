@@ -5,7 +5,7 @@ import { useHistory } from "@/states/History";
 
 import { ToolBar, DrawingBoard } from "./components";
 
-import { wrapper } from "./page.css";
+import { pageWrapperStyle, drawingWrapperStyle } from "./page.css";
 
 export const DrawingPage = () => {
     const {
@@ -18,11 +18,11 @@ export const DrawingPage = () => {
     }, [currentHistoryIndex, redrawHistory]);
 
     return (
-        <>
-            <div className={wrapper}>
-                <ToolBar />
-                <DrawingBoard />
+        <div className={pageWrapperStyle}>
+            <ToolBar />
+            <div className={drawingWrapperStyle}>
+                <DrawingBoard></DrawingBoard>
             </div>
-        </>
+        </div>
     );
 };

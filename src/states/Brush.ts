@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react";
 
-import { BrushType, lineWidth } from "@/types";
+import { BrushType, lineWidth } from "@/model";
 
 import { DrawingContext } from "./DrawingContext";
 

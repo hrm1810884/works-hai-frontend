@@ -13,7 +13,7 @@ export const useButton = (onClick: MouseEventHandler<HTMLButtonElement>) => {
             onClick(e);
             toggleIsSelected();
         },
-        [toggleIsSelected]
+        [toggleIsSelected, onClick]
     );
 
     return {
