@@ -7,8 +7,8 @@
  */
 
 export type GetAiDrawing200Result = {
-  bottomDrawing?: string;
-  leftDrawing?: string;
-  rightDrawing?: string;
-  topDrawing?: string;
+    bottomDrawing?: string;
+    leftDrawing?: string;
+    rightDrawing?: string;
+    topDrawing?: string;
 };

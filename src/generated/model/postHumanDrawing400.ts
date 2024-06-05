@@ -7,5 +7,5 @@
  */
 
 export type PostHumanDrawing400 = {
-  error?: string;
+    error?: string;
 };

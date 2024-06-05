@@ -7,5 +7,5 @@
  */
 
 export type GetUploadUrl400 = {
-  error?: string;
+    error?: string;
 };

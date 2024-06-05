@@ -7,6 +7,6 @@
  */
 
 export type PostHumanDrawingBody = {
-  /** The image file to upload */
-  image?: Blob;
+    /** The image file to upload */
+    image?: Blob;
 };
