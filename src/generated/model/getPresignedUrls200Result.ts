@@ -6,6 +6,11 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetUploadUrl400 = {
-    error?: string;
+export type GetPresignedUrls200Result = {
+  bottomDrawing?: string;
+  /** Presigned URL for human drawing upload. */
+  humanDrawing?: string;
+  leftDrawing?: string;
+  rightDrawing?: string;
+  topDrawing?: string;
 };

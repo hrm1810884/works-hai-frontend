@@ -5,8 +5,8 @@
  * API specification for interactions between Frontend, Backend, and Cloud Storage.
  * OpenAPI spec version: 1.0.0
  */
+import type { GetPresignedUrls200Result } from './getPresignedUrls200Result';
 
-export type PostSavedUrlBody = {
-    /** The image file to upload */
-    image?: Blob;
+export type GetPresignedUrls200 = {
+  result?: GetPresignedUrls200Result;
 };

@@ -6,13 +6,13 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export * from "./getAiDrawing200";
-export * from "./getAiDrawing200Result";
-export * from "./getUploadUrl200";
-export * from "./getUploadUrl400";
-export * from "./postHumanDrawing200";
-export * from "./postHumanDrawing400";
-export * from "./postHumanDrawingBody";
-export * from "./postSavedUrl200";
-export * from "./postSavedUrl400";
-export * from "./postSavedUrlBody";
+export * from './getAiDrawing200';
+export * from './getAiDrawing200Result';
+export * from './getPresignedUrls200';
+export * from './getPresignedUrls200Result';
+export * from './postHumanDrawing200';
+export * from './postHumanDrawing400';
+export * from './postHumanDrawingBody';
+export * from './postResourcePath200';
+export * from './postResourcePath400';
+export * from './postResourcePathBody';

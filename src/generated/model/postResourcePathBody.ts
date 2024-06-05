@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostSavedUrl200 = {
-    message?: string;
+export type PostResourcePathBody = {
+  /** The resource path in storage. */
+  image?: string;
 };
