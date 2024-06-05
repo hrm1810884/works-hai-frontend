@@ -164,13 +164,13 @@ export const getPresignedUrls = (
  ): Promise<AxiosResponse<GetPresignedUrls200>> => {
     
     return axios.get(
-      `/presigned_urls`,options
+      `/presigned-urls`,options
     );
   }
 
 
 export const getGetPresignedUrlsQueryKey = () => {
-    return [`/presigned_urls`] as const;
+    return [`/presigned-urls`] as const;
     }
 
     

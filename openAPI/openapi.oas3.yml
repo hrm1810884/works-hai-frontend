@@ -87,7 +87,7 @@ paths:
                                     error:
                                         type: string
                                         example: "Invalid input data: image path missing"
-    /presigned_urls:
+    /presigned-urls:
         get:
             summary: Get presigned urls
             description: Retrieve presigned URLs for both Human and AI drawings.
