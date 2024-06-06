@@ -93,6 +93,16 @@ paths:
                                     error:
                                         type: string
                                         example: "Invalid input data: image path missing"
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                                        description: "A detailed error message."
     /presigned-urls:
         get:
             summary: Get presigned urls
@@ -140,6 +150,16 @@ paths:
                     description: Bad Request
                 "500":
                     description: Internal Server Error - the server encountered an unexpected condition that prevented it from fulfilling the request.
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                                        description: "A detailed error message."
     /ai-drawing:
         get:
             summary: Get 4 AI-drawings
