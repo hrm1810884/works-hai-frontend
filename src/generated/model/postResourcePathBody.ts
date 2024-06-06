@@ -7,6 +7,10 @@
  */
 
 export type PostResourcePathBody = {
-  /** The resource path in storage. */
-  image?: string;
+  /** The presigned URL to be included in the request */
+  presigned_url?: string;
+  /** The x-coordinate */
+  x?: number;
+  /** The y-coordinate */
+  y?: number;
 };
