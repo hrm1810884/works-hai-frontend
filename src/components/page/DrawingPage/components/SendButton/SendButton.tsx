@@ -21,7 +21,7 @@ export const SendButton = () => {
         const currentCanvas = canvasRef?.current;
         const humanDrawing = currentCanvas?.toDataURL("image/png");
         const blob = await (await fetch(humanDrawing!)).blob();
-        const result = await sendHumanDrawing(humanDrawing!, data.humanDrawing);
+        const result = await sendHumanDrawing(blob, data.humanDrawing);
 
         match(result)
             .with({ status: "ok" }, () => {

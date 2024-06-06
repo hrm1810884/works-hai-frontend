@@ -3,7 +3,7 @@
 
 import { UsecaseMethod, usecaseResultError, usecaseResultOk } from "@/utils/usecase";
 
-export const sendHumanDrawing = (async (humanDrawing: string, presignedUrl: string) => {
+export const sendHumanDrawing = (async (humanDrawing: Blob, presignedUrl: string) => {
     try {
         const response = await fetch(presignedUrl, {
             method: "PUT",
