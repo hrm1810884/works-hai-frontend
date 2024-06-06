@@ -129,7 +129,7 @@ paths:
                                 {
                                     "result":
                                         {
-                                            "humanDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
+                                            "humanDrawing": "https://storage.googleapis.com/hai-human-ai-interaction.appspot.com/fuga.png?x-goog-signature=7dcbe43b05c5f7435a9f42e28da456128657a9e72fe473270e09da349147fc67536c9a8978d604e14300f8c5b49081421ec8c7336407d4725de036f61f94673b9cee492db281e9e90f7c76979529a1e6fa823189ad3b0b6b3f26e3562596f177ad51b6fd183254bdd8ca5b9559dd093740dd59deb0734c0fa7f4309923dbe056e8d1c5a982ad22c92e137cf0a4b6765fcb9e70f11d7fdb7cf691708b392d47fbe3e598dff002c8dd551f4bd5c7952a801e3da5ec8ffd4afe28bc9e6831a942f4abc31600b0dcd245a05cd6444a53de99d413fba39565c818e090a7cec48651f117ba1d9a13d5b949e01e763ff27b4e31c584439bd59640e2f9d60d8296d76bb9&x-goog-algorithm=GOOG4-RSA-SHA256&x-goog-credential=firebase-adminsdk-n0huy%40hai-human-ai-interaction.iam.gserviceaccount.com%2F20240606%2Fasia-northeast1%2Fstorage%2Fgoog4_request&x-goog-date=20240606T145900Z&x-goog-expires=600&x-goog-signedheaders=host",
                                             "topDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
                                             "rightDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
                                             "bottomDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",

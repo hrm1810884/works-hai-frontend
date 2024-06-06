@@ -2,7 +2,7 @@ import { postResourcePath } from "@/generated/api";
 
 import { usecaseResultError, usecaseResultOk } from "@/utils/usecase";
 
-export const registerResourcePath = async ({ presignedUrl }: { presignedUrl: string }) => {
+export const registerResourcePath = async (presignedUrl: string) => {
     try {
         await postResourcePath({
             presigned_url: presignedUrl,
