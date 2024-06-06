@@ -9,7 +9,7 @@
 export type GetPresignedUrls200Result = {
   bottomDrawing?: string;
   /** Presigned URL for human drawing upload. */
-  humanDrawing?: string;
+  humanDrawing: string;
   leftDrawing?: string;
   rightDrawing?: string;
   topDrawing?: string;

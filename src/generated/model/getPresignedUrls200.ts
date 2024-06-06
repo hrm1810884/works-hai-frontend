@@ -8,5 +8,5 @@
 import type { GetPresignedUrls200Result } from './getPresignedUrls200Result';
 
 export type GetPresignedUrls200 = {
-  result?: GetPresignedUrls200Result;
+  result: GetPresignedUrls200Result;
 };

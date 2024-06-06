@@ -115,8 +115,10 @@ paths:
                                                 type: string
                                             leftDrawing:
                                                 type: string
+                                        required:
+                                            - humanDrawing
                                 required:
-                                    - humanDrawing
+                                    - result
                             example:
                                 {
                                     "result":

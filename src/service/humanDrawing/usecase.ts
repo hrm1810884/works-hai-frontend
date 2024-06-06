@@ -1,22 +1,25 @@
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { postHumanDrawing } from "@/generated/api";
 
-import { useStorage } from "@/states/Storage";
 import { UsecaseMethod, usecaseResultError, usecaseResultOk } from "@/utils/usecase";
 
-export const sendHumanDrawing = (async (humanDrawing) => {
-    const { presignedUrl } = useStorage();
+export const sendHumanDrawing = (async (humanDrawing: string, presignedUrl: string) => {
     try {
-        const {
-            data: { message },
-        } = await postHumanDrawing({
-            image: humanDrawing,
-            presigned_url: presignedUrl,
+        const response = await fetch(presignedUrl, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "image/png", // 必要に応じて変更
+            },
+            body: humanDrawing,
         });
 
-        return usecaseResultOk(null);
+        if (response.status !== 200) {
+            return usecaseResultError(new Error("human drawingをアップロードできませんでした"));
+        }
+
+        return usecaseResultOk("human drawing アップロード成功");
     } catch (error) {
-        return usecaseResultError(new Error("絵のアップロードに失敗しました"));
+        console.error(error);
+        return usecaseResultError(new Error("human drawingをアップロードできませんでした"));
     }
 }) satisfies UsecaseMethod;
