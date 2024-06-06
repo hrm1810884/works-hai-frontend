@@ -2,8 +2,6 @@ import Image from "next/image";
 import { FC } from "react";
 import { match } from "ts-pattern";
 
-import { useGetAiDrawingService } from "@/service/aiDrawings/reader";
-
 import { imageContainerStyle, noImageStyle } from "./AiDrawing.css";
 
 export type props = {
@@ -11,12 +9,12 @@ export type props = {
 };
 
 export const AiDrawing: FC<props> = ({ position }) => {
-    const { data: aiDrawingUrls } = useGetAiDrawingService();
+    // const { data: aiDrawingUrls } = useGetAiDrawingService();
     const aiDrawingUrl = match(position)
         .with("top", () => undefined)
-        .with("right", () => aiDrawingUrls.rightDrawing)
-        .with("bottom", () => aiDrawingUrls.bottomDrawing)
-        .with("left", () => aiDrawingUrls.leftDrawing)
+        .with("right", () => undefined)
+        .with("bottom", () => undefined)
+        .with("left", () => undefined)
         .otherwise(() => "https://placehold.jp/3697c7/ffffff/512x512.png?text=WTF");
 
     return (

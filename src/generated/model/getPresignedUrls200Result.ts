@@ -6,7 +6,11 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostSavedUrlBody = {
-  /** The image file to upload */
-  image?: Blob;
+export type GetPresignedUrls200Result = {
+  bottomDrawing?: string;
+  /** Presigned URL for human drawing upload. */
+  humanDrawing: string;
+  leftDrawing?: string;
+  rightDrawing?: string;
+  topDrawing?: string;
 };

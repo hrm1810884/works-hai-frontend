@@ -6,6 +6,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetUploadUrl200 = {
-  presigned_url?: string;
+export type PostResourcePath400 = {
+  error?: string;
 };
