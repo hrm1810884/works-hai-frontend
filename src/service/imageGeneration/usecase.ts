@@ -1,11 +1,10 @@
-import { postResourcePath } from "@/generated/api";
+import { postImageGeneration } from "@/generated/api";
 
 import { usecaseResultError, usecaseResultOk } from "@/utils/usecase";
 
-export const registerResourcePath = async (presignedUrl: string) => {
+export const startImageGeneration = async () => {
     try {
-        await postResourcePath({
-            presigned_url: presignedUrl,
+        await postImageGeneration({
             x: 0,
             y: 0,
         });

@@ -1,1 +1,0 @@
-export { registerResourcePath } from "./usecase";

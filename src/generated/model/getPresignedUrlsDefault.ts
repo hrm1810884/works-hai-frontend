@@ -6,11 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostResourcePathBody = {
-  /** The presigned URL to be included in the request */
-  presigned_url?: string;
-  /** The x-coordinate */
-  x?: number;
-  /** The y-coordinate */
-  y?: number;
+export type GetPresignedUrlsDefault = {
+  /** A detailed error message. */
+  error?: string;
 };

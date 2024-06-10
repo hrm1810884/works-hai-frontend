@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 import { uploadHumanDrawing, useGetPresignedUrlsService } from "@/service/humanDrawing";
-import { registerResourcePath } from "@/service/resourcePath";
+import { startImageGeneration } from "@/service/imageGeneration/usecase";
 import { showToast } from "@/utils";
 
 import { useCanvas } from "../DrawingBoard/Canvas/hooks";
@@ -18,9 +18,9 @@ export const useGenerationButton = () => {
             return;
         }
 
-        const registerResult = await registerResourcePath(presignedUrls.humanDrawing);
+        const generationResult = await startImageGeneration();
 
-        if (registerResult.status === "err") {
+        if (generationResult.status === "err") {
             showToast({ message: "データの永続化に失敗しました", type: "error" });
             return;
         }
