@@ -1,30 +1,25 @@
 import Image from "next/image";
 import { FC } from "react";
-import { match } from "ts-pattern";
 
-import { useGetPresignedUrlsService } from "@/service/humanDrawing";
+import { AiPosition } from "@/model";
+
 import { guardUndef } from "@/utils";
 
 import { imageContainerStyle, noImageStyle } from "./AiDrawing.css";
 
 export type props = {
-    position: "top" | "right" | "bottom" | "left";
+    src: string | undefined;
+    pos: AiPosition;
 };
 
-export const AiDrawing: FC<props> = ({ position }) => {
-    const { data: aiDrawingUrls } = useGetPresignedUrlsService();
+export const AiDrawing: FC<props> = ({ src: url, pos }) => {
     const isMock = guardUndef(process.env.NEXT_PUBLIC_ENABLE_API_MOCK) === "true";
-    const aiDrawingUrl = match(position)
-        .with("top", () => (isMock ? undefined : aiDrawingUrls.topDrawing))
-        .with("right", () => (isMock ? undefined : aiDrawingUrls.rightDrawing))
-        .with("bottom", () => (isMock ? undefined : aiDrawingUrls.bottomDrawing))
-        .with("left", () => (isMock ? undefined : aiDrawingUrls.leftDrawing))
-        .otherwise(() => "https://placehold.jp/3697c7/ffffff/512x512.png?text=WTF");
+    const isDrawn = !isMock && !!url;
 
     return (
         <div className={imageContainerStyle}>
-            {aiDrawingUrl ? (
-                <Image src={aiDrawingUrl!} alt={`AI drawing at ${position}`} fill />
+            {isDrawn ? (
+                <Image src={url!} alt={`AI drawing at ${pos}`} fill sizes="100%" />
             ) : (
                 <div className={noImageStyle}></div>
             )}

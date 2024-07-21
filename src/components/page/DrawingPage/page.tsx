@@ -5,9 +5,9 @@ import { useHistory } from "@/states/History";
 
 import { GenerationButton } from "./components/GenerationButton";
 
-import { ToolBar, DrawingBoard } from "./components";
+import { DrawingBoard, ToolBar } from "./components";
 
-import { pageWrapperStyle, drawingWrapperStyle, generationButtonWrapperStyle } from "./page.css";
+import { drawingWrapperStyle, generationButtonWrapperStyle, pageWrapperStyle } from "./page.css";
 
 export const DrawingPage = () => {
     const {
@@ -23,7 +23,7 @@ export const DrawingPage = () => {
         <div className={pageWrapperStyle}>
             <ToolBar />
             <div className={drawingWrapperStyle}>
-                <DrawingBoard></DrawingBoard>
+                <DrawingBoard />
             </div>
             <div className={generationButtonWrapperStyle}>
                 <GenerationButton />

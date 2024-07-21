@@ -8,8 +8,9 @@ export const useInitService = () => {
     const { setUserInfo } = useUserInfo();
 
     useEffect(() => {
+        console.log(userInfo);
         setUserInfo(userInfo);
-    }, [setUserInfo, userInfo]);
+    }, []);
 
     return {
         aiSrc,
