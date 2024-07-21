@@ -1,0 +1,1 @@
+export { useInitService } from "./initService";
