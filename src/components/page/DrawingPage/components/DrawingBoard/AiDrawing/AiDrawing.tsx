@@ -3,6 +3,7 @@ import { FC } from "react";
 import { match } from "ts-pattern";
 
 import { useGetPresignedUrlsService } from "@/service/humanDrawing";
+import { guardUndef } from "@/utils";
 
 import { imageContainerStyle, noImageStyle } from "./AiDrawing.css";
 
@@ -12,11 +13,12 @@ export type props = {
 
 export const AiDrawing: FC<props> = ({ position }) => {
     const { data: aiDrawingUrls } = useGetPresignedUrlsService();
+    const isMock = guardUndef(process.env.NEXT_PUBLIC_ENABLE_API_MOCK) === "true";
     const aiDrawingUrl = match(position)
-        .with("top", () => aiDrawingUrls.topDrawing)
-        .with("right", () => aiDrawingUrls.rightDrawing)
-        .with("bottom", () => aiDrawingUrls.bottomDrawing)
-        .with("left", () => aiDrawingUrls.leftDrawing)
+        .with("top", () => (isMock ? undefined : aiDrawingUrls.topDrawing))
+        .with("right", () => (isMock ? undefined : aiDrawingUrls.rightDrawing))
+        .with("bottom", () => (isMock ? undefined : aiDrawingUrls.bottomDrawing))
+        .with("left", () => (isMock ? undefined : aiDrawingUrls.leftDrawing))
         .otherwise(() => "https://placehold.jp/3697c7/ffffff/512x512.png?text=WTF");
 
     return (
