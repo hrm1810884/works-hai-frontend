@@ -1,6 +1,7 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios from "axios";
+import { createStore, Provider } from "jotai";
 import React from "react";
 import { Flip, ToastContainer } from "react-toastify";
 
@@ -8,9 +9,8 @@ import { getBaseUrl } from "@/utils";
 
 import "react-toastify/dist/ReactToastify.css";
 
-/**
- * Client サイドで利用しなければならないプロバイダー
- */
+const store = createStore();
+
 export default function ClientProviders({ children }: { children: React.ReactNode }) {
     const baseUrl = getBaseUrl();
 
@@ -24,20 +24,22 @@ export default function ClientProviders({ children }: { children: React.ReactNod
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    pauseOnHover
-                    theme="light"
-                    icon={false}
-                    transition={Flip}
-                />
-                {children}
+                <Provider store={store}>
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        pauseOnHover
+                        theme="light"
+                        icon={false}
+                        transition={Flip}
+                    />
+                    {children}
+                </Provider>
             </QueryClientProvider>
         </>
     );

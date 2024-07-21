@@ -5,9 +5,10 @@
  * API specification for interactions between Frontend, Backend, and Cloud Storage.
  * OpenAPI spec version: 1.0.0
  */
+import type { GetInit200ResultUrls } from './getInit200ResultUrls';
 
-export type PostHumanDrawingBody = {
-  /** The image file to upload. */
-  image: Blob;
-  presigned_url: string;
+export type GetInit200Result = {
+  /** user id */
+  id: string;
+  urls: GetInit200ResultUrls;
 };

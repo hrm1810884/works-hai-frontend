@@ -6,6 +6,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostHumanDrawing200 = {
-  saved_url?: string;
+export type PostGenerate400 = {
+  error?: string;
 };

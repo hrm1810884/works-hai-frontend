@@ -6,9 +6,11 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostImageGenerationBody = {
-  /** The x-coordinate */
-  x?: number;
-  /** The y-coordinate */
-  y?: number;
+export type GetInit200ResultUrls = {
+  bottomDrawing?: string;
+  /** Presigned URL for human drawing upload. */
+  humanDrawing: string;
+  leftDrawing?: string;
+  rightDrawing?: string;
+  topDrawing?: string;
 };

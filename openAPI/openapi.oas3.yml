@@ -7,53 +7,10 @@ servers:
     - url: https://frontend.example.com
       description: Frontend Server
 paths:
-    /human-drawing:
+    /generate:
         post:
-            summary: Upload drawing to storage
-            description: Upload a human drawing using the presigned URL obtained from /presigned-urls.
-            tags:
-                - to Storage
-            requestBody:
-                required: true
-                content:
-                    multipart/form-data:
-                        schema:
-                            type: object
-                            properties:
-                                image:
-                                    type: string
-                                    format: binary
-                                    description: The image file to upload.
-                                presigned_url:
-                                    type: string
-                            required:
-                                - image
-                                - presigned_url
-            responses:
-                "200":
-                    description: Image uploaded successfully.
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    saved_url:
-                                        type: string
-                                        example: "/hoge"
-                "400":
-                    description: Invalid request - the request could not be understood due to malformed syntax or invalid data.
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    error:
-                                        type: string
-                                        example: "Invalid input data: image file missing"
-    /image-generation:
-        post:
-            summary: Resource path in storage
-            description: Post the resource path in storage to BE.
+            summary: Generate AI Drawing
+            description: Post id in storage to BE.
             tags:
                 - to BE
             requestBody:
@@ -63,12 +20,12 @@ paths:
                         schema:
                             type: object
                             properties:
-                                x:
-                                    type: integer
-                                    description: The x-coordinate
-                                y:
-                                    type: integer
-                                    description: The y-coordinate
+                                userId:
+                                    type: string
+                                    description: user id of the experience
+                                    example: "hogehogehoge"
+                            required:
+                                - userId
             responses:
                 "200":
                     description: Drawing saved successfully.
@@ -77,9 +34,11 @@ paths:
                             schema:
                                 type: object
                                 properties:
-                                    message:
+                                    url:
                                         type: string
-                                        example: "Drawing saved successfully."
+                                        example: "http://hogehoge"
+                                required:
+                                    - url
                 "400":
                     description: Invalid request - the request could not be understood due to malformed syntax or invalid data.
                     content:
@@ -89,7 +48,7 @@ paths:
                                 properties:
                                     error:
                                         type: string
-                                        example: "Invalid input data: image path missing"
+                                        example: "Invalid input data: user id is missing"
                 default:
                     description: Unexpected error
                     content:
@@ -100,7 +59,7 @@ paths:
                                     error:
                                         type: string
                                         description: "A detailed error message."
-    /presigned-urls:
+    /init:
         get:
             summary: Get presigned urls
             description: Retrieve presigned URLs for both Human and AI drawings.
@@ -117,19 +76,28 @@ paths:
                                     result:
                                         type: object
                                         properties:
-                                            humanDrawing:
+                                            id:
                                                 type: string
-                                                description: "Presigned URL for human drawing upload."
-                                            topDrawing:
-                                                type: string
-                                            rightDrawing:
-                                                type: string
-                                            bottomDrawing:
-                                                type: string
-                                            leftDrawing:
-                                                type: string
+                                                description: "user id"
+                                            urls:
+                                                type: object
+                                                properties:
+                                                    humanDrawing:
+                                                        type: string
+                                                        description: "Presigned URL for human drawing upload."
+                                                    topDrawing:
+                                                        type: string
+                                                    rightDrawing:
+                                                        type: string
+                                                    bottomDrawing:
+                                                        type: string
+                                                    leftDrawing:
+                                                        type: string
+                                                required:
+                                                    - humanDrawing
                                         required:
-                                            - humanDrawing
+                                            - id
+                                            - urls
                                 required:
                                     - result
                             example:
@@ -145,6 +113,14 @@ paths:
                                 }
                 "400":
                     description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                                        example: "Invalid input data: user id is missing"
                 "500":
                     description: Internal Server Error - the server encountered an unexpected condition that prevented it from fulfilling the request.
                 default:
@@ -157,48 +133,6 @@ paths:
                                     error:
                                         type: string
                                         description: "A detailed error message."
-    /ai-drawing:
-        get:
-            summary: Get 4 AI-drawings
-            description: Retrieve surrounding AI drawings.
-            tags:
-                - from Storage
-            responses:
-                "200":
-                    description: AI surrounding drawings retrieved successfully.
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    result:
-                                        type: object
-                                        properties:
-                                            topDrawing:
-                                                type: string
-                                            rightDrawing:
-                                                type: string
-                                            bottomDrawing:
-                                                type: string
-                                            leftDrawing:
-                                                type: string
-                                required:
-                                    - result
-
-                            example:
-                                {
-                                    "result":
-                                        {
-                                            "topDrawing": "https://placehold.jp/3697c7/ffffff/512x512.png?text=top",
-                                            "rightDrawing": "https://placehold.jp/3697c7/ffffff/512x512.png?text=right",
-                                            "bottomDrawing": "https://placehold.jp/3697c7/ffffff/512x512.png?text=bottom",
-                                            "leftDrawing": "https://placehold.jp/3697c7/ffffff/512x512.png?text=left",
-                                        },
-                                }
-                "400":
-                    description: Bad Request
-                "500":
-                    description: Internal Server Error - the server encountered an unexpected condition that prevented it from fulfilling the request.
 
 components:
     securitySchemes:

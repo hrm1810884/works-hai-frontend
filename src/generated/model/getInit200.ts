@@ -5,8 +5,8 @@
  * API specification for interactions between Frontend, Backend, and Cloud Storage.
  * OpenAPI spec version: 1.0.0
  */
+import type { GetInit200Result } from './getInit200Result';
 
-export type PostImageGenerationDefault = {
-  /** A detailed error message. */
-  error?: string;
+export type GetInit200 = {
+  result: GetInit200Result;
 };

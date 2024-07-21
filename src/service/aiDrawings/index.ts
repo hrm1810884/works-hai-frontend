@@ -1,1 +1,0 @@
-export { useGetAiDrawingService } from "./reader";

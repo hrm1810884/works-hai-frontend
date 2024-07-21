@@ -1,24 +1,22 @@
 import { useCallback } from "react";
 
-import { uploadHumanDrawing, useGetPresignedUrlsService } from "@/service/humanDrawing";
-import { startImageGeneration } from "@/service/imageGeneration/usecase";
 import { showToast } from "@/utils";
 
-import { useCanvas } from "../DrawingBoard/Canvas/hooks";
+import { useGenerationService, useUploadService } from "@/service";
 
 export const useGenerationButton = () => {
-    const { canvasRef } = useCanvas();
-    const { data: presignedUrls, refetch: refetchPresignedUrls } = useGetPresignedUrlsService();
+    const { uploadDrawing } = useUploadService();
+    const { generateDrawing } = useGenerationService();
 
     const handleSubmit = useCallback(async () => {
-        const uploadResult = await uploadHumanDrawing(canvasRef, presignedUrls.humanDrawing);
+        const uploadResult = await uploadDrawing();
 
         if (uploadResult.status === "err") {
             showToast({ message: "画像のアップロードに失敗しました", type: "error" });
             return;
         }
 
-        const generationResult = await startImageGeneration();
+        const generationResult = await generateDrawing();
 
         if (generationResult.status === "err") {
             showToast({ message: "データの永続化に失敗しました", type: "error" });
@@ -26,8 +24,7 @@ export const useGenerationButton = () => {
         }
 
         showToast({ message: "生成を開始します", type: "success" });
-        await refetchPresignedUrls();
-    }, [refetchPresignedUrls, canvasRef, presignedUrls]);
+    }, [generateDrawing, uploadDrawing]);
 
     return {
         handler: {
