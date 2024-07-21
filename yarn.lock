@@ -4551,6 +4551,7 @@ __metadata:
     eslint-config-prettier: ^9.1.0
     eslint-plugin-return-type: ^1.0.17
     eslint-plugin-unused-imports: ^3.2.0
+    jotai: ^2.9.0
     next: 14.2.3
     orval: ^6.29.1
     prettier: ^3.2.5
@@ -5149,6 +5150,21 @@ __metadata:
   version: 2.1.0
   resolution: "javascript-stringify@npm:2.1.0"
   checksum: 009981ec84299da88795fc764221ed213e3d52251cc93a396430a7a02ae09f1163a9be36a36808689681a8e6113cf00fe97ec2eea2552df48111f79be59e9358
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^2.9.0":
+  version: 2.9.0
+  resolution: "jotai@npm:2.9.0"
+  peerDependencies:
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: f336364f358dd4ebe7f02b2d7baa1e22e0c8283c78446677c2668e15ca9809a6cd81139c08abc199d9bffec8f3257fce5947f5743b011bb1276c5ed95ee28edc
   languageName: node
   linkType: hard
 
