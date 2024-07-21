@@ -22,7 +22,7 @@ export const drawingWrapperStyle = style({
     height: "100%",
 });
 
-export const sendButtonWrapperStyle = style({
+export const generationButtonWrapperStyle = style({
     position: "absolute",
     left: "50%",
     bottom: vars.spacing.lg,

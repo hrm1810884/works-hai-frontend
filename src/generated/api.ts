@@ -30,12 +30,14 @@ import type {
 import type {
   GetAiDrawing200,
   GetPresignedUrls200,
+  GetPresignedUrlsDefault,
   PostHumanDrawing200,
   PostHumanDrawing400,
   PostHumanDrawingBody,
-  PostResourcePath200,
-  PostResourcePath400,
-  PostResourcePathBody
+  PostImageGeneration200,
+  PostImageGeneration400,
+  PostImageGenerationBody,
+  PostImageGenerationDefault
 } from './model'
 
 
@@ -103,30 +105,30 @@ export const usePostHumanDrawing = <TError = AxiosError<PostHumanDrawing400>,
  * Post the resource path in storage to BE.
  * @summary Resource path in storage
  */
-export const postResourcePath = (
-    postResourcePathBody: PostResourcePathBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostResourcePath200>> => {
+export const postImageGeneration = (
+    postImageGenerationBody: PostImageGenerationBody, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<PostImageGeneration200>> => {
     
     return axios.post(
-      `/resource-path`,
-      postResourcePathBody,options
+      `/image-generation`,
+      postImageGenerationBody,options
     );
   }
 
 
 
-export const getPostResourcePathMutationOptions = <TError = AxiosError<PostResourcePath400>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postResourcePath>>, TError,{data: PostResourcePathBody}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof postResourcePath>>, TError,{data: PostResourcePathBody}, TContext> => {
+export const getPostImageGenerationMutationOptions = <TError = AxiosError<PostImageGeneration400 | PostImageGenerationDefault>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postImageGeneration>>, TError,{data: PostImageGenerationBody}, TContext>, axios?: AxiosRequestConfig}
+): UseMutationOptions<Awaited<ReturnType<typeof postImageGeneration>>, TError,{data: PostImageGenerationBody}, TContext> => {
 const {mutation: mutationOptions, axios: axiosOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postResourcePath>>, {data: PostResourcePathBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postImageGeneration>>, {data: PostImageGenerationBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  postResourcePath(data,axiosOptions)
+          return  postImageGeneration(data,axiosOptions)
         }
 
         
@@ -134,23 +136,23 @@ const {mutation: mutationOptions, axios: axiosOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostResourcePathMutationResult = NonNullable<Awaited<ReturnType<typeof postResourcePath>>>
-    export type PostResourcePathMutationBody = PostResourcePathBody
-    export type PostResourcePathMutationError = AxiosError<PostResourcePath400>
+    export type PostImageGenerationMutationResult = NonNullable<Awaited<ReturnType<typeof postImageGeneration>>>
+    export type PostImageGenerationMutationBody = PostImageGenerationBody
+    export type PostImageGenerationMutationError = AxiosError<PostImageGeneration400 | PostImageGenerationDefault>
 
     /**
  * @summary Resource path in storage
  */
-export const usePostResourcePath = <TError = AxiosError<PostResourcePath400>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postResourcePath>>, TError,{data: PostResourcePathBody}, TContext>, axios?: AxiosRequestConfig}
+export const usePostImageGeneration = <TError = AxiosError<PostImageGeneration400 | PostImageGenerationDefault>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postImageGeneration>>, TError,{data: PostImageGenerationBody}, TContext>, axios?: AxiosRequestConfig}
 ): UseMutationResult<
-        Awaited<ReturnType<typeof postResourcePath>>,
+        Awaited<ReturnType<typeof postImageGeneration>>,
         TError,
-        {data: PostResourcePathBody},
+        {data: PostImageGenerationBody},
         TContext
       > => {
 
-      const mutationOptions = getPostResourcePathMutationOptions(options);
+      const mutationOptions = getPostImageGenerationMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -174,7 +176,7 @@ export const getGetPresignedUrlsQueryKey = () => {
     }
 
     
-export const getGetPresignedUrlsQueryOptions = <TData = Awaited<ReturnType<typeof getPresignedUrls>>, TError = AxiosError<void>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPresignedUrls>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getGetPresignedUrlsQueryOptions = <TData = Awaited<ReturnType<typeof getPresignedUrls>>, TError = AxiosError<void | GetPresignedUrlsDefault>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPresignedUrls>>, TError, TData>>, axios?: AxiosRequestConfig}
 ) => {
 
 const {query: queryOptions, axios: axiosOptions} = options ?? {};
@@ -193,12 +195,12 @@ const {query: queryOptions, axios: axiosOptions} = options ?? {};
 }
 
 export type GetPresignedUrlsQueryResult = NonNullable<Awaited<ReturnType<typeof getPresignedUrls>>>
-export type GetPresignedUrlsQueryError = AxiosError<void>
+export type GetPresignedUrlsQueryError = AxiosError<void | GetPresignedUrlsDefault>
 
 /**
  * @summary Get presigned urls
  */
-export const useGetPresignedUrls = <TData = Awaited<ReturnType<typeof getPresignedUrls>>, TError = AxiosError<void>>(
+export const useGetPresignedUrls = <TData = Awaited<ReturnType<typeof getPresignedUrls>>, TError = AxiosError<void | GetPresignedUrlsDefault>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPresignedUrls>>, TError, TData>>, axios?: AxiosRequestConfig}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
@@ -214,7 +216,7 @@ export const useGetPresignedUrls = <TData = Awaited<ReturnType<typeof getPresign
 
 
 
-export const getGetPresignedUrlsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getPresignedUrls>>, TError = AxiosError<void>>( options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getPresignedUrls>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const getGetPresignedUrlsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getPresignedUrls>>, TError = AxiosError<void | GetPresignedUrlsDefault>>( options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getPresignedUrls>>, TError, TData>>, axios?: AxiosRequestConfig}
 ) => {
 
 const {query: queryOptions, axios: axiosOptions} = options ?? {};
@@ -233,12 +235,12 @@ const {query: queryOptions, axios: axiosOptions} = options ?? {};
 }
 
 export type GetPresignedUrlsSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getPresignedUrls>>>
-export type GetPresignedUrlsSuspenseQueryError = AxiosError<void>
+export type GetPresignedUrlsSuspenseQueryError = AxiosError<void | GetPresignedUrlsDefault>
 
 /**
  * @summary Get presigned urls
  */
-export const useGetPresignedUrlsSuspense = <TData = Awaited<ReturnType<typeof getPresignedUrls>>, TError = AxiosError<void>>(
+export const useGetPresignedUrlsSuspense = <TData = Awaited<ReturnType<typeof getPresignedUrls>>, TError = AxiosError<void | GetPresignedUrlsDefault>>(
   options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getPresignedUrls>>, TError, TData>>, axios?: AxiosRequestConfig}
 
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } => {

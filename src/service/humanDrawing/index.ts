@@ -1,1 +1,2 @@
-export { sendHumanDrawing } from "./usecase";
+export { uploadHumanDrawing } from "./usecase";
+export { useGetPresignedUrlsService } from "./reader";

@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostResourcePathBody = {
-  /** The resource path in storage. */
-  image?: string;
+export type GetPresignedUrlsDefault = {
+  /** A detailed error message. */
+  error?: string;
 };

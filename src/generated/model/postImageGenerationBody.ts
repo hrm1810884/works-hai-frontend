@@ -6,6 +6,9 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostResourcePath200 = {
-  message?: string;
+export type PostImageGenerationBody = {
+  /** The x-coordinate */
+  x?: number;
+  /** The y-coordinate */
+  y?: number;
 };
