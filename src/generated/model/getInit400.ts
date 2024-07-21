@@ -6,6 +6,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostImageGeneration200 = {
-  message?: string;
+export type GetInit400 = {
+  error?: string;
 };

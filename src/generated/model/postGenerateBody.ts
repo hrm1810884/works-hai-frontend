@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostHumanDrawing400 = {
-  error?: string;
+export type PostGenerateBody = {
+  /** user id of the experience */
+  userId: string;
 };

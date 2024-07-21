@@ -6,7 +6,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetPresignedUrlsDefault = {
-  /** A detailed error message. */
-  error?: string;
+export type PostGenerate200 = {
+  url: string;
 };

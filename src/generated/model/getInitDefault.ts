@@ -6,9 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetAiDrawing200Result = {
-  bottomDrawing?: string;
-  leftDrawing?: string;
-  rightDrawing?: string;
-  topDrawing?: string;
+export type GetInitDefault = {
+  /** A detailed error message. */
+  error?: string;
 };

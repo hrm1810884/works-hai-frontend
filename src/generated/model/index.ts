@@ -6,15 +6,12 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export * from './getAiDrawing200';
-export * from './getAiDrawing200Result';
-export * from './getPresignedUrls200';
-export * from './getPresignedUrls200Result';
-export * from './getPresignedUrlsDefault';
-export * from './postHumanDrawing200';
-export * from './postHumanDrawing400';
-export * from './postHumanDrawingBody';
-export * from './postImageGeneration200';
-export * from './postImageGeneration400';
-export * from './postImageGenerationBody';
-export * from './postImageGenerationDefault';
+export * from './getInit200';
+export * from './getInit200Result';
+export * from './getInit200ResultUrls';
+export * from './getInit400';
+export * from './getInitDefault';
+export * from './postGenerate200';
+export * from './postGenerate400';
+export * from './postGenerateBody';
+export * from './postGenerateDefault';
