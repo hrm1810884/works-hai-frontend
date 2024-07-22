@@ -1,12 +1,16 @@
-import { useCallback, useContext } from "react";
+import { atom, useAtom } from "jotai";
+import { useCallback } from "react";
 
 import { HistoryItem } from "@/model";
 
-import { DrawingContext } from "./DrawingContext";
+import { useCanvas } from "./Canvas";
 
+const historyAtom = atom<HistoryItem[]>([]);
+const currentHistoryIndexAtom = atom<number>(0);
 export const useHistory = () => {
-    const { history, setHistory, currentHistoryIndex, setCurrentHistoryIndex, canvasContext } =
-        useContext(DrawingContext);
+    const [history, setHistory] = useAtom(historyAtom);
+    const [currentHistoryIndex, setCurrentHistoryIndex] = useAtom(currentHistoryIndexAtom);
+    const { canvasContext } = useCanvas();
 
     const initializeHistory = useCallback(() => {
         if (canvasContext) {

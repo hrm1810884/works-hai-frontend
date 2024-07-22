@@ -1,14 +1,15 @@
 import { atom, useAtom } from "jotai";
+import { MutableRefObject } from "react";
 
-import { UserInfo } from "@/model";
-
-const defaultUserInfo: UserInfo = { userId: "", urlToSave: "" };
-const userInfoAtom = atom<UserInfo>(defaultUserInfo);
-export const useUserInfo = () => {
-    const [userInfo, setUserInfo] = useAtom(userInfoAtom);
+const defaultRef = { current: null };
+const userIdRefAtom = atom<MutableRefObject<string | null>>(defaultRef);
+const saveUrlRefAtom = atom<MutableRefObject<string | null>>(defaultRef);
+export const useUserContext = () => {
+    const userIdRefArr = useAtom(userIdRefAtom);
+    const saveUrlRefArr = useAtom(saveUrlRefAtom);
 
     return {
-        userInfo,
-        setUserInfo,
+        userIdRef: userIdRefArr[0],
+        saveUrlRef: saveUrlRefArr[0],
     };
 };
