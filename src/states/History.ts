@@ -5,7 +5,8 @@ import { HistoryItem } from "@/model";
 
 import { useCanvas } from "./Canvas";
 
-const historyAtom = atom<HistoryItem[]>([]);
+const initHistory: HistoryItem = { points: [], type: "PENCIL", width: 1, color: "white" };
+const historyAtom = atom<HistoryItem[]>([initHistory]);
 const currentHistoryIndexAtom = atom<number>(0);
 export const useHistory = () => {
     const [history, setHistory] = useAtom(historyAtom);
@@ -18,34 +19,19 @@ export const useHistory = () => {
             canvasContext.fillStyle = "white";
             canvasContext.fillRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
         }
-        setHistory([]);
+        setHistory([initHistory]);
         setCurrentHistoryIndex(0);
     }, [canvasContext, setHistory, setCurrentHistoryIndex]);
 
-    const isOldestHistory = currentHistoryIndex === history.length;
-    const isNewestHistory = currentHistoryIndex === 0;
-
-    const undoHistory = useCallback(() => {
-        setCurrentHistoryIndex((prev) => prev + 1);
-    }, [setCurrentHistoryIndex]); //NOTE: historyの構造上インデックスが増えるほど過去となる
-    const redoHistory = useCallback(() => {
-        setCurrentHistoryIndex((prev) => prev - 1);
-    }, [setCurrentHistoryIndex]);
-
-    const incrementHistory = useCallback(
-        (newHistoryItem: HistoryItem) => {
-            setHistory([newHistoryItem, ...history]);
-        },
-        [history, setHistory]
+    const isOldestHistory = useCallback(() => currentHistoryIndex === 0, [currentHistoryIndex]);
+    const isNewestHistory = useCallback(
+        () => currentHistoryIndex === history.length - 1 || history.length === 1,
+        [currentHistoryIndex, history]
     );
-
-    const trashUnnecessaryHistory = useCallback(() => {
-        setHistory(history.slice(currentHistoryIndex));
-    }, [history, setHistory, currentHistoryIndex]);
 
     const redrawHistory = useCallback(
         (index: number) => {
-            const toRedraw = history.slice(index);
+            const toRedraw = history.slice(0, index + 1);
             if (canvasContext) {
                 canvasContext.clearRect(
                     0,
@@ -61,7 +47,7 @@ export const useHistory = () => {
                     canvasContext.canvas.height
                 );
 
-                toRedraw.reverse().forEach((historyItem) => {
+                toRedraw.forEach((historyItem) => {
                     canvasContext.lineWidth = historyItem.width;
                     if (historyItem.type === "PENCIL") {
                         canvasContext.strokeStyle = historyItem.color;
@@ -81,6 +67,30 @@ export const useHistory = () => {
         },
         [history, canvasContext]
     );
+
+    const undoHistory = useCallback(() => {
+        const newIndex = currentHistoryIndex - 1;
+        setCurrentHistoryIndex(newIndex);
+        redrawHistory(newIndex);
+    }, [setCurrentHistoryIndex, redrawHistory, currentHistoryIndex]);
+
+    const redoHistory = useCallback(() => {
+        const newIndex = currentHistoryIndex + 1;
+        setCurrentHistoryIndex(newIndex);
+        redrawHistory(newIndex);
+    }, [setCurrentHistoryIndex, redrawHistory, currentHistoryIndex]);
+
+    const incrementHistory = useCallback(
+        (newHistoryItem: HistoryItem) => {
+            setCurrentHistoryIndex((prev) => prev + 1);
+            setHistory([...history, newHistoryItem]);
+        },
+        [history, setHistory, setCurrentHistoryIndex]
+    );
+
+    const trashUnnecessaryHistory = useCallback(() => {
+        setHistory(history.slice(0, currentHistoryIndex + 1));
+    }, [history, setHistory, currentHistoryIndex]);
 
     return {
         history,
