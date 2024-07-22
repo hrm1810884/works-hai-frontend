@@ -16,8 +16,12 @@ const nextConfig = {
         hostname: "placehold.jp",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        port: "",
+      },
     ],
-    domains: ["storage.googleapis.com"],
   },
 };
 

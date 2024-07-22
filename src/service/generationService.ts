@@ -1,14 +1,15 @@
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 
 import { requestGenerateDrawing } from "@/repository/generateDrawing";
-import { useUserInfo } from "@/states/User";
+import { DrawingContext } from "@/states/DrawingContext";
+import { guardUndef } from "@/utils";
 
 export const useGenerationService = () => {
-    const { userInfo } = useUserInfo();
+    const { userIdRef } = useContext(DrawingContext);
     const generateDrawing = useCallback(async () => {
-        const res = await requestGenerateDrawing(userInfo.userId);
+        const res = await requestGenerateDrawing(guardUndef(userIdRef.current));
         return res;
-    }, [userInfo]);
+    }, [userIdRef]);
 
     return { generateDrawing };
 };

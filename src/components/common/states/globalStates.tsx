@@ -2,7 +2,7 @@
 
 import React, { FC, useRef, useState } from "react";
 
-import { canvasContext, Brush, HistoryItem } from "@/model";
+import { Brush, canvasContext, HistoryItem } from "@/model";
 
 import { DrawingContext } from "@/states/DrawingContext";
 
@@ -12,6 +12,8 @@ type Props = {
 
 export const GlobalStateProvider: FC<Props> = ({ children }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const userIdRef = useRef<string | null>(null);
+    const saveUrlRef = useRef<string | null>(null);
     const [canvasContext, setCanvasContext] = useState<canvasContext>(null);
     const [brush, setBrush] = useState<Brush>({ type: "PENCIL", width: 3, color: "#000000" });
     const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -21,6 +23,8 @@ export const GlobalStateProvider: FC<Props> = ({ children }) => {
         <DrawingContext.Provider
             value={{
                 canvasRef,
+                userIdRef,
+                saveUrlRef,
                 canvasContext,
                 setCanvasContext,
                 brush,
