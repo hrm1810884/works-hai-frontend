@@ -2,15 +2,15 @@ import { useCallback, useContext } from "react";
 
 import { uploadHumanDrawing } from "@/repository";
 import { DrawingContext } from "@/states/DrawingContext";
-import { useUserInfo } from "@/states/User";
+import { guardUndef } from "@/utils";
 
 export const useUploadService = () => {
     const { canvasRef } = useContext(DrawingContext);
-    const { userInfo } = useUserInfo();
+    const { saveUrlRef } = useContext(DrawingContext);
     const uploadDrawing = useCallback(async () => {
-        const res = await uploadHumanDrawing(canvasRef, userInfo.urlToSave);
+        const res = await uploadHumanDrawing(canvasRef, guardUndef(saveUrlRef.current));
         return res;
-    }, [userInfo, canvasRef]);
+    }, [saveUrlRef, canvasRef]);
 
     return { uploadDrawing };
 };

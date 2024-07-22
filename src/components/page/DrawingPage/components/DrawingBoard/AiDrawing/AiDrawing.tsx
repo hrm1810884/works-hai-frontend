@@ -5,7 +5,7 @@ import { AiPosition } from "@/model";
 
 import { guardUndef } from "@/utils";
 
-import { imageContainerStyle, noImageStyle } from "./AiDrawing.css";
+import { imageContainerStyle } from "./AiDrawing.css";
 
 export type props = {
     src: string | undefined;
@@ -18,11 +18,12 @@ export const AiDrawing: FC<props> = ({ src: url, pos }) => {
 
     return (
         <div className={imageContainerStyle}>
-            {isDrawn ? (
-                <Image src={url!} alt={`AI drawing at ${pos}`} fill sizes="100%" />
-            ) : (
-                <div className={noImageStyle}></div>
-            )}
+            <Image
+                src={isDrawn ? url : "/no-image.png"}
+                alt={`AI drawing at ${pos}`}
+                fill
+                sizes="100%"
+            />
         </div>
     );
 };

@@ -1,16 +1,17 @@
-import { useEffect } from "react";
+import { useContext } from "react";
 
 import { useInitRepository } from "@/repository";
-import { useUserInfo } from "@/states/User";
+import { DrawingContext } from "@/states/DrawingContext";
 
 export const useInitService = () => {
     const { userInfo, aiSrc, refetch } = useInitRepository();
-    const { setUserInfo } = useUserInfo();
+    const { userIdRef, saveUrlRef } = useContext(DrawingContext);
 
-    useEffect(() => {
-        console.log(userInfo);
-        setUserInfo(userInfo);
-    }, []);
+    console.log(userInfo);
+    if (userIdRef && saveUrlRef) {
+        userIdRef.current = userInfo.userId;
+        saveUrlRef.current = userInfo.urlToSave;
+    }
 
     return {
         aiSrc,
