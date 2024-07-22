@@ -22,7 +22,7 @@ export const DrawingPage = () => {
     } = useModal();
 
     useEffect(() => {
-        redrawHistory(currentHistoryIndex);
+        console.log(currentHistoryIndex);
     }, [currentHistoryIndex, redrawHistory]);
 
     return (

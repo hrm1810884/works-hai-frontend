@@ -58,7 +58,7 @@ export const useDrawingCanvas = () => {
 
         if (canvasContext && canvasRef?.current) {
             // Reset history
-            if (!isNewestHistory) {
+            if (!isNewestHistory()) {
                 initializeHistory();
             }
 
@@ -123,7 +123,7 @@ export const useDrawingCanvas = () => {
             let rect = (e.target as HTMLElement).getBoundingClientRect();
             if (e.touches.length === 1) {
                 // Reset redo option
-                if (!isNewestHistory) {
+                if (!isNewestHistory()) {
                     initializeHistory();
                 }
 

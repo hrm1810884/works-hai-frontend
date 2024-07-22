@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { AiOutlineClear } from "react-icons/ai";
-import { BiPencil, BiEraser, BiRedo, BiUndo } from "react-icons/bi";
+import { BiEraser, BiPencil, BiRedo, BiUndo } from "react-icons/bi";
 import { BsBorderWidth } from "react-icons/bs";
 
 import { useBrush } from "@/states/Brush";
 import { useHistory } from "@/states/History";
 
-import { ToolButton, ColorPicker, LineWidthMenu } from "../ToolButton";
+import { ColorPicker, LineWidthMenu, ToolButton } from "../ToolButton";
 
 import { colorPaletteIcon, toolBarStyle, toolButtonsContainerStyle } from "./ToolBar.css";
 
@@ -33,14 +33,14 @@ export const ToolBar: FC<props> = () => {
                 <ToolButton
                     onClick={undoHistory}
                     icon={<BiUndo size={ICON_SIZE}></BiUndo>}
-                    isDisabled={isOldestHistory}
+                    isDisabled={isOldestHistory()}
                 ></ToolButton>
 
                 {/* Redo history */}
                 <ToolButton
                     onClick={redoHistory}
                     icon={<BiRedo size={ICON_SIZE}></BiRedo>}
-                    isDisabled={isNewestHistory}
+                    isDisabled={isNewestHistory()}
                 ></ToolButton>
 
                 {/* Clear canvas */}
