@@ -189,6 +189,7 @@ export const useDrawingCanvas = () => {
 
     return {
         canvasRef,
+        canvasContext,
         updateCanvasContext,
         handlers: {
             handleMouseDown,

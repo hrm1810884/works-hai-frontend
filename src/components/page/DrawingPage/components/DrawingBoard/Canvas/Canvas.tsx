@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 
-import { useCanvas } from "@/states/Canvas";
-
 import { useDrawingCanvas, usePaintingState } from "./hooks";
 
 import { canvasStyle } from "./Canvas.css";
@@ -9,6 +7,7 @@ import { canvasStyle } from "./Canvas.css";
 export const Canvas = () => {
     const {
         canvasRef,
+        canvasContext,
         updateCanvasContext,
         handlers: {
             handleMouseDown,
@@ -19,8 +18,6 @@ export const Canvas = () => {
             handleTouchEnd,
         },
     } = useDrawingCanvas();
-
-    const { canvasContext } = useCanvas();
 
     const {
         mutators: { resetPainting },
