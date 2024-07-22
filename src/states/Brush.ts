@@ -1,11 +1,12 @@
-import { useCallback, useContext } from "react";
+import { atom, useAtom } from "jotai";
+import { useCallback } from "react";
 
-import { BrushType, lineWidth } from "@/model";
+import { Brush, BrushType, lineWidth } from "@/model";
 
-import { DrawingContext } from "./DrawingContext";
-
+const defaultBrush: Brush = { type: "PENCIL", width: 3, color: "#000000" };
+const brushAtom = atom<Brush>(defaultBrush);
 export const useBrush = () => {
-    const { brush, setBrush } = useContext(DrawingContext);
+    const [brush, setBrush] = useAtom(brushAtom);
 
     const setBrushColor = useCallback(
         (color: string) => {

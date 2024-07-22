@@ -1,8 +1,9 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
 import { CanvasPoint } from "@/model";
 
-import { DrawingContext } from "@/states/DrawingContext";
+import { useBrush } from "@/states/Brush";
+import { useCanvas } from "@/states/Canvas";
 import { useHistory } from "@/states/History";
 
 export const usePaintingState = () => {
@@ -32,10 +33,11 @@ export const usePaintingState = () => {
     };
 };
 
-export const useCanvas = () => {
+export const useDrawingCanvas = () => {
     const [points, setPoints] = useState(Array<CanvasPoint>());
 
-    const { canvasRef, brush, canvasContext, setCanvasContext } = useContext(DrawingContext);
+    const { canvasRef, canvasContext, setCanvasContext } = useCanvas();
+    const { brush } = useBrush();
 
     const {
         flag: { isNewestHistory },

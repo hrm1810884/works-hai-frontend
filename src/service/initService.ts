@@ -1,11 +1,9 @@
-import { useContext } from "react";
-
 import { useInitRepository } from "@/repository";
-import { DrawingContext } from "@/states/DrawingContext";
+import { useUserContext } from "@/states/User";
 
 export const useInitService = () => {
     const { userInfo, aiSrc, refetch } = useInitRepository();
-    const { userIdRef, saveUrlRef } = useContext(DrawingContext);
+    const { userIdRef, saveUrlRef } = useUserContext();
 
     console.log(userInfo);
     if (userIdRef && saveUrlRef) {

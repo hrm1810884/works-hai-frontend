@@ -1,11 +1,11 @@
-import { useCallback, useContext } from "react";
+import { useCallback } from "react";
 
 import { requestGenerateDrawing } from "@/repository/generateDrawing";
-import { DrawingContext } from "@/states/DrawingContext";
+import { useUserContext } from "@/states/User";
 import { guardUndef } from "@/utils";
 
 export const useGenerationService = () => {
-    const { userIdRef } = useContext(DrawingContext);
+    const { userIdRef } = useUserContext();
     const generateDrawing = useCallback(async () => {
         const res = await requestGenerateDrawing(guardUndef(userIdRef.current));
         return res;

@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
-import { DrawingContext } from "@/states/DrawingContext";
+import { useCanvas } from "@/states/Canvas";
 
-import { useCanvas, usePaintingState } from "./hooks";
+import { useDrawingCanvas, usePaintingState } from "./hooks";
 
 import { canvasStyle } from "./Canvas.css";
 
@@ -18,9 +18,9 @@ export const Canvas = () => {
             handleMobileDraw,
             handleTouchEnd,
         },
-    } = useCanvas();
+    } = useDrawingCanvas();
 
-    const { canvasContext } = useContext(DrawingContext);
+    const { canvasContext } = useCanvas();
 
     const {
         mutators: { resetPainting },
