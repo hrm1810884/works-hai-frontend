@@ -6,12 +6,14 @@ import { useUserContext } from "@/states/User";
 import { guardUndef } from "@/utils";
 
 export const useUploadService = () => {
-    const { canvasRef } = useCanvas();
+    const { getDrawingLink } = useCanvas();
     const { saveUrlRef } = useUserContext();
+
     const uploadDrawing = useCallback(async () => {
-        const res = await uploadHumanDrawing(canvasRef, guardUndef(saveUrlRef.current));
+        const drawingUrl = getDrawingLink();
+        const res = await uploadHumanDrawing(drawingUrl, guardUndef(saveUrlRef.current));
         return res;
-    }, [saveUrlRef, canvasRef]);
+    }, [saveUrlRef, getDrawingLink]);
 
     return { uploadDrawing };
 };

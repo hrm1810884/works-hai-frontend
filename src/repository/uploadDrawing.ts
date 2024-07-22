@@ -1,16 +1,8 @@
-import React from "react";
-
-import { guardUndef } from "@/utils";
 import { UsecaseMethod, usecaseResultError, usecaseResultOk } from "@/utils/usecase";
 
-export const uploadHumanDrawing = (async (
-    canvasRef: React.RefObject<HTMLCanvasElement> | null,
-    presignedUrl: string
-) => {
+export const uploadHumanDrawing = (async (drawingUrl: string, presignedUrl: string) => {
     try {
-        const currentCanvas = guardUndef(canvasRef).current;
-        const humanDrawing = guardUndef(currentCanvas).toDataURL("image/png");
-        const humanDrawingBlob = await (await fetch(humanDrawing!)).blob();
+        const humanDrawingBlob = await (await fetch(drawingUrl)).blob();
 
         const response = await fetch(presignedUrl, {
             method: "PUT",
