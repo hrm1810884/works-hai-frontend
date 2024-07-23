@@ -40,8 +40,7 @@ export const useDrawingCanvas = () => {
     const { brush } = useBrush();
 
     const {
-        flag: { isNewestHistory },
-        mutator: { initializeHistory, incrementHistory },
+        mutator: { incrementHistory },
     } = useHistory();
 
     const {
@@ -57,11 +56,6 @@ export const useDrawingCanvas = () => {
         e.preventDefault();
 
         if (canvasContext && canvasRef?.current) {
-            // Reset history
-            if (!isNewestHistory()) {
-                initializeHistory();
-            }
-
             let rect = (e.target as HTMLElement).getBoundingClientRect();
             let x = e.clientX - rect.left;
             let y = e.clientY - rect.top;
@@ -122,11 +116,6 @@ export const useDrawingCanvas = () => {
         if (canvasContext && canvasRef?.current) {
             let rect = (e.target as HTMLElement).getBoundingClientRect();
             if (e.touches.length === 1) {
-                // Reset redo option
-                if (!isNewestHistory()) {
-                    initializeHistory();
-                }
-
                 e.preventDefault();
                 let x = e.touches[0].clientX - rect.left;
                 let y = e.touches[0].clientY - rect.top;
