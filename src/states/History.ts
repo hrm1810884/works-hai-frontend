@@ -82,10 +82,11 @@ export const useHistory = () => {
 
     const incrementHistory = useCallback(
         (newHistoryItem: HistoryItem) => {
+            const prevHistory = history.slice(0, currentHistoryIndex + 1);
+            setHistory([...prevHistory, newHistoryItem]);
             setCurrentHistoryIndex((prev) => prev + 1);
-            setHistory([...history, newHistoryItem]);
         },
-        [history, setHistory, setCurrentHistoryIndex]
+        [history, setHistory, currentHistoryIndex, setCurrentHistoryIndex]
     );
 
     const trashUnnecessaryHistory = useCallback(() => {
