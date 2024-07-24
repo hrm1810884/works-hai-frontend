@@ -12,6 +12,7 @@ export const useBrush = () => {
         (color: string) => {
             setBrush((prev) => ({
                 ...prev,
+                type: "PENCIL",
                 color: color,
             }));
         },
