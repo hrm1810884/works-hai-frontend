@@ -1,14 +1,14 @@
 import { style } from "@vanilla-extract/css";
 
-export const popoverDropdownStyle = style({
-    width: "auto",
-    height: "auto",
-    padding: "0",
-    backgroundColor: "transparent",
-    border: "none",
+export const iconStyle = style({
+    borderRadius: "10px",
 });
 
 export const colorPaletteStyle = style({
-    width: "15rem",
-    height: "15rem",
+    width: "100%",
+    height: "100%",
+    border: "none",
+    verticalAlign: "middle",
+    backgroundColor: "transparent",
+    opacity: 0,
 });
