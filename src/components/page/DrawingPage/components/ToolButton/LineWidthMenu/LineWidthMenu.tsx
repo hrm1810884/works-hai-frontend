@@ -1,13 +1,13 @@
 import { ActionIcon, Menu } from "@mantine/core";
 import React, { FC } from "react";
 
-import { lineWidthList } from "@/model";
+import { lineWidthData } from "@/model";
 
 import { useBrush } from "@/states/Brush";
 
 import { vars } from "@/styles";
 
-import { menuItemStyle, lineWidthBar } from "./LineWidthMenu.css";
+import { lineWidthBar, menuItemStyle } from "./LineWidthMenu.css";
 
 type props = { icon: React.ReactElement };
 
@@ -25,7 +25,7 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
             </Menu.Target>
             <Menu.Dropdown>
                 <Menu.Label>Line Width</Menu.Label>
-                {lineWidthList.map((val, index) => (
+                {lineWidthData[brush.type].map((val, index) => (
                     <Menu.Item
                         id={`line-width-${index}`}
                         leftSection={`${val} px`}
