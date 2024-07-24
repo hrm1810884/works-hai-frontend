@@ -8,7 +8,7 @@ import { useHistory } from "@/states/History";
 
 import { ColorPicker, LineWidthMenu, ToolButton } from "../ToolButton";
 
-import { colorPaletteIcon, toolBarStyle, toolButtonsContainerStyle } from "./ToolBar.css";
+import { toolBarStyle, toolButtonsContainerStyle } from "./ToolBar.css";
 
 type props = {};
 
@@ -74,18 +74,7 @@ export const ToolBar: FC<props> = () => {
                 <LineWidthMenu icon={<BsBorderWidth size={ICON_SIZE} />}></LineWidthMenu>
 
                 {/* Color */}
-                <ColorPicker
-                    icon={
-                        <div
-                            className={colorPaletteIcon}
-                            style={{
-                                backgroundColor: brush.color,
-                                width: ICON_SIZE,
-                                height: ICON_SIZE,
-                            }}
-                        ></div>
-                    }
-                ></ColorPicker>
+                <ColorPicker width={ICON_SIZE} height={ICON_SIZE}></ColorPicker>
             </div>
         </div>
     );
