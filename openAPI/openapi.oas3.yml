@@ -107,11 +107,11 @@ paths:
                                             "id": "hogehoge",
                                             "urls":
                                                 {
-                                                    "humanDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
-                                                    "topDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
-                                                    "rightDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
-                                                    "bottomDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
-                                                    "leftDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
+                                                    "humanDrawing": "https://placehold.jp/512x512.png",
+                                                    "topDrawing": "https://placehold.jp/512x512.png",
+                                                    "rightDrawing": "https://placehold.jp/512x512.png",
+                                                    "bottomDrawing": "https://placehold.jp/512x512.png",
+                                                    "leftDrawing": "https://placehold.jp/512x512.png",
                                                 },
                                         },
                                 }
@@ -185,14 +185,14 @@ paths:
                                             x: 0,
                                             y: 0
                                         },
-                                        url: "https://storage.googleapis.com/..."
+                                        url: "https://placehold.jp/512x512.png"
                                     },
                                     {
                                         position: {
                                             x: 0,
                                             y: -1
                                         },
-                                        url: "https://storage.googleapis.com/..."
+                                        url: "https://placehold.jp/512x512.png"
                                     }
                                 
                                 ]
