@@ -1,15 +1,19 @@
-import { Position } from "@/model";
+import { ViewerDrawingData } from "@/model";
 
 import { useViewerRepository } from "@/repository/getViewerData";
 
-export const useViewerData = (position: Position) => {
-    const {
-        data: { url, position: resPosition },
-        refetch: refetchByPos,
-    } = useViewerRepository(position);
+export const useViewerData = () => {
+    const { data: resData, refetch } = useViewerRepository();
+
+    const dataArr: ViewerDrawingData[] = resData.map((data) => {
+        return {
+            position: data.position,
+            url: data.url,
+        };
+    });
 
     return {
-        data: { url, position: resPosition },
-        refetchByPos,
+        data: dataArr,
+        refetch,
     };
 };

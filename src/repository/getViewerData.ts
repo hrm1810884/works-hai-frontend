@@ -1,37 +1,23 @@
 import { getGetViewQueryKey, useGetViewSuspense } from "@/generated/api";
-import { GetViewBody } from "@/generated/model";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 
-import { Position } from "@/model";
-
-export const useViewerRepository = (position: Position) => {
+export const useViewerRepository = () => {
     const queryClient = useQueryClient();
-
-    const req: GetViewBody = { position: { x: position.x, y: position.y } };
 
     const {
         data: {
             data: { result: viewerData },
         },
-    } = useGetViewSuspense(req);
+    } = useGetViewSuspense();
 
     const refetch = useCallback(async () => {
-        const refetchReq: GetViewBody = { position: { x: position.x, y: position.y } };
-        queryClient.invalidateQueries({ queryKey: getGetViewQueryKey(refetchReq) });
-    }, [queryClient, position]);
-
-    const url = viewerData.url;
-    const posX = viewerData.position.x;
-    const posY = viewerData.position.y;
-    const resPosition: Position = { x: posX, y: posY };
+        queryClient.invalidateQueries({ queryKey: getGetViewQueryKey() });
+    }, [queryClient]);
 
     return {
-        data: {
-            url,
-            position: resPosition,
-        },
+        data: viewerData,
         refetch,
     };
 };
