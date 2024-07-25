@@ -1,2 +1,2 @@
 export { DrawingPage } from "./DrawingPage";
-export { ViewPage } from "./ViewPage";
+export { ViewPage } from "./ViewerPage";
