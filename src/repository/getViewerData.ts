@@ -6,7 +6,7 @@ import { useCallback } from "react";
 
 import { Position } from "@/model";
 
-export const useViwerRepository = (position: Position) => {
+export const useViewerRepository = (position: Position) => {
     const queryClient = useQueryClient();
 
     const req: GetViewBody = { position: { x: position.x, y: position.y } };
