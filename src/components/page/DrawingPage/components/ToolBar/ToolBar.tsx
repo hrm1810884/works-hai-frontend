@@ -3,6 +3,7 @@ import { AiOutlineClear } from "react-icons/ai";
 import { BiEraser, BiPencil, BiRedo, BiUndo } from "react-icons/bi";
 import { BsBorderWidth } from "react-icons/bs";
 
+import { ICON_SIZE } from "@/model/consts";
 import { useBrush } from "@/states/Brush";
 import { useHistory } from "@/states/History";
 
@@ -22,8 +23,6 @@ export const ToolBar: FC<props> = () => {
         brush,
         mutator: { setBrushType },
     } = useBrush();
-
-    const ICON_SIZE = "2rem";
 
     return (
         <div className={toolBarStyle}>
