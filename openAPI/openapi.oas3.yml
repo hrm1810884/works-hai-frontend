@@ -107,11 +107,11 @@ paths:
                                             "id": "hogehoge",
                                             "urls":
                                                 {
-                                                    "humanDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
-                                                    "topDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
-                                                    "rightDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
-                                                    "bottomDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
-                                                    "leftDrawing": "https://example-cloud-storage.com/user_drawing.png?signature=...",
+                                                    "humanDrawing": "https://placehold.jp/512x512.png",
+                                                    "topDrawing": "https://placehold.jp/512x512.png",
+                                                    "rightDrawing": "https://placehold.jp/512x512.png",
+                                                    "bottomDrawing": "https://placehold.jp/512x512.png",
+                                                    "leftDrawing": "https://placehold.jp/512x512.png",
                                                 },
                                         },
                                 }
@@ -138,6 +138,98 @@ paths:
                                         type: string
                                         description: "A detailed error message."
 
+    /view:
+        get:
+            summary: Drawing Viewer Page
+            description: Viewer Page for human AI drawings. 
+            responses:
+                "200":
+                    description: Drawings were successfully fetched.
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    result:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                position:
+                                                    type: object
+                                                    properties:
+                                                        x:
+                                                            type: integer
+                                                            description: target of x position
+                                                            example: 0
+                                                        y:
+                                                            type: integer
+                                                            description: target of y position
+                                                            example: 0
+                                                    required:
+                                                        - x
+                                                        - y
+                                                url:
+                                                    type: string
+                                                    description: "Presigned URL for target position."
+                                            required:
+                                                - position
+                                                - url
+                                required:
+                                    - result
+
+                            example:
+                                result: [
+                                    {
+                                        position: {
+                                            x: 0,
+                                            y: 0
+                                        },
+                                        url: "https://placehold.jp/512x512.png"
+                                    },
+                                    {
+                                        position: {
+                                            x: 0,
+                                            y: -1
+                                        },
+                                        url: "https://placehold.jp/512x512.png"
+                                    }
+                                
+                                ]
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                                        example: "Invalid input data"
+                "404":
+                    description: Not Found - No drawing found for the specified position.
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                                        description: "A detailed error message."
+                                example:
+                                    error: "No drawing found for the specified position."
+                "500":
+                    description: Internal Server Error - The server encountered an unexpected condition that prevented it from fulfilling the request.
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                                        description: "A detailed error message."
 components:
     securitySchemes:
         ApiKeyAuth:
