@@ -141,7 +141,7 @@ paths:
     /view:
         get:
             summary: Drawing Viewer Page
-            description: Viewer Page for human AI drawings. 
+            description: Viewer Page for human AI drawings.
             responses:
                 "200":
                     description: Drawings were successfully fetched.
@@ -179,23 +179,41 @@ paths:
                                     - result
 
                             example:
-                                result: [
-                                    {
-                                        position: {
-                                            x: 0,
-                                            y: 0
+                                result:
+                                    [
+                                        {
+                                            position: { x: 0, y: 0 },
+                                            url: "https://placehold.jp/512x512.png",
                                         },
-                                        url: "https://placehold.jp/512x512.png"
-                                    },
-                                    {
-                                        position: {
-                                            x: 0,
-                                            y: -1
+                                        {
+                                            position: { x: 0, y: -1 },
+                                            url: "https://placehold.jp/512x512.png",
                                         },
-                                        url: "https://placehold.jp/512x512.png"
-                                    }
-                                
-                                ]
+                                        {
+                                            position: { x: 1, y: -1 },
+                                            url: "https://placehold.jp/512x512.png",
+                                        },
+                                        {
+                                            position: { x: 1, y: 0 },
+                                            url: "https://placehold.jp/512x512.png",
+                                        },
+                                        {
+                                            position: { x: 1, y: 1 },
+                                            url: "https://placehold.jp/512x512.png",
+                                        },
+                                        {
+                                            position: { x: 0, y: 1 },
+                                            url: "https://placehold.jp/512x512.png",
+                                        },
+                                        {
+                                            position: { x: -1, y: 1 },
+                                            url: "https://placehold.jp/512x512.png",
+                                        },
+                                        {
+                                            position: { x: -1, y: 0 },
+                                            url: "https://placehold.jp/512x512.png",
+                                        },
+                                    ]
                 "400":
                     description: Bad Request
                     content:

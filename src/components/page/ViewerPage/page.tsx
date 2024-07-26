@@ -1,26 +1,23 @@
 "use client";
 
-import { VIWER_CARD_SIZE } from "@/model/consts";
-
 import { useViewer } from "./hooks";
 
 import { ViewerCard } from "./components/ViewerCard/ViewerCard";
 
+import { ViewerGrid } from "./components";
+
+import { wrapper } from "./page.css";
+
 export const ViewerPage = () => {
-    const { data, grid } = useViewer();
+    const { data } = useViewer();
 
     return (
-        <div
-            style={{
-                display: "grid",
-                position: "relative",
-                gridTemplateColumns: `repeat(${grid.cols}, ${VIWER_CARD_SIZE})`,
-                gridTemplateRows: `repeat(${grid.rows}, ${VIWER_CARD_SIZE})`,
-            }}
-        >
-            {data.map((img, index) => (
-                <ViewerCard key={index} x={img.position.x} y={img.position.y} src={img.url} />
-            ))}
+        <div className={wrapper}>
+            <ViewerGrid>
+                {data.map((img, index) => (
+                    <ViewerCard key={index} x={img.position.x} y={img.position.y} src={img.url} />
+                ))}
+            </ViewerGrid>
         </div>
     );
 };
