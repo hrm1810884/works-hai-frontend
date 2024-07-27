@@ -20,7 +20,7 @@ export const useViewer = () => {
             cols: maxX - minX + 1,
             rows: maxY - minY + 1,
             offsetX: minX,
-            offsetY: minY,
+            offsetY: -maxY,
         };
     }, []);
 

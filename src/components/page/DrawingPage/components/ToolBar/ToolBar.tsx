@@ -31,22 +31,19 @@ export const ToolBar: FC<props> = () => {
                 {/* Undo history */}
                 <ToolButton
                     onClick={undoHistory}
-                    icon={<BiUndo size={ICON_SIZE}></BiUndo>}
+                    icon={BiUndo}
                     isDisabled={isOldestHistory()}
                 ></ToolButton>
 
                 {/* Redo history */}
                 <ToolButton
                     onClick={redoHistory}
-                    icon={<BiRedo size={ICON_SIZE}></BiRedo>}
+                    icon={BiRedo}
                     isDisabled={isNewestHistory()}
                 ></ToolButton>
 
                 {/* Clear canvas */}
-                <ToolButton
-                    onClick={initializeHistory}
-                    icon={<AiOutlineClear size={ICON_SIZE}></AiOutlineClear>}
-                ></ToolButton>
+                <ToolButton onClick={initializeHistory} icon={AiOutlineClear}></ToolButton>
             </div>
 
             {/* Tools */}
@@ -56,7 +53,7 @@ export const ToolBar: FC<props> = () => {
                     onClick={() => {
                         setBrushType("PENCIL");
                     }}
-                    icon={<BiPencil size={ICON_SIZE}></BiPencil>}
+                    icon={BiPencil}
                     isSelected={brush.type === "PENCIL"}
                 ></ToolButton>
 
@@ -65,12 +62,12 @@ export const ToolBar: FC<props> = () => {
                     onClick={() => {
                         setBrushType("ERASER");
                     }}
-                    icon={<BiEraser size={ICON_SIZE}></BiEraser>}
+                    icon={BiEraser}
                     isSelected={brush.type === "ERASER"}
                 ></ToolButton>
 
                 {/* Line width */}
-                <LineWidthMenu icon={<BsBorderWidth size={ICON_SIZE} />}></LineWidthMenu>
+                <LineWidthMenu icon={BsBorderWidth}></LineWidthMenu>
 
                 {/* Color */}
                 <ColorPicker width={ICON_SIZE} height={ICON_SIZE}></ColorPicker>

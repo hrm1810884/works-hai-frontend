@@ -1,15 +1,18 @@
-import { ActionIcon, Menu } from "@mantine/core";
-import React, { FC } from "react";
+import { Menu } from "@mantine/core";
+import { FC } from "react";
+import { IconType } from "react-icons/lib";
 
 import { lineWidthData } from "@/model";
 
 import { useBrush } from "@/states/Brush";
 
+import { IconButton } from "@/components/common/ui";
+
 import { vars } from "@/styles";
 
 import { lineWidthBar, menuItemStyle } from "./LineWidthMenu.css";
 
-type props = { icon: React.ReactElement };
+type props = { icon: IconType };
 
 export const LineWidthMenu: FC<props> = ({ icon }) => {
     const {
@@ -19,9 +22,7 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
     return (
         <Menu shadow="md" width={200} offset={30}>
             <Menu.Target>
-                <ActionIcon variant="transparent" color={vars.colors.white}>
-                    {icon}
-                </ActionIcon>
+                <IconButton variant="transparent" color={vars.colors.white} icon={icon} />
             </Menu.Target>
             <Menu.Dropdown>
                 <Menu.Label>Line Width</Menu.Label>

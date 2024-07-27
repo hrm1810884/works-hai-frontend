@@ -4561,6 +4561,7 @@ __metadata:
     react-error-boundary: ^4.0.13
     react-icons: ^5.2.1
     react-toastify: ^10.0.5
+    react-zoom-pan-pinch: ^3.6.1
     stylelint: ^16.6.0
     stylelint-config-standard: ^36.0.0
     ts-pattern: ^5.1.1
@@ -6946,6 +6947,16 @@ __metadata:
     react: ">=18"
     react-dom: ">=18"
   checksum: 982d33918c63e99464623a1b3b023ab5fe18fe341143cb0cb04287e37fd0611c560d9ef451e151ac8ade15a1cda09df09d4c442b3db582965d71aaf42d49b230
+  languageName: node
+  linkType: hard
+
+"react-zoom-pan-pinch@npm:^3.6.1":
+  version: 3.6.1
+  resolution: "react-zoom-pan-pinch@npm:3.6.1"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: b75a12438ed8b342cdcc98d6b1d158e25cac1aa8c11523a7f97959ddc16a70d40b7ff71a259d733c6cc58c1284bd150723b78c1f987a1601316af39e570fee5d
   languageName: node
   linkType: hard
 
