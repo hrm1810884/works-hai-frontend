@@ -1,4 +1,7 @@
 "use client";
+import { Button } from "@mantine/core";
+import { FiMinus, FiPlus } from "react-icons/fi";
+import { SlReload } from "react-icons/sl";
 import { TransformComponent, TransformWrapper, useControls } from "react-zoom-pan-pinch";
 
 import { useViewer } from "./hooks";
@@ -14,9 +17,15 @@ export const ViewerPage = () => {
         const { zoomIn, zoomOut, resetTransform } = useControls();
         return (
             <div className={controlWrapper}>
-                <button onClick={() => zoomIn()}>Zoom In</button>
-                <button onClick={() => zoomOut()}>Zoom Out</button>
-                <button onClick={() => resetTransform()}>Reset</button>
+                <Button onClick={() => zoomIn()} variant="outline">
+                    <FiPlus />
+                </Button>
+                <Button onClick={() => zoomOut()} variant="outline">
+                    <FiMinus />
+                </Button>
+                <Button onClick={() => resetTransform()} variant="outline">
+                    <SlReload />
+                </Button>
             </div>
         );
     };
