@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { VIWER_CARD_SIZE } from "@/model/consts";
+import { VIEWER_CARD_SIZE } from "@/model/";
 
 import { useViewer } from "../../hooks";
 
@@ -17,8 +17,8 @@ export const ViewerGrid: FC<props> = ({ children }) => {
         <div
             className={gridStyle}
             style={{
-                gridTemplateColumns: `repeat(${grid.cols}, ${VIWER_CARD_SIZE})`,
-                gridTemplateRows: `repeat(${grid.rows}, ${VIWER_CARD_SIZE})`,
+                gridTemplateColumns: `repeat(${grid.cols}, ${VIEWER_CARD_SIZE})`,
+                gridTemplateRows: `repeat(${grid.rows}, ${VIEWER_CARD_SIZE})`,
             }}
         >
             {children}
