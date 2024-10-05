@@ -4,8 +4,8 @@ import { vars } from "@/styles";
 
 export const imageContainerStyle = style({
     position: "relative",
-    width: "60vmin",
-    height: "60vmin",
+    width: "80vmin",
+    height: "80vmin",
 });
 
 export const noImageStyle = style({

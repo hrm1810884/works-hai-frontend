@@ -1,17 +1,18 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "@/styles";
+import { vars as varsTheme } from "@/styles/theme";
 
 export const pageWrapperStyle = style({
     position: "relative",
     width: "100vw",
-    height: "99vh",
-    maxHeight: "99vh",
+    height: "100vh",
+    maxHeight: "100vh",
     overflow: "hidden",
-    backgroundColor: vars.colors.gray[1],
+    backgroundColor: vars.colors.dark[9], // .gray[1],
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-start",
+    justifyContent: "space-around",
     alignItems: "center",
 });
 
@@ -19,12 +20,27 @@ export const drawingWrapperStyle = style({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
+    // height: "70%",
+    backgroundColor: vars.colors.gray[1],
 });
 
 export const generationButtonWrapperStyle = style({
+    display: "flex", 
+    position: "relative", 
+    width: "100%", 
+    // position: "absolute",
+    // left: "50%",
+    // // top: "25%", 
+    // bottom: vars.spacing.lg,
+    // transform: "translateX(-50%)",
+});
+
+export const BottomAreaWrapperStyle = style({
     position: "absolute",
     left: "50%",
-    bottom: vars.spacing.lg,
+    width: "100vmin", 
+    height: "10vmin", 
+    bottom: 0,
     transform: "translateX(-50%)",
+    backgroundColor: varsTheme.colors.dark[9]
 });

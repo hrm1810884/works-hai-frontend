@@ -36,7 +36,7 @@ export const usePaintingState = () => {
 export const useDrawingCanvas = () => {
     const [points, setPoints] = useState(Array<CanvasPoint>());
 
-    const { canvasRef, canvasContext, setCanvasContext } = useCanvas();
+    const { canvasRef, canvasContext, setCanvasContext, calculateWhitePixelsProportion } = useCanvas();
     const { brush } = useBrush();
 
     const {
@@ -87,6 +87,8 @@ export const useDrawingCanvas = () => {
             canvasContext.stroke();
             canvasContext.beginPath();
         }
+
+        calculateWhitePixelsProportion();
     };
 
     const handleDraw = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
@@ -174,6 +176,8 @@ export const useDrawingCanvas = () => {
             canvasContext.stroke();
             canvasContext.beginPath();
         }
+
+        calculateWhitePixelsProportion();
     };
 
     return {
