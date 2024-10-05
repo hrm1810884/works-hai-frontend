@@ -4,10 +4,10 @@ import { recipe } from "@vanilla-extract/recipes";
 export const drawingBoardContainerStyle = style({
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "center", // "center",
     alignItems: "center",
-    maxHeight: "80vmin",
-    maxWidth: "80vmin",
+    maxHeight: "100vmin",
+    maxWidth: "100vmin",
     overflow: "hidden",
 });
 

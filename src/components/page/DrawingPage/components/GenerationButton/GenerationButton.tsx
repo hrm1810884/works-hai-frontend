@@ -6,11 +6,12 @@ import { vars } from "@/styles";
 
 import { sendButtonStyle } from "./GenerationButton.css";
 
-type props = {
+type Props = {
     text: string;
     onClick: () => void;
 };
-export const GenerationButton: FC<props> = ({ text, onClick: handleClick }) => {
+export const GenerationButton: FC<Props> = (props) => {
+    const { text, onClick: handleClick } = props;
     return (
         <ActionIcon
             type="submit"

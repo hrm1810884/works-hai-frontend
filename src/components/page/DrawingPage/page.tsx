@@ -6,9 +6,9 @@ import { useModal } from "@/states/Modal";
 
 import { GenerationButton } from "./components/GenerationButton";
 
-import { DrawingBoard, GenerationModal, ToolBar } from "./components";
+import { DrawingBoard, GenerationModal, ToolBar, BottomToolBar } from "./components";
 
-import { drawingWrapperStyle, generationButtonWrapperStyle, pageWrapperStyle } from "./page.css";
+import { drawingWrapperStyle, generationButtonWrapperStyle, pageWrapperStyle, BottomAreaWrapperStyle } from "./page.css";
 
 export const DrawingPage = () => {
     const {
@@ -33,9 +33,7 @@ export const DrawingPage = () => {
                 <div className={drawingWrapperStyle}>
                     <DrawingBoard />
                 </div>
-                <div className={generationButtonWrapperStyle}>
-                    <GenerationButton text="完了" onClick={openModal} />
-                </div>
+                <BottomToolBar onClick={openModal}/>
             </div>
         </>
     );
