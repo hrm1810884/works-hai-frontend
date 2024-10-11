@@ -74,10 +74,12 @@ export const useDrawingCanvas = () => {
         let y = e.clientY - rect.top;
 
         incrementHistory({
-            type: brush.type,
-            color: brush.color,
-            width: brush.width,
             points: [...points, { x: x, y: y }],
+            brush: {
+                type: brush.type,
+                color: brush.color,
+                width: brush.width,
+            },
         });
 
         resetPainting();
@@ -161,10 +163,12 @@ export const useDrawingCanvas = () => {
         e.preventDefault();
 
         incrementHistory({
-            type: brush.type,
-            color: brush.color,
-            width: brush.width,
             points: [...points],
+            brush: {
+                type: brush.type,
+                color: brush.color,
+                width: brush.width,
+            },
         });
 
         resetPainting();
