@@ -1,20 +1,25 @@
 import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 
-import { Brush, BrushType, lineWidth, lineWidthData } from "@/model";
+import { Brush, BrushType, LineWidth, lineWidthData } from "@/model";
 
-const defaultBrush: Brush = { type: "PENCIL", width: 3, color: "#000000" };
-const brushAtom = atom<Brush>(defaultBrush);
+const defaultBrush: Brush<"PENCIL"> = { type: "PENCIL", width: 3, color: "#000000" };
+const brushAtom = atom<Brush<BrushType>>(defaultBrush);
 export const useBrush = () => {
     const [brush, setBrush] = useAtom(brushAtom);
 
     const setBrushColor = useCallback(
         (color: string) => {
-            setBrush((prev) => ({
-                ...prev,
-                type: "PENCIL",
-                color: color,
-            }));
+            setBrush((prev) => {
+                if (prev.type === "PENCIL") {
+                    return {
+                        ...prev,
+                        color: color,
+                    };
+                } else {
+                    return prev;
+                }
+            });
         },
         [setBrush]
     );
@@ -23,17 +28,17 @@ export const useBrush = () => {
         (width: number) => {
             setBrush((prev) => {
                 // 型ガードを使って幅が正しい型であることを確認
-                const isValidWidth = (
-                    type: BrushType,
+                const isValidWidth = <T extends BrushType>(
+                    type: T,
                     width: number
-                ): width is lineWidth<typeof type> => {
-                    return lineWidthData[type].includes(width as any);
+                ): width is LineWidth<T> => {
+                    return (lineWidthData[type] as readonly number[]).includes(width);
                 };
 
                 if (isValidWidth(prev.type, width)) {
                     return {
                         ...prev,
-                        width: width,
+                        width: width as LineWidth<typeof prev.type>, // 正しい幅を設定
                     };
                 } else {
                     console.warn(`Invalid width: ${width} for brush type: ${prev.type}`);

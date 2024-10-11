@@ -1,12 +1,15 @@
 import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 
-import { HistoryItem } from "@/model";
+import { BrushType, HistoryItem } from "@/model";
 
 import { useCanvas } from "./Canvas";
 
-const initHistory: HistoryItem = { points: [], type: "PENCIL", width: 1, color: "white" };
-const historyAtom = atom<HistoryItem[]>([initHistory]);
+const initHistory: HistoryItem<"PENCIL"> = {
+    points: [],
+    brush: { type: "PENCIL", width: 1, color: "white" },
+};
+const historyAtom = atom<HistoryItem<BrushType>[]>([initHistory]);
 const currentHistoryIndexAtom = atom<number>(0);
 export const useHistory = () => {
     const [history, setHistory] = useAtom(historyAtom);
@@ -48,10 +51,10 @@ export const useHistory = () => {
                 );
 
                 toRedraw.forEach((historyItem) => {
-                    canvasContext.lineWidth = historyItem.width;
-                    if (historyItem.type === "PENCIL") {
-                        canvasContext.strokeStyle = historyItem.color;
-                    } else if (historyItem.type === "ERASER") {
+                    canvasContext.lineWidth = historyItem.brush.width;
+                    if (historyItem.brush.type === "PENCIL") {
+                        canvasContext.strokeStyle = historyItem.brush.color;
+                    } else if (historyItem.brush.type === "ERASER") {
                         canvasContext.strokeStyle = "white";
                     }
                     canvasContext.lineCap = "round";
@@ -81,7 +84,7 @@ export const useHistory = () => {
     }, [setCurrentHistoryIndex, redrawHistory, currentHistoryIndex]);
 
     const incrementHistory = useCallback(
-        (newHistoryItem: HistoryItem) => {
+        (newHistoryItem: HistoryItem<BrushType>) => {
             const prevHistory = history.slice(0, currentHistoryIndex + 1);
             setHistory([...prevHistory, newHistoryItem]);
             setCurrentHistoryIndex((prev) => prev + 1);
