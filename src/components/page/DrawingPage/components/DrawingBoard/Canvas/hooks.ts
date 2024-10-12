@@ -50,7 +50,7 @@ export const useDrawingCanvas = () => {
 
     const updateCanvasContext = useCallback(() => {
         setCanvasContext(canvasRef?.current?.getContext("2d"));
-    }, [setCanvasContext]);
+    }, [setCanvasContext, canvasRef]);
 
     const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
         e.preventDefault();
