@@ -1,6 +1,6 @@
 import { ViewerDrawingData } from "@/model";
 
-import { useViewerRepository } from "@/repository/getViewerData";
+import { useViewerRepository } from "@/repository";
 
 export const useViewerData = () => {
     const { data: resData, refetch } = useViewerRepository();

@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react";
 
 import { ViewerDrawingData } from "@/model";
 
-import { useViewerData } from "@/service/viewerDataService";
+import { useViewerData } from "@/usecase/getViwerData";
 
 export const useViewer = () => {
     const { data, refetch } = useViewerData();

@@ -4,7 +4,7 @@ import { match } from "ts-pattern";
 import { useHistory } from "@/states/History";
 import { guardUndef, showToast } from "@/utils";
 
-import { useGenerationService, useInitService, useUploadService } from "@/service";
+import { useGenerationService, useInitService, useUploadService } from "@/usecase";
 
 type ConfirmStage = "pre" | "post";
 

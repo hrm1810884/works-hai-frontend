@@ -1,4 +1,4 @@
-import { useInitService } from "@/service";
+import { useInitService } from "@/usecase";
 
 import { AiDrawing } from "./AiDrawing";
 import { Canvas } from "./Canvas";
