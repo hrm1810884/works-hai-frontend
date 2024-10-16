@@ -22,7 +22,6 @@ export const useHistory = () => {
         setHistory([initHistory]);
         setCurrentHistoryIndex(0);
         
-        calculateWhitePixelsProportion();
     }, [canvasContext, setHistory, setCurrentHistoryIndex]);
 
     const isOldestHistory = useCallback(() => currentHistoryIndex === 0, [currentHistoryIndex]);

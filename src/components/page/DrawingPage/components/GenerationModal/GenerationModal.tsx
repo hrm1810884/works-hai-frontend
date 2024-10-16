@@ -38,13 +38,11 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
     return (
         <Modal
             opened={isOpen}
-            // opened={true}
             onClose={handleClose}
             title={ stageSwitcher(stage, {
                 pre: "こちらでよろしいでしょうか？",
                 post: "生成が完了しました",
             })}
-            // className={modalBodyStyle }
             classNames={{content: modalContentStyle, body: modalBodyStyle, header: modalHeaderStyle}}
         >
             <div className={imageStyle}>
@@ -96,23 +94,6 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                             )
                         })}
                     </ActionIcon>
-
-                    {/* <Button
-                        onClick={async () => {
-                            const handleClick = stageSwitcher(stage, {
-                                pre: async () => {
-                                    await handlePreClick();
-                                },
-                                post: async () => {
-                                    await handlePostClick();
-                                    handleClose();
-                                },
-                            });
-                            await handleClick();
-                        }}
-                    >
-                        {stageSwitcher(stage, { pre: "生成する", post: "終了する" })}
-                    </Button> */}
             </Center>
         </Modal>
     );

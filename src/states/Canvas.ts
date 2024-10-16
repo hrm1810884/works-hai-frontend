@@ -1,21 +1,26 @@
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import { atom, useAtom } from "jotai";
-import { createRef, MutableRefObject, useCallback, useState } from "react";
+import { createRef, MutableRefObject, useCallback } from "react";
 
 import { canvasContext } from "@/model";
 
 import { DRAWING_SIZE } from "@/model/consts";
 import { guardUndef } from "@/utils";
 
+type DensityValidation = {
+    validated: boolean;
+    whitePixelsProportion: number;
+}
+
 const canvasContextAtom = atom<canvasContext>(null);
 const canvasRefAtom =
     atom<MutableRefObject<HTMLCanvasElement | null>>(createRef<HTMLCanvasElement>());
-const proportionAtom = atom<number>(1)
+const proportionAtom = atom<DensityValidation>({"validated": false, "whitePixelsProportion": 1.0})
 export const useCanvas = () => {
     const [canvasContext, setCanvasContext] = useAtom(canvasContextAtom);
     const [canvasRef, _] = useAtom(canvasRefAtom);
-    const [whitePixelsProportion, setWhitePixelsProportion] = useAtom(proportionAtom);
+    const [densityValidation, setDensityValidation] = useAtom(proportionAtom);
 
     const resizeCanvas = useCallback((canvas: HTMLCanvasElement) => {
         const resizedCanvas = document.createElement("canvas");
@@ -85,7 +90,13 @@ export const useCanvas = () => {
             }
         }
 
-        setWhitePixelsProportion(whitePixelCount / totalCounts);
+        const threshold:number = 0.3;
+        const whitePixelsProportion: number = whitePixelCount / totalCounts;
+
+        setDensityValidation({
+            validated: whitePixelsProportion < threshold, 
+            whitePixelsProportion: whitePixelsProportion
+        });
         console.log(whitePixelCount /totalCounts);
     }, [canvasRef]);
 
@@ -94,7 +105,7 @@ export const useCanvas = () => {
         canvasContext,
         setCanvasContext,
         getDrawingLink,
-        whitePixelsProportion, 
+        densityValidation, 
         calculateWhitePixelsProportion, 
     };
 };
