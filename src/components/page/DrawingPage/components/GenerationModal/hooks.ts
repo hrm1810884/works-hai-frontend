@@ -17,6 +17,7 @@ export const useConfirm = () => {
     const { refetch } = useInitService();
     const [imgSrc, setImgSrc] = useState<string>("no-image.png");
     const [stage, setStage] = useState<ConfirmStage>("pre");
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
     const handlePreClick = useCallback(async () => {
         const uploadResult = await uploadDrawing();
@@ -52,5 +53,6 @@ export const useConfirm = () => {
             handlePreClick,
             handlePostClick,
         },
+        isButtonDisabled, setIsButtonDisabled
     };
 };

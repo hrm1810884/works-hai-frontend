@@ -20,6 +20,7 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
         setImgSrc,
         stage,
         handler: { handlePreClick, handlePostClick },
+        isButtonDisabled, setIsButtonDisabled
     } = useConfirm();
 
     const { getDrawingLink } = useCanvas();
@@ -52,15 +53,20 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                     onClick={async () => {
                         const handleClick = stageSwitcher(stage, {
                             pre: async () => {
+                                setIsButtonDisabled(true);
                                 await handlePreClick();
+                                setIsButtonDisabled(false);
                             },
                             post: async () => {
+                                setIsButtonDisabled(true);
                                 await handlePostClick();
                                 handleClose();
+                                setIsButtonDisabled(false);
                             },
                         });
                         await handleClick();
                     }}
+                    disabled={isButtonDisabled}
                 >
                     {stageSwitcher(stage, { pre: "生成する", post: "終了する" })}
                 </Button>
