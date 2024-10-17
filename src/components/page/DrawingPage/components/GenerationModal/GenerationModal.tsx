@@ -1,13 +1,18 @@
-import { Button, Center, Modal } from "@mantine/core";
+import { Center, Modal, ActionIcon } from "@mantine/core";
 import Image from "next/image";
 import { FC, useEffect } from "react";
+
+import { FaCircleCheck } from "react-icons/fa6";
+import { LiaBrushSolid } from "react-icons/lia";
 
 import { useCanvas } from "@/states/Canvas";
 import { stageSwitcher } from "@/utils";
 
+import { vars } from "@/styles";
+
 import { useConfirm } from "./hooks";
 
-import { imageStyle, modalContentStyle } from "./GenerationModal.css";
+import { imageStyle, modalContentStyle, modalBodyStyle, modalHeaderStyle, sendButtonStyle } from "./GenerationModal.css";
 
 type props = {
     isOpen: boolean;
@@ -34,36 +39,61 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
         <Modal
             opened={isOpen}
             onClose={handleClose}
-            title={stageSwitcher(stage, {
+            title={ stageSwitcher(stage, {
                 pre: "こちらでよろしいでしょうか？",
                 post: "生成が完了しました",
             })}
-            classNames={{ content: modalContentStyle }}
+            classNames={{content: modalContentStyle, body: modalBodyStyle, header: modalHeaderStyle}}
         >
-            <Image
-                src={imgSrc}
-                alt="canvas image"
-                width={512}
-                height={512}
-                className={imageStyle}
-            />
+            <div className={imageStyle}>
+                <Image
+                    fill
+                    sizes="100%"
+                    objectFit="contain"
+                    src={imgSrc}
+                    alt="canvas image"
+                    className={imageStyle}
+                />
+            </div>
             <Center>
-                <Button
-                    onClick={async () => {
-                        const handleClick = stageSwitcher(stage, {
-                            pre: async () => {
-                                await handlePreClick();
-                            },
-                            post: async () => {
-                                await handlePostClick();
-                                handleClose();
-                            },
-                        });
-                        await handleClick();
-                    }}
-                >
-                    {stageSwitcher(stage, { pre: "生成する", post: "終了する" })}
-                </Button>
+                    <ActionIcon
+                        type="submit"
+                        variant="filled"
+                        color={vars.colors.white}
+                        radius={vars.radius.lg}
+                        onClick={async () => {
+                            const handleClick = stageSwitcher(stage, {
+                                pre: async () => {
+                                    await handlePreClick();
+                                },
+                                post: async () => {
+                                    await handlePostClick();
+                                    handleClose();
+                                },
+                            });
+                            await handleClick();
+                        }}
+                        className={sendButtonStyle}
+                    >
+                        {stageSwitcher(stage, { 
+                            pre: (
+                            <>
+                            <span style={{ marginRight: vars.spacing.sm }}>
+                                生成する
+                            </span>
+                            <LiaBrushSolid style={{ display: "flex" }}></LiaBrushSolid>
+                            </>
+                            ), 
+                            post: (
+                            <>
+                                <span style={{ marginRight: vars.spacing.sm }}>
+                                    終了する
+                                </span>
+                                <FaCircleCheck style={{ display: "flex" }}></FaCircleCheck>
+                            </>
+                            )
+                        })}
+                    </ActionIcon>
             </Center>
         </Modal>
     );

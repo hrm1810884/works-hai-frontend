@@ -23,6 +23,7 @@ export const AiDrawing: FC<props> = ({ src: url, pos }) => {
                 alt={`AI drawing at ${pos}`}
                 fill
                 sizes="100%"
+                draggable={false}
             />
         </div>
     );
