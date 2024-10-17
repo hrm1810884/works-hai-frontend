@@ -24,7 +24,6 @@ export const useHistory = () => {
         }
         setHistory([initHistory]);
         setCurrentHistoryIndex(0);
-
     }, [canvasContext, setHistory, setCurrentHistoryIndex]);
 
     const isOldestHistory = useCallback(() => currentHistoryIndex === 0, [currentHistoryIndex]);
