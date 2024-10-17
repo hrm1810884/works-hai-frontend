@@ -29,21 +29,13 @@ export const ToolBar: FC<props> = () => {
             {/* undo, redo, trash */}
             <div className={toolButtonsContainerStyle}>
                 {/* Undo history */}
-                <ToolButton
-                    onClick={undoHistory}
-                    icon={BiUndo}
-                    isDisabled={isOldestHistory()}
-                ></ToolButton>
+                <ToolButton onClick={undoHistory} icon={BiUndo} isDisabled={isOldestHistory()} />
 
                 {/* Redo history */}
-                <ToolButton
-                    onClick={redoHistory}
-                    icon={BiRedo}
-                    isDisabled={isNewestHistory()}
-                ></ToolButton>
+                <ToolButton onClick={redoHistory} icon={BiRedo} isDisabled={isNewestHistory()} />
 
                 {/* Clear canvas */}
-                <ToolButton onClick={initializeHistory} icon={AiOutlineClear}></ToolButton>
+                <ToolButton onClick={initializeHistory} icon={AiOutlineClear} />
             </div>
 
             {/* Tools */}
@@ -55,7 +47,7 @@ export const ToolBar: FC<props> = () => {
                     }}
                     icon={BiPencil}
                     isSelected={brush.type === "PENCIL"}
-                ></ToolButton>
+                />
 
                 {/* Eraser */}
                 <ToolButton
@@ -64,13 +56,13 @@ export const ToolBar: FC<props> = () => {
                     }}
                     icon={BiEraser}
                     isSelected={brush.type === "ERASER"}
-                ></ToolButton>
+                />
 
                 {/* Line width */}
-                <LineWidthMenu icon={BsBorderWidth}></LineWidthMenu>
+                <LineWidthMenu icon={BsBorderWidth} />
 
                 {/* Color */}
-                <ColorPicker width={ICON_SIZE} height={ICON_SIZE}></ColorPicker>
+                <ColorPicker width={ICON_SIZE} height={ICON_SIZE} />
             </div>
         </div>
     );
