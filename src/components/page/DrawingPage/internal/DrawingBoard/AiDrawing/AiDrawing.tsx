@@ -4,7 +4,7 @@ import { FC } from "react";
 
 import { AiPosition } from "@/model";
 
-import { guardUndef } from "@/utils";
+import { Now } from "@/utils/switchByEnv";
 
 import { imageContainerStyle } from "./AiDrawing.css";
 
@@ -15,8 +15,7 @@ export type props = {
 };
 
 export const AiDrawing: FC<props> = ({ src: url, pos, className }) => {
-    const isMock = guardUndef(process.env.NEXT_PUBLIC_ENABLE_API_MOCK) === "true";
-    const isDrawn = !isMock && !!url;
+    const isDrawn = !Now.isMock && !!url;
 
     return (
         <div className={clsx(imageContainerStyle, className)}>
