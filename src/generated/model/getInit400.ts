@@ -7,5 +7,5 @@
  */
 
 export type GetInit400 = {
-  error?: string;
+    error?: string;
 };

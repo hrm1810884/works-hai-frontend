@@ -7,5 +7,5 @@
  */
 
 export type PostGenerate200 = {
-  url: string;
+    url: string;
 };

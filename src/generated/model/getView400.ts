@@ -7,5 +7,5 @@
  */
 
 export type GetView400 = {
-  error?: string;
+    error?: string;
 };

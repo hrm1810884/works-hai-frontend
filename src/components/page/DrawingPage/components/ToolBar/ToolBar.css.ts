@@ -9,7 +9,7 @@ export const toolBarStyle = style({
     alignItems: "center",
     width: "100%",
     padding: `${vars.spacing.xl} 12rem ${vars.spacing.xl} 5rem`,
-    backgroundColor: vars.colors.dark[9] // .primary[4], // blue
+    backgroundColor: vars.colors.dark[9], // .primary[4], // blue
 });
 
 export const toolButtonsContainerStyle = style({

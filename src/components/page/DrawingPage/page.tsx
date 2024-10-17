@@ -4,11 +4,9 @@ import { useEffect } from "react";
 import { useHistory } from "@/states/History";
 import { useModal } from "@/states/Modal";
 
-import { GenerationButton } from "./components/GenerationButton";
+import { BottomToolBar, DrawingBoard, GenerationModal, ToolBar } from "./components";
 
-import { DrawingBoard, GenerationModal, ToolBar, BottomToolBar } from "./components";
-
-import { drawingWrapperStyle, generationButtonWrapperStyle, pageWrapperStyle, BottomAreaWrapperStyle } from "./page.css";
+import { drawingWrapperStyle, pageWrapperStyle } from "./page.css";
 
 export const DrawingPage = () => {
     const {
@@ -33,7 +31,7 @@ export const DrawingPage = () => {
                 <div className={drawingWrapperStyle}>
                     <DrawingBoard />
                 </div>
-                <BottomToolBar onClick={openModal}/>
+                <BottomToolBar onClick={openModal} />
             </div>
         </>
     );

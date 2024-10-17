@@ -1,7 +1,8 @@
 import { style } from "@vanilla-extract/css";
 
-import { vars } from "@/styles";
 import { vars as varsTheme } from "@/styles/theme";
+
+import { vars } from "@/styles";
 
 export const pageWrapperStyle = style({
     position: "relative",
@@ -25,12 +26,12 @@ export const drawingWrapperStyle = style({
 });
 
 export const generationButtonWrapperStyle = style({
-    display: "flex", 
-    position: "relative", 
-    width: "100%", 
+    display: "flex",
+    position: "relative",
+    width: "100%",
     // position: "absolute",
     // left: "50%",
-    // // top: "25%", 
+    // // top: "25%",
     // bottom: vars.spacing.lg,
     // transform: "translateX(-50%)",
 });
@@ -38,9 +39,9 @@ export const generationButtonWrapperStyle = style({
 export const BottomAreaWrapperStyle = style({
     position: "absolute",
     left: "50%",
-    width: "100vmin", 
-    height: "10vmin", 
+    width: "100vmin",
+    height: "10vmin",
     bottom: 0,
     transform: "translateX(-50%)",
-    backgroundColor: varsTheme.colors.dark[9]
+    backgroundColor: varsTheme.colors.dark[9],
 });
