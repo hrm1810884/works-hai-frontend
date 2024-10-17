@@ -3,15 +3,15 @@ import { VIEWER_CARD_SIZE_NUMBER } from "@/model/";
 export type AbsoluteVector = {
     height: number;
     width: number;
-};
+}
 
 const calculateAbsoluteVectorFromUpLeftToCenter = (arrayLength: number): number => {
     /**
-     * find n such that fulfills the relationship,
+     * find n such that fulfills the relationship, 
      * (2 * n) ** 2 + (2 * n + 1) <= arrayLength < (2 * (n + 1)) ** 2 + (2 * (n + 1) + 1)
      */
 
-    const N_LIMIT = 1000;
+    const N_LIMIT = 1000
 
     if (arrayLength < 1 || arrayLength > (2 * (N_LIMIT + 1)) ** 2 + (2 * (N_LIMIT + 1) + 1)) {
         throw new Error(`arrayLength is ${arrayLength}. This is beyond limit`);

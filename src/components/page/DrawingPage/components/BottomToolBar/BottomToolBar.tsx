@@ -13,21 +13,18 @@ type Props = {
 export const BottomToolBar: FC<Props> = (props) => {
     const { onClick: openModal } = props;
 
-    const { whitePixelsProportion } = useCanvas();
+    const { densityValidation } = useCanvas();
 
     return (
         <div className={bottomToolBarStyle}>
             <div className={toolButtonsContainerStyle}>
                 <div className={textSpanStyle}>
-                    <div>
-                        キャンバス周辺部分の余白の割合:{" "}
-                        {Math.round(whitePixelsProportion * 1000) / 10}%
-                    </div>
+                    <div>キャンバス周辺部分の余白の割合: {Math.round(densityValidation.whitePixelsProportion * 1000) / 10}%</div>
                     <div>30%を下回ると完了ボタンが押せるようになります</div>
                 </div>
-                {whitePixelsProportion < 0.3 ? (
-                    <GenerationButton text="完了" onClick={openModal} />
-                ) : null}
+                {densityValidation.validated ?
+                <GenerationButton text="完了" onClick={openModal} />
+                : null}
             </div>
         </div>
     );

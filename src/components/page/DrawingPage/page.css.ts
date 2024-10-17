@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "@/styles";
+import { vars as varsTheme } from "@/styles/theme";
 
 export const pageWrapperStyle = style({
     position: "relative",

@@ -44,7 +44,7 @@ export const ViewerPage = () => {
                 window.removeEventListener("resize", handleResize);
             };
         }, [resetTransform]);
-
+        
         return null; // UIには何も表示しない
     };
 
