@@ -1,6 +1,6 @@
 import { Center, Modal } from "@mantine/core";
 import Image from "next/image";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useTransition } from "react";
 import { FaCircleCheck } from "react-icons/fa6";
 import { LiaBrushSolid } from "react-icons/lia";
 
@@ -24,6 +24,7 @@ type props = {
 };
 
 export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
+    const [isPending, startTransition] = useTransition();
     const {
         imgSrc,
         setImgSrc,
@@ -70,7 +71,8 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                         <ButtonWithIcon
                             text="生成する"
                             icon={LiaBrushSolid}
-                            onClick={async () => await handlePreClick()}
+                            disabled={isPending}
+                            onClick={() => startTransition(async () => await handlePreClick())}
                         />
                     ),
                     post: (

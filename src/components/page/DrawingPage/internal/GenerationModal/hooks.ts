@@ -10,10 +10,11 @@ type ConfirmStage = "pre" | "post";
 export const useConfirm = () => {
     const { uploadDrawing } = useUploadUsecase();
     const { generateDrawing } = useGenerationUsecase();
+    const { refetch } = useInitUsecase();
+
     const {
         mutator: { initializeHistory },
     } = useHistory();
-    const { refetch } = useInitUsecase();
     const [imgSrc, setImgSrc] = useState<string>("no-image.png");
     const [stage, setStage] = useState<ConfirmStage>("pre");
 
