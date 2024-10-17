@@ -2,18 +2,18 @@ import { useCallback, useState } from "react";
 import { match } from "ts-pattern";
 
 import { useHistory } from "@/states/History";
-import { useGenerationService, useInitService, useUploadService } from "@/usecase";
+import { useGenerationUsecase, useInitUsecase, useUploadUsecase } from "@/usecase";
 import { guardUndef, showToast } from "@/utils";
 
 type ConfirmStage = "pre" | "post";
 
 export const useConfirm = () => {
-    const { uploadDrawing } = useUploadService();
-    const { generateDrawing } = useGenerationService();
+    const { uploadDrawing } = useUploadUsecase();
+    const { generateDrawing } = useGenerationUsecase();
     const {
         mutator: { initializeHistory },
     } = useHistory();
-    const { refetch } = useInitService();
+    const { refetch } = useInitUsecase();
     const [imgSrc, setImgSrc] = useState<string>("no-image.png");
     const [stage, setStage] = useState<ConfirmStage>("pre");
 

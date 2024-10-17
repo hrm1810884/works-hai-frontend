@@ -1,4 +1,4 @@
-import { useInitService } from "@/usecase";
+import { useInitUsecase } from "@/usecase";
 
 import { AiDrawing } from "./AiDrawing";
 import { Canvas } from "./Canvas";
@@ -6,7 +6,7 @@ import { Canvas } from "./Canvas";
 import { drawingBoardContainerStyle, imageAlignStyle } from "./DrawingBoard.css";
 
 export const DrawingBoard = () => {
-    const { aiSrc } = useInitService();
+    const { aiSrc } = useInitUsecase();
     return (
         <div className={drawingBoardContainerStyle}>
             <AiDrawing
