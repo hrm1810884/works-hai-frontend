@@ -1,28 +1,31 @@
 import { ActionIcon } from "@mantine/core";
 import { FC } from "react";
-import { IoMdSend } from "react-icons/io";
+import { IconType } from "react-icons/lib";
 
 import { vars } from "@/styles";
 
-import { sendButtonStyle } from "./GenerationButton.css";
+import { buttonStyle } from "./ButtonWithIcon.css";
 
 type Props = {
     text: string;
+    icon: IconType;
     onClick: () => void;
+    type?: "button" | "submit" | "reset";
 };
-export const GenerationButton: FC<Props> = (props) => {
-    const { text, onClick: handleClick } = props;
+
+export const ButtonWithIcon: FC<Props> = (props) => {
+    const { text, icon: Icon, onClick: handleClick, type } = props;
     return (
         <ActionIcon
-            type="submit"
+            type={type}
             variant="filled"
             color={vars.colors.white}
             radius={vars.radius.lg}
             onClick={handleClick}
-            className={sendButtonStyle}
+            className={buttonStyle}
         >
             <span style={{ marginRight: vars.spacing.sm }}>{text}</span>
-            <IoMdSend style={{ display: "flex" }}></IoMdSend>
+            <Icon />
         </ActionIcon>
     );
 };

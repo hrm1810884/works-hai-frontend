@@ -1,9 +1,10 @@
 import { FC } from "react";
+import { IoMdSend } from "react-icons/io";
 
 import { useCanvas } from "@/states/Canvas";
 import { Now } from "@/utils/switchByEnv";
 
-import { GenerationButton } from "../GenerationButton";
+import { ButtonWithIcon } from "@/components/common/ui/";
 
 import { bottomToolBarStyle, textSpanStyle, toolButtonsContainerStyle } from "./BottomToolBar.css";
 
@@ -29,7 +30,7 @@ export const BottomToolBar: FC<Props> = (props) => {
                  * enableする際にはenableValidationをtrueにする
                  */}
                 {Now.isLocal && !enableValidation ? (
-                    <GenerationButton onClick={openModal} />
+                    <ButtonWithIcon type="submit" text="完了" icon={IoMdSend} onClick={openModal} />
                 ) : (
                     <>
                         <div className={textSpanStyle}>
@@ -40,7 +41,12 @@ export const BottomToolBar: FC<Props> = (props) => {
                             <div>30%を下回ると完了ボタンが押せるようになります</div>
                         </div>
                         {densityValidation.validated ? (
-                            <GenerationButton onClick={openModal} />
+                            <ButtonWithIcon
+                                type="submit"
+                                text="完了"
+                                icon={IoMdSend}
+                                onClick={openModal}
+                            />
                         ) : null}
                     </>
                 )}
