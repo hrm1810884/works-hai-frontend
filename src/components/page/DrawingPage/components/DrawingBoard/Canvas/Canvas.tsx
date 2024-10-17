@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import clsx from "clsx";
+import { FC, useEffect } from "react";
 
 import { useDrawingCanvas, usePaintingState } from "./hooks";
 
 import { canvasStyle } from "./Canvas.css";
 
-export const Canvas = () => {
+type Props = { className?: string };
+
+export const Canvas: FC<Props> = ({ className }) => {
     const {
         canvasRef,
         canvasContext,
@@ -66,7 +69,7 @@ export const Canvas = () => {
                 resetPainting();
             }}
             id="canvasElement"
-            className={canvasStyle}
+            className={clsx(canvasStyle, className)}
         ></canvas>
     );
 };

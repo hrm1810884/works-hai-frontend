@@ -1,24 +1,15 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import { DRAWING_BOARD_SIZE } from "@/model";
+
 export const drawingBoardContainerStyle = style({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center", // "center",
-    alignItems: "center",
-    maxHeight: "100vmin",
-    maxWidth: "100vmin",
-    overflow: "hidden",
+    display: "grid",
+    gridTemplateColumns: `repeat(3, ${DRAWING_BOARD_SIZE})`,
+    gridTemplateRows: `repeat(3, ${DRAWING_BOARD_SIZE})`,
 });
 
-export const horizontalDrawingContainerStyle = style({
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-});
-
-export const verticalDrawingContainerStyle = recipe({
+export const imageAlignStyle = recipe({
     base: {
         display: "flex",
         flexDirection: "column",
@@ -27,8 +18,11 @@ export const verticalDrawingContainerStyle = recipe({
 
     variants: {
         position: {
-            top: { justifyContent: "flex-end" },
-            bottom: { justifyContent: "flex-start" },
+            top: { gridColumn: "2", gridRow: "1" },
+            middleLeft: { gridColumn: "1", gridRow: "2" },
+            middleCenter: { gridColumn: "2", gridRow: "2" },
+            middleRight: { gridColumn: "3", gridRow: "2" },
+            bottom: { gridColumn: "2", gridRow: "3" },
         },
     },
 });
