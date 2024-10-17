@@ -5,10 +5,10 @@
  * API specification for interactions between Frontend, Backend, and Cloud Storage.
  * OpenAPI spec version: 1.0.0
  */
-import type { GetView200ResultItemPosition } from './getView200ResultItemPosition';
+import type { GetView200ResultItemPosition } from "./getView200ResultItemPosition";
 
 export type GetView200ResultItem = {
-  position: GetView200ResultItemPosition;
-  /** Presigned URL for target position. */
-  url: string;
+    position: GetView200ResultItemPosition;
+    /** Presigned URL for target position. */
+    url: string;
 };

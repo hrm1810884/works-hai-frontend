@@ -7,10 +7,10 @@
  */
 
 export type GetInit200ResultUrls = {
-  bottomDrawing?: string;
-  /** Presigned URL for human drawing upload. */
-  humanDrawing: string;
-  leftDrawing?: string;
-  rightDrawing?: string;
-  topDrawing?: string;
+    bottomDrawing?: string;
+    /** Presigned URL for human drawing upload. */
+    humanDrawing: string;
+    leftDrawing?: string;
+    rightDrawing?: string;
+    topDrawing?: string;
 };

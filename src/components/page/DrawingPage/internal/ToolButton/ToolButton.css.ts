@@ -9,7 +9,7 @@ export const toolButtonStyle = recipe({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: vars.colors.dark[9], 
+        backgroundColor: vars.colors.dark[9],
         vars: {
             "--button-hover": vars.colors.primary[1],
             "--button-bd": "none",

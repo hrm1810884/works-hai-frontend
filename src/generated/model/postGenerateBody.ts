@@ -7,6 +7,6 @@
  */
 
 export type PostGenerateBody = {
-  /** user id of the experience */
-  userId: string;
+    /** user id of the experience */
+    userId: string;
 };

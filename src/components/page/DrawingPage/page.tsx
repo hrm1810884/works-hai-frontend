@@ -1,29 +1,16 @@
 "use client";
-import { useEffect } from "react";
 
-import { useHistory } from "@/states/History";
 import { useModal } from "@/states/Modal";
 
-import { GenerationButton } from "./components/GenerationButton";
+import { BottomToolBar, DrawingBoard, GenerationModal, ToolBar } from "./internal";
 
-import { DrawingBoard, GenerationModal, ToolBar, BottomToolBar } from "./components";
-
-import { drawingWrapperStyle, generationButtonWrapperStyle, pageWrapperStyle, BottomAreaWrapperStyle } from "./page.css";
+import { drawingWrapperStyle, pageWrapperStyle } from "./page.css";
 
 export const DrawingPage = () => {
-    const {
-        currentHistoryIndex,
-        mutator: { redrawHistory },
-    } = useHistory();
-
     const {
         isOpen,
         mutator: { openModal, closeModal },
     } = useModal();
-
-    useEffect(() => {
-        console.log(currentHistoryIndex);
-    }, [currentHistoryIndex, redrawHistory]);
 
     return (
         <>
@@ -33,7 +20,7 @@ export const DrawingPage = () => {
                 <div className={drawingWrapperStyle}>
                     <DrawingBoard />
                 </div>
-                <BottomToolBar onClick={openModal}/>
+                <BottomToolBar onClick={openModal} />
             </div>
         </>
     );

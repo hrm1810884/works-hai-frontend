@@ -5,10 +5,10 @@
  * API specification for interactions between Frontend, Backend, and Cloud Storage.
  * OpenAPI spec version: 1.0.0
  */
-import type { GetInit200ResultUrls } from './getInit200ResultUrls';
+import type { GetInit200ResultUrls } from "./getInit200ResultUrls";
 
 export type GetInit200Result = {
-  /** user id */
-  id: string;
-  urls: GetInit200ResultUrls;
+    /** user id */
+    id: string;
+    urls: GetInit200ResultUrls;
 };

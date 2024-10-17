@@ -7,5 +7,5 @@
  */
 
 export type PostGenerate400 = {
-  error?: string;
+    error?: string;
 };

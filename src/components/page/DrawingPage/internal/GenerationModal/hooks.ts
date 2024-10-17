@@ -2,9 +2,8 @@ import { useCallback, useState } from "react";
 import { match } from "ts-pattern";
 
 import { useHistory } from "@/states/History";
-import { guardUndef, showToast } from "@/utils";
-
 import { useGenerationService, useInitService, useUploadService } from "@/usecase";
+import { guardUndef, showToast } from "@/utils";
 
 type ConfirmStage = "pre" | "post";
 

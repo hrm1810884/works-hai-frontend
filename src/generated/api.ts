@@ -5,297 +5,301 @@
  * API specification for interactions between Frontend, Backend, and Cloud Storage.
  * OpenAPI spec version: 1.0.0
  */
-import {
-  useMutation,
-  useQuery,
-  useSuspenseQuery
-} from '@tanstack/react-query'
+import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import type {
-  MutationFunction,
-  QueryFunction,
-  QueryKey,
-  UseMutationOptions,
-  UseMutationResult,
-  UseQueryOptions,
-  UseQueryResult,
-  UseSuspenseQueryOptions,
-  UseSuspenseQueryResult
-} from '@tanstack/react-query'
-import axios from 'axios'
+    MutationFunction,
+    QueryFunction,
+    QueryKey,
+    UseMutationOptions,
+    UseMutationResult,
+    UseQueryOptions,
+    UseQueryResult,
+    UseSuspenseQueryOptions,
+    UseSuspenseQueryResult,
+} from "@tanstack/react-query";
+import axios from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios'
-import type {
-  GetInit200,
-  GetInit400,
-  GetInitDefault,
-  GetView200,
-  GetView400,
-  GetView404,
-  GetViewDefault,
-  PostGenerate200,
-  PostGenerate400,
-  PostGenerateBody,
-  PostGenerateDefault
-} from './model'
-
-
+    GetInit200,
+    GetInit400,
+    GetInitDefault,
+    GetView200,
+    GetView400,
+    GetView404,
+    GetViewDefault,
+    PostGenerate200,
+    PostGenerate400,
+    PostGenerateBody,
+    PostGenerateDefault,
+} from "./model";
 
 /**
  * Post id in storage to BE.
  * @summary Generate AI Drawing
  */
 export const postGenerate = (
-    postGenerateBody: PostGenerateBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostGenerate200>> => {
-    
-    return axios.post(
-      `/generate`,
-      postGenerateBody,options
-    );
-  }
+    postGenerateBody: PostGenerateBody,
+    options?: AxiosRequestConfig
+): Promise<AxiosResponse<PostGenerate200>> => {
+    return axios.post(`/generate`, postGenerateBody, options);
+};
 
-
-
-export const getPostGenerateMutationOptions = <TError = AxiosError<PostGenerate400 | PostGenerateDefault>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postGenerate>>, TError,{data: PostGenerateBody}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationOptions<Awaited<ReturnType<typeof postGenerate>>, TError,{data: PostGenerateBody}, TContext> => {
-const {mutation: mutationOptions, axios: axiosOptions} = options ?? {};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postGenerate>>, {data: PostGenerateBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  postGenerate(data,axiosOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostGenerateMutationResult = NonNullable<Awaited<ReturnType<typeof postGenerate>>>
-    export type PostGenerateMutationBody = PostGenerateBody
-    export type PostGenerateMutationError = AxiosError<PostGenerate400 | PostGenerateDefault>
-
-    /**
- * @summary Generate AI Drawing
- */
-export const usePostGenerate = <TError = AxiosError<PostGenerate400 | PostGenerateDefault>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postGenerate>>, TError,{data: PostGenerateBody}, TContext>, axios?: AxiosRequestConfig}
-): UseMutationResult<
+export const getPostGenerateMutationOptions = <
+    TError = AxiosError<PostGenerate400 | PostGenerateDefault>,
+    TContext = unknown,
+>(options?: {
+    mutation?: UseMutationOptions<
         Awaited<ReturnType<typeof postGenerate>>,
         TError,
-        {data: PostGenerateBody},
+        { data: PostGenerateBody },
         TContext
-      > => {
+    >;
+    axios?: AxiosRequestConfig;
+}): UseMutationOptions<
+    Awaited<ReturnType<typeof postGenerate>>,
+    TError,
+    { data: PostGenerateBody },
+    TContext
+> => {
+    const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-      const mutationOptions = getPostGenerateMutationOptions(options);
+    const mutationFn: MutationFunction<
+        Awaited<ReturnType<typeof postGenerate>>,
+        { data: PostGenerateBody }
+    > = (props) => {
+        const { data } = props ?? {};
 
-      return useMutation(mutationOptions);
-    }
-    
+        return postGenerate(data, axiosOptions);
+    };
+
+    return { mutationFn, ...mutationOptions };
+};
+
+export type PostGenerateMutationResult = NonNullable<Awaited<ReturnType<typeof postGenerate>>>;
+export type PostGenerateMutationBody = PostGenerateBody;
+export type PostGenerateMutationError = AxiosError<PostGenerate400 | PostGenerateDefault>;
+
+/**
+ * @summary Generate AI Drawing
+ */
+export const usePostGenerate = <
+    TError = AxiosError<PostGenerate400 | PostGenerateDefault>,
+    TContext = unknown,
+>(options?: {
+    mutation?: UseMutationOptions<
+        Awaited<ReturnType<typeof postGenerate>>,
+        TError,
+        { data: PostGenerateBody },
+        TContext
+    >;
+    axios?: AxiosRequestConfig;
+}): UseMutationResult<
+    Awaited<ReturnType<typeof postGenerate>>,
+    TError,
+    { data: PostGenerateBody },
+    TContext
+> => {
+    const mutationOptions = getPostGenerateMutationOptions(options);
+
+    return useMutation(mutationOptions);
+};
+
 /**
  * Retrieve presigned URLs for both Human and AI drawings.
  * @summary Get presigned urls
  */
-export const getInit = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetInit200>> => {
-    
-    return axios.get(
-      `/init`,options
-    );
-  }
-
+export const getInit = (options?: AxiosRequestConfig): Promise<AxiosResponse<GetInit200>> => {
+    return axios.get(`/init`, options);
+};
 
 export const getGetInitQueryKey = () => {
     return [`/init`] as const;
-    }
+};
 
-    
-export const getGetInitQueryOptions = <TData = Awaited<ReturnType<typeof getInit>>, TError = AxiosError<GetInit400 | void | GetInitDefault>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData>>, axios?: AxiosRequestConfig}
-) => {
+export const getGetInitQueryOptions = <
+    TData = Awaited<ReturnType<typeof getInit>>,
+    TError = AxiosError<GetInit400 | void | GetInitDefault>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+}) => {
+    const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+    const queryKey = queryOptions?.queryKey ?? getGetInitQueryKey();
 
-  const queryKey =  queryOptions?.queryKey ?? getGetInitQueryKey();
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInit>>> = ({ signal }) =>
+        getInit({ signal, ...axiosOptions });
 
-  
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof getInit>>,
+        TError,
+        TData
+    > & { queryKey: QueryKey };
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInit>>> = ({ signal }) => getInit({ signal, ...axiosOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetInitQueryResult = NonNullable<Awaited<ReturnType<typeof getInit>>>
-export type GetInitQueryError = AxiosError<GetInit400 | void | GetInitDefault>
-
-/**
- * @summary Get presigned urls
- */
-export const useGetInit = <TData = Awaited<ReturnType<typeof getInit>>, TError = AxiosError<GetInit400 | void | GetInitDefault>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData>>, axios?: AxiosRequestConfig}
-
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-
-  const queryOptions = getGetInitQueryOptions(options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-export const getGetInitSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getInit>>, TError = AxiosError<GetInit400 | void | GetInitDefault>>( options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData>>, axios?: AxiosRequestConfig}
-) => {
-
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetInitQueryKey();
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInit>>> = ({ signal }) => getInit({ signal, ...axiosOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetInitSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getInit>>>
-export type GetInitSuspenseQueryError = AxiosError<GetInit400 | void | GetInitDefault>
+export type GetInitQueryResult = NonNullable<Awaited<ReturnType<typeof getInit>>>;
+export type GetInitQueryError = AxiosError<GetInit400 | void | GetInitDefault>;
 
 /**
  * @summary Get presigned urls
  */
-export const useGetInitSuspense = <TData = Awaited<ReturnType<typeof getInit>>, TError = AxiosError<GetInit400 | void | GetInitDefault>>(
-  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const useGetInit = <
+    TData = Awaited<ReturnType<typeof getInit>>,
+    TError = AxiosError<GetInit400 | void | GetInitDefault>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+    const queryOptions = getGetInitQueryOptions(options);
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  const queryOptions = getGetInitSuspenseQueryOptions(options)
+    query.queryKey = queryOptions.queryKey;
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+    return query;
+};
 
-  query.queryKey = queryOptions.queryKey ;
+export const getGetInitSuspenseQueryOptions = <
+    TData = Awaited<ReturnType<typeof getInit>>,
+    TError = AxiosError<GetInit400 | void | GetInitDefault>,
+>(options?: {
+    query?: Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+}) => {
+    const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-  return query;
-}
+    const queryKey = queryOptions?.queryKey ?? getGetInitQueryKey();
 
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInit>>> = ({ signal }) =>
+        getInit({ signal, ...axiosOptions });
 
+    return { queryKey, queryFn, ...queryOptions } as UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof getInit>>,
+        TError,
+        TData
+    > & { queryKey: QueryKey };
+};
 
+export type GetInitSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getInit>>>;
+export type GetInitSuspenseQueryError = AxiosError<GetInit400 | void | GetInitDefault>;
+
+/**
+ * @summary Get presigned urls
+ */
+export const useGetInitSuspense = <
+    TData = Awaited<ReturnType<typeof getInit>>,
+    TError = AxiosError<GetInit400 | void | GetInitDefault>,
+>(options?: {
+    query?: Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getInit>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+}): UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+    const queryOptions = getGetInitSuspenseQueryOptions(options);
+
+    const query = useSuspenseQuery(queryOptions) as UseSuspenseQueryResult<TData, TError> & {
+        queryKey: QueryKey;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+};
 
 /**
  * Viewer Page for human AI drawings.
  * @summary Drawing Viewer Page
  */
-export const getView = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetView200>> => {
-    
-    return axios.get(
-      `/view`,options
-    );
-  }
-
+export const getView = (options?: AxiosRequestConfig): Promise<AxiosResponse<GetView200>> => {
+    return axios.get(`/view`, options);
+};
 
 export const getGetViewQueryKey = () => {
     return [`/view`] as const;
-    }
+};
 
-    
-export const getGetViewQueryOptions = <TData = Awaited<ReturnType<typeof getView>>, TError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData>>, axios?: AxiosRequestConfig}
-) => {
+export const getGetViewQueryOptions = <
+    TData = Awaited<ReturnType<typeof getView>>,
+    TError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+}) => {
+    const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
+    const queryKey = queryOptions?.queryKey ?? getGetViewQueryKey();
 
-  const queryKey =  queryOptions?.queryKey ?? getGetViewQueryKey();
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getView>>> = ({ signal }) =>
+        getView({ signal, ...axiosOptions });
 
-  
+    return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+        Awaited<ReturnType<typeof getView>>,
+        TError,
+        TData
+    > & { queryKey: QueryKey };
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getView>>> = ({ signal }) => getView({ signal, ...axiosOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetViewQueryResult = NonNullable<Awaited<ReturnType<typeof getView>>>
-export type GetViewQueryError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>
-
-/**
- * @summary Drawing Viewer Page
- */
-export const useGetView = <TData = Awaited<ReturnType<typeof getView>>, TError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData>>, axios?: AxiosRequestConfig}
-
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-
-  const queryOptions = getGetViewQueryOptions(options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-export const getGetViewSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getView>>, TError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>>( options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData>>, axios?: AxiosRequestConfig}
-) => {
-
-const {query: queryOptions, axios: axiosOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetViewQueryKey();
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getView>>> = ({ signal }) => getView({ signal, ...axiosOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetViewSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getView>>>
-export type GetViewSuspenseQueryError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>
+export type GetViewQueryResult = NonNullable<Awaited<ReturnType<typeof getView>>>;
+export type GetViewQueryError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>;
 
 /**
  * @summary Drawing Viewer Page
  */
-export const useGetViewSuspense = <TData = Awaited<ReturnType<typeof getView>>, TError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>>(
-  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData>>, axios?: AxiosRequestConfig}
+export const useGetView = <
+    TData = Awaited<ReturnType<typeof getView>>,
+    TError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>,
+>(options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+    const queryOptions = getGetViewQueryOptions(options);
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+    const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  const queryOptions = getGetViewSuspenseQueryOptions(options)
+    query.queryKey = queryOptions.queryKey;
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+    return query;
+};
 
-  query.queryKey = queryOptions.queryKey ;
+export const getGetViewSuspenseQueryOptions = <
+    TData = Awaited<ReturnType<typeof getView>>,
+    TError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>,
+>(options?: {
+    query?: Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+}) => {
+    const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-  return query;
-}
+    const queryKey = queryOptions?.queryKey ?? getGetViewQueryKey();
 
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getView>>> = ({ signal }) =>
+        getView({ signal, ...axiosOptions });
 
+    return { queryKey, queryFn, ...queryOptions } as UseSuspenseQueryOptions<
+        Awaited<ReturnType<typeof getView>>,
+        TError,
+        TData
+    > & { queryKey: QueryKey };
+};
 
+export type GetViewSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getView>>>;
+export type GetViewSuspenseQueryError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>;
 
+/**
+ * @summary Drawing Viewer Page
+ */
+export const useGetViewSuspense = <
+    TData = Awaited<ReturnType<typeof getView>>,
+    TError = AxiosError<GetView400 | GetView404 | void | GetViewDefault>,
+>(options?: {
+    query?: Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getView>>, TError, TData>>;
+    axios?: AxiosRequestConfig;
+}): UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+    const queryOptions = getGetViewSuspenseQueryOptions(options);
+
+    const query = useSuspenseQuery(queryOptions) as UseSuspenseQueryResult<TData, TError> & {
+        queryKey: QueryKey;
+    };
+
+    query.queryKey = queryOptions.queryKey;
+
+    return query;
+};

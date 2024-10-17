@@ -7,6 +7,6 @@
  */
 
 export type GetInitDefault = {
-  /** A detailed error message. */
-  error?: string;
+    /** A detailed error message. */
+    error?: string;
 };

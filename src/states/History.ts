@@ -14,7 +14,7 @@ const currentHistoryIndexAtom = atom<number>(0);
 export const useHistory = () => {
     const [history, setHistory] = useAtom(historyAtom);
     const [currentHistoryIndex, setCurrentHistoryIndex] = useAtom(currentHistoryIndexAtom);
-    const { canvasContext, calculateWhitePixelsProportion } = useCanvas();
+    const { canvasContext } = useCanvas();
 
     const initializeHistory = useCallback(() => {
         if (canvasContext) {
@@ -24,7 +24,6 @@ export const useHistory = () => {
         }
         setHistory([initHistory]);
         setCurrentHistoryIndex(0);
-        
     }, [canvasContext, setHistory, setCurrentHistoryIndex]);
 
     const isOldestHistory = useCallback(() => currentHistoryIndex === 0, [currentHistoryIndex]);

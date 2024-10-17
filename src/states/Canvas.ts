@@ -11,12 +11,13 @@ import { guardUndef } from "@/utils";
 type DensityValidation = {
     validated: boolean;
     whitePixelsProportion: number;
-}
+};
 
 const canvasContextAtom = atom<canvasContext>(null);
 const canvasRefAtom =
     atom<MutableRefObject<HTMLCanvasElement | null>>(createRef<HTMLCanvasElement>());
-const proportionAtom = atom<DensityValidation>({"validated": false, "whitePixelsProportion": 1.0})
+const proportionAtom = atom<DensityValidation>({ validated: false, whitePixelsProportion: 1.0 });
+
 export const useCanvas = () => {
     const [canvasContext, setCanvasContext] = useAtom(canvasContextAtom);
     const [canvasRef, _] = useAtom(canvasRefAtom);
@@ -74,7 +75,7 @@ export const useCanvas = () => {
         for (let i = 0; i < data.length; i += 4) {
             const [r, g, b, a] = [data[i], data[i + 1], data[i + 2], data[i + 3]];
 
-            const h: number = Math.floor( (i / 4) / width );
+            const h: number = Math.floor(i / 4 / width);
             const w: number = (i / 4) % width;
             if (h >= borderHeight && h < height - borderHeight) {
                 continue;
@@ -83,29 +84,28 @@ export const useCanvas = () => {
                 continue;
             }
 
-            totalCounts ++;
+            totalCounts++;
             // Check if pixel is white (RGBA = 255, 255, 255, 255)
             if (r === 255 && g === 255 && b === 255 && a === 255) {
                 whitePixelCount++;
             }
         }
 
-        const threshold:number = 0.3;
+        const threshold: number = 0.3;
         const whitePixelsProportion: number = whitePixelCount / totalCounts;
 
         setDensityValidation({
-            validated: whitePixelsProportion < threshold, 
-            whitePixelsProportion: whitePixelsProportion
+            validated: whitePixelsProportion < threshold,
+            whitePixelsProportion: whitePixelsProportion,
         });
-        console.log(whitePixelCount /totalCounts);
-    }, [canvasRef]);
+    }, [canvasRef, setDensityValidation]);
 
     return {
         canvasRef,
         canvasContext,
         setCanvasContext,
         getDrawingLink,
-        densityValidation, 
-        calculateWhitePixelsProportion, 
+        densityValidation,
+        calculateWhitePixelsProportion,
     };
 };

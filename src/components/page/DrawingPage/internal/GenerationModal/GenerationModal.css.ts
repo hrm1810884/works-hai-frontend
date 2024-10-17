@@ -12,9 +12,9 @@ export const modalHeaderStyle = style({
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
-    width: "100%",  
-    color: "#000000", 
-})
+    width: "100%",
+    color: "#000000",
+});
 
 export const modalContentStyle = style({
     display: "flex",
@@ -24,7 +24,7 @@ export const modalContentStyle = style({
     width: "100%",
     minWidth: "80vw",
     // gap: vars.spacing.lg,
-    // backgroundColor: vars.colors.warn[2], // .gray[0], 
+    // backgroundColor: vars.colors.warn[2], // .gray[0],
 });
 
 export const modalBodyStyle = style({
@@ -34,8 +34,8 @@ export const modalBodyStyle = style({
     alignItems: "center",
     width: "100%",
     gap: vars.spacing.md,
-    // backgroundColor: vars.colors.dark[9], 
-})
+    // backgroundColor: vars.colors.dark[9],
+});
 
 export const imageStyle = style({
     position: "relative",
