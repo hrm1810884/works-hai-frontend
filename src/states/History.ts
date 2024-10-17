@@ -24,9 +24,9 @@ export const useHistory = () => {
         }
         setHistory([initHistory]);
         setCurrentHistoryIndex(0);
-        
+
         calculateWhitePixelsProportion();
-    }, [canvasContext, setHistory, setCurrentHistoryIndex]);
+    }, [canvasContext, setHistory, setCurrentHistoryIndex, calculateWhitePixelsProportion]);
 
     const isOldestHistory = useCallback(() => currentHistoryIndex === 0, [currentHistoryIndex]);
     const isNewestHistory = useCallback(

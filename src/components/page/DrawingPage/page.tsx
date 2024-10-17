@@ -20,7 +20,7 @@ export const DrawingPage = () => {
                 <div className={drawingWrapperStyle}>
                     <DrawingBoard />
                 </div>
-                <BottomToolBar onClick={openModal}/>
+                <BottomToolBar onClick={openModal} />
             </div>
         </>
     );

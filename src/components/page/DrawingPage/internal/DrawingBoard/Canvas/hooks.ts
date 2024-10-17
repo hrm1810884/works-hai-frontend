@@ -36,7 +36,8 @@ export const usePaintingState = () => {
 export const useDrawingCanvas = () => {
     const [points, setPoints] = useState(Array<CanvasPoint>());
 
-    const { canvasRef, canvasContext, setCanvasContext, calculateWhitePixelsProportion } = useCanvas();
+    const { canvasRef, canvasContext, setCanvasContext, calculateWhitePixelsProportion } =
+        useCanvas();
     const { brush } = useBrush();
 
     const {

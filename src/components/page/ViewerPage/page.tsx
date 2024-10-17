@@ -12,11 +12,11 @@ import { controlWrapper, wrapper } from "./page.css";
 
 export const ViewerPage = () => {
     const { data } = useViewer();
-    const absoluteVectorToShiftForCentering  = useViewerTransform();
+    const absoluteVectorToShiftForCentering = useViewerTransform();
 
     type ControlProps = {
         resetTransform: () => void;
-    }
+    };
     const Control: React.FC<ControlProps> = ({ resetTransform }) => {
         const { zoomIn, zoomOut } = useControls();
         return (
@@ -31,7 +31,7 @@ export const ViewerPage = () => {
     // ウィンドウリサイズを監視するためのコンポーネント
     type ResetTransformOnResizeProps = {
         resetTransform: () => void;
-    }
+    };
     const ResetTransformOnResize: React.FC<ResetTransformOnResizeProps> = ({ resetTransform }) => {
         useEffect(() => {
             const handleResize = () => {
@@ -44,36 +44,37 @@ export const ViewerPage = () => {
                 window.removeEventListener("resize", handleResize);
             };
         }, [resetTransform]);
-        
+
         return null; // UIには何も表示しない
     };
 
     return (
         <div className={wrapper}>
-            <TransformWrapper 
-            initialScale={1} 
-            initialPositionX={absoluteVectorToShiftForCentering.width} // data[data.length-1].position.x} 
-            initialPositionY={absoluteVectorToShiftForCentering.height} // {data[data.length-1].position.y} 
-            limitToBounds={false}
+            <TransformWrapper
+                initialScale={1}
+                initialPositionX={absoluteVectorToShiftForCentering.width} // data[data.length-1].position.x}
+                initialPositionY={absoluteVectorToShiftForCentering.height} // {data[data.length-1].position.y}
+                limitToBounds={false}
             >
                 {({ resetTransform }) => (
-                <>
-                    <Control resetTransform={resetTransform}/>
-                    <TransformComponent>
-                        <ViewerGrid>
-                            {data.map((img, index) => (
-                                <ViewerCard
-                                    key={index}
-                                    x={img.position.x}
-                                    y={img.position.y}
-                                    src={img.url}
-                                />
-                            ))}
-                        </ViewerGrid>
-                    </TransformComponent>
-                    <ResetTransformOnResize resetTransform={resetTransform} />
-                </>)}
-        </TransformWrapper>
+                    <>
+                        <Control resetTransform={resetTransform} />
+                        <TransformComponent>
+                            <ViewerGrid>
+                                {data.map((img, index) => (
+                                    <ViewerCard
+                                        key={index}
+                                        x={img.position.x}
+                                        y={img.position.y}
+                                        src={img.url}
+                                    />
+                                ))}
+                            </ViewerGrid>
+                        </TransformComponent>
+                        <ResetTransformOnResize resetTransform={resetTransform} />
+                    </>
+                )}
+            </TransformWrapper>
         </div>
     );
 };

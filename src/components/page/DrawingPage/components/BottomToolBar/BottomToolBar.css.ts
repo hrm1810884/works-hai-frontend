@@ -10,12 +10,12 @@ export const bottomToolBarStyle = style({
     width: "100%",
     gap: vars.spacing.sm,
     padding: `${vars.spacing.xl} 12rem ${vars.spacing.xl} 5rem`,
-    backgroundColor: vars.colors.dark[9] // .primary[4], // blue
+    backgroundColor: vars.colors.dark[9], // .primary[4], // blue
 });
 
 export const toolButtonsContainerStyle = style({
     display: "flex",
-    position: "relative", 
+    position: "relative",
     height: "100%",
     gap: vars.spacing.md,
     justifyContent: "center",
@@ -24,14 +24,14 @@ export const toolButtonsContainerStyle = style({
 
 export const textSpanStyle = style({
     // display: "flex",
-    position: "relative", 
+    position: "relative",
     height: "100%",
     gap: vars.spacing.md,
     justifyContent: "center",
     alignItems: "center",
-    textAlign: "center", 
+    textAlign: "center",
     color: vars.colors.gray[0],
-    fontSize: vars.fontSizes.xl, 
+    fontSize: vars.fontSizes.xl,
 });
 
 export const colorPaletteIcon = style({
