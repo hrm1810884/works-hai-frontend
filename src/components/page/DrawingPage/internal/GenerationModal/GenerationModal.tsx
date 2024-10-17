@@ -1,6 +1,6 @@
-import { Center, Modal, ActionIcon } from "@mantine/core";
+import { Center, Modal } from "@mantine/core";
 import Image from "next/image";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useTransition } from "react";
 import { FaCircleCheck } from "react-icons/fa6";
 import { LiaBrushSolid } from "react-icons/lia";
 
@@ -9,14 +9,13 @@ import { stageSwitcher } from "@/utils";
 
 import { useConfirm } from "./hooks";
 
-import { vars } from "@/styles";
+import { ButtonWithIcon } from "@/components/common/ui";
 
 import {
     imageStyle,
-    modalContentStyle,
     modalBodyStyle,
+    modalContentStyle,
     modalHeaderStyle,
-    sendButtonStyle,
 } from "./GenerationModal.css";
 
 type props = {
@@ -25,6 +24,7 @@ type props = {
 };
 
 export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
+    const [isPending, startTransition] = useTransition();
     const {
         imgSrc,
         setImgSrc,
@@ -40,6 +40,7 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
             setImgSrc(canvasSrc);
         }
     }, [isOpen, getDrawingLink, setImgSrc]);
+
     return (
         <Modal
             opened={isOpen}
@@ -65,40 +66,23 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                 />
             </div>
             <Center>
-                <ActionIcon
-                    type="submit"
-                    variant="filled"
-                    color={vars.colors.white}
-                    radius={vars.radius.lg}
-                    onClick={async () => {
-                        const handleClick = stageSwitcher(stage, {
-                            pre: async () => {
-                                await handlePreClick();
-                            },
-                            post: async () => {
-                                await handlePostClick();
-                                handleClose();
-                            },
-                        });
-                        await handleClick();
-                    }}
-                    className={sendButtonStyle}
-                >
-                    {stageSwitcher(stage, {
-                        pre: (
-                            <>
-                                <span style={{ marginRight: vars.spacing.sm }}>生成する</span>
-                                <LiaBrushSolid style={{ display: "flex" }}></LiaBrushSolid>
-                            </>
-                        ),
-                        post: (
-                            <>
-                                <span style={{ marginRight: vars.spacing.sm }}>終了する</span>
-                                <FaCircleCheck style={{ display: "flex" }}></FaCircleCheck>
-                            </>
-                        ),
-                    })}
-                </ActionIcon>
+                {stageSwitcher(stage, {
+                    pre: (
+                        <ButtonWithIcon
+                            text="生成する"
+                            icon={LiaBrushSolid}
+                            disabled={isPending}
+                            onClick={() => startTransition(async () => await handlePreClick())}
+                        />
+                    ),
+                    post: (
+                        <ButtonWithIcon
+                            text="終了する"
+                            icon={FaCircleCheck}
+                            onClick={async () => await handlePostClick()}
+                        />
+                    ),
+                })}
             </Center>
         </Modal>
     );

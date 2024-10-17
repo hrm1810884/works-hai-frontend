@@ -1,1 +1,0 @@
-export { GenerationButton } from "./GenerationButton";

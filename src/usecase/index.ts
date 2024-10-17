@@ -1,3 +1,3 @@
-export { useGenerationUsecase as useGenerationService } from "./generateImage";
-export { useInitUsecase as useInitService } from "./init";
-export { useUploadUsecase as useUploadService } from "./uploadDrawing";
+export { useGenerationUsecase } from "./generateImage";
+export { useInitUsecase } from "./init";
+export { useUploadUsecase } from "./uploadDrawing";

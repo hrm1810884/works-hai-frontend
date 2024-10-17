@@ -2,8 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 import { vars } from "@/styles";
 
-// FIXME: space-between効いてない
-export const sendButtonStyle = style({
+export const buttonStyle = style({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
