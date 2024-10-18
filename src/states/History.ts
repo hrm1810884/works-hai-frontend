@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import { BrushType, CanvasSnapshot, HistoryItem, HistoryManager, MAX_HISTORY_ITEMS } from "@/model";
 
-import { getLatestSnapshotIndex } from "@/model/drawing.selector";
+import { getLatestSnapshotIndex, getMinIndexAfterSnapshot } from "@/model/drawing.selector";
 import { guardUndef } from "@/utils";
 
 import { useCanvas } from "./Canvas";
@@ -51,17 +51,11 @@ export const useHistory = () => {
         }
     }, [canvasContext, setHistoryManager]);
 
-    const isOldestHistory = useCallback(() => currentIndex === 0, [currentIndex]);
-    const isNewestHistory = useCallback(
-        () => currentIndex === historyItems.length - 1 || historyItems.length === 1,
-        [currentIndex, historyItems]
-    );
-
     const redrawHistory = useCallback(
         (manager: HistoryManager) => {
-            const snapshotIndex = getLatestSnapshotIndex(manager);
+            const snapshotIndex = getLatestSnapshotIndex(manager.currentIndex);
             const toRedraw = manager.historyItems.slice(
-                (snapshotIndex + 1) * MAX_HISTORY_ITEMS,
+                getMinIndexAfterSnapshot(snapshotIndex),
                 manager.currentIndex + 1
             );
             if (canvasContext) {
@@ -79,12 +73,12 @@ export const useHistory = () => {
                     canvasContext.canvas.height
                 );
 
+                // 一つ前のスナップショットを描画
                 if (snapshotIndex >= 0) {
                     canvasContext.putImageData(manager.snapshots[snapshotIndex].imageData, 0, 0);
                 }
 
-                console.log(toRedraw);
-
+                // スナップショット以降の履歴を描画
                 toRedraw.forEach((historyItem) => {
                     canvasContext.lineWidth = historyItem.brush.width;
                     if (historyItem.brush.type === "PENCIL") {
@@ -142,7 +136,6 @@ export const useHistory = () => {
     );
 
     return {
-        currentHistoryIndex: currentIndex,
         mutator: {
             initializeHistory,
             undoHistory,
@@ -151,8 +144,8 @@ export const useHistory = () => {
             redrawHistory,
         },
         flag: {
-            isOldestHistory,
-            isNewestHistory,
+            isOldestHistory: currentIndex === 0,
+            isNewestHistory: currentIndex === historyItems.length - 1 || historyItems.length === 1,
         },
     };
 };
