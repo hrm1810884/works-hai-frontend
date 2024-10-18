@@ -20,7 +20,7 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
         mutator: { setBrushWidth },
     } = useBrush();
     return (
-        <Menu shadow="md" width={200} offset={30}>
+        <Menu shadow="md" width={200}>
             <Menu.Target>
                 <IconButton variant="transparent" color={vars.colors.white} icon={icon} />
             </Menu.Target>
