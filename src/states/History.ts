@@ -1,7 +1,10 @@
 import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 
-import { BrushType, HistoryItem } from "@/model";
+import { BrushType, CanvasSnapshot, HistoryItem, HistoryManager, MAX_HISTORY_ITEMS } from "@/model";
+
+import { getLatestSnapshotIndex } from "@/model/drawing.selector";
+import { guardUndef } from "@/utils";
 
 import { useCanvas } from "./Canvas";
 
@@ -9,32 +12,58 @@ const initHistory: HistoryItem<"PENCIL"> = {
     points: [],
     brush: { type: "PENCIL", width: 1, color: "white" },
 };
-const historyAtom = atom<HistoryItem<BrushType>[]>([initHistory]);
-const currentHistoryIndexAtom = atom<number>(0);
+
+const historyManagerAtom = atom<HistoryManager>({
+    currentIndex: 0,
+    historyItems: [initHistory] as HistoryItem<BrushType>[],
+    snapshots: [],
+});
+
 export const useHistory = () => {
-    const [history, setHistory] = useAtom(historyAtom);
-    const [currentHistoryIndex, setCurrentHistoryIndex] = useAtom(currentHistoryIndexAtom);
+    const [historyManager, setHistoryManager] = useAtom(historyManagerAtom);
     const { canvasContext } = useCanvas();
+
+    const { currentIndex, historyItems, snapshots } = historyManager;
+
+    const createSnapshot = useCallback(() => {
+        if (canvasContext) {
+            const imageData = canvasContext.getImageData(
+                0,
+                0,
+                canvasContext.canvas.width,
+                canvasContext.canvas.height
+            );
+            return { imageData, timestamp: Date.now() } as CanvasSnapshot;
+        }
+    }, [canvasContext]);
 
     const initializeHistory = useCallback(() => {
         if (canvasContext) {
             canvasContext.clearRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
             canvasContext.fillStyle = "white";
             canvasContext.fillRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
-        }
-        setHistory([initHistory]);
-        setCurrentHistoryIndex(0);
-    }, [canvasContext, setHistory, setCurrentHistoryIndex]);
 
-    const isOldestHistory = useCallback(() => currentHistoryIndex === 0, [currentHistoryIndex]);
+            setHistoryManager({
+                currentIndex: 0,
+                historyItems: [initHistory],
+                snapshots: [],
+            });
+        }
+    }, [canvasContext, setHistoryManager]);
+
+    const isOldestHistory = useCallback(() => currentIndex === 0, [currentIndex]);
     const isNewestHistory = useCallback(
-        () => currentHistoryIndex === history.length - 1 || history.length === 1,
-        [currentHistoryIndex, history]
+        () => currentIndex === historyItems.length - 1 || historyItems.length === 1,
+        [currentIndex, historyItems]
     );
 
     const redrawHistory = useCallback(
-        (index: number) => {
-            const toRedraw = history.slice(0, index + 1);
+        (manager: HistoryManager) => {
+            const snapshotIndex = getLatestSnapshotIndex(manager);
+            const toRedraw = manager.historyItems.slice(
+                (snapshotIndex + 1) * MAX_HISTORY_ITEMS,
+                manager.currentIndex + 1
+            );
             if (canvasContext) {
                 canvasContext.clearRect(
                     0,
@@ -49,6 +78,12 @@ export const useHistory = () => {
                     canvasContext.canvas.width,
                     canvasContext.canvas.height
                 );
+
+                if (snapshotIndex >= 0) {
+                    canvasContext.putImageData(manager.snapshots[snapshotIndex].imageData, 0, 0);
+                }
+
+                console.log(toRedraw);
 
                 toRedraw.forEach((historyItem) => {
                     canvasContext.lineWidth = historyItem.brush.width;
@@ -68,43 +103,51 @@ export const useHistory = () => {
                 });
             }
         },
-        [history, canvasContext]
+        [canvasContext]
     );
 
     const undoHistory = useCallback(() => {
-        const newIndex = currentHistoryIndex - 1;
-        setCurrentHistoryIndex(newIndex);
-        redrawHistory(newIndex);
-    }, [setCurrentHistoryIndex, redrawHistory, currentHistoryIndex]);
+        const newHistoryManager = {
+            ...historyManager,
+            currentIndex: historyManager.currentIndex - 1,
+        };
+
+        setHistoryManager(newHistoryManager);
+        redrawHistory(newHistoryManager);
+    }, [setHistoryManager, redrawHistory, historyManager]);
 
     const redoHistory = useCallback(() => {
-        const newIndex = currentHistoryIndex + 1;
-        setCurrentHistoryIndex(newIndex);
-        redrawHistory(newIndex);
-    }, [setCurrentHistoryIndex, redrawHistory, currentHistoryIndex]);
+        const newHistoryManager = {
+            ...historyManager,
+            currentIndex: historyManager.currentIndex + 1,
+        };
+        setHistoryManager(newHistoryManager);
+        redrawHistory(newHistoryManager);
+    }, [setHistoryManager, redrawHistory, historyManager]);
 
     const incrementHistory = useCallback(
         (newHistoryItem: HistoryItem<BrushType>) => {
-            const prevHistory = history.slice(0, currentHistoryIndex + 1);
-            setHistory([...prevHistory, newHistoryItem]);
-            setCurrentHistoryIndex((prev) => prev + 1);
+            const newIndex = currentIndex + 1;
+            const newSnapshots =
+                newIndex % MAX_HISTORY_ITEMS === 0
+                    ? [...snapshots, guardUndef(createSnapshot())]
+                    : snapshots;
+            setHistoryManager({
+                currentIndex: newIndex,
+                historyItems: [...historyItems.slice(0, newIndex), newHistoryItem],
+                snapshots: newSnapshots,
+            });
         },
-        [history, setHistory, currentHistoryIndex, setCurrentHistoryIndex]
+        [snapshots, historyItems, setHistoryManager, currentIndex, createSnapshot]
     );
 
-    const trashUnnecessaryHistory = useCallback(() => {
-        setHistory(history.slice(0, currentHistoryIndex + 1));
-    }, [history, setHistory, currentHistoryIndex]);
-
     return {
-        history,
-        currentHistoryIndex,
+        currentHistoryIndex: currentIndex,
         mutator: {
             initializeHistory,
             undoHistory,
             redoHistory,
             incrementHistory,
-            trashUnnecessaryHistory,
             redrawHistory,
         },
         flag: {
