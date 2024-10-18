@@ -29,10 +29,10 @@ export const ToolBar: FC<props> = () => {
             {/* undo, redo, trash */}
             <div className={toolButtonsContainerStyle}>
                 {/* Undo history */}
-                <ToolButton onClick={undoHistory} icon={BiUndo} isDisabled={isOldestHistory()} />
+                <ToolButton onClick={undoHistory} icon={BiUndo} isDisabled={isOldestHistory} />
 
                 {/* Redo history */}
-                <ToolButton onClick={redoHistory} icon={BiRedo} isDisabled={isNewestHistory()} />
+                <ToolButton onClick={redoHistory} icon={BiRedo} isDisabled={isNewestHistory} />
 
                 {/* Clear canvas */}
                 <ToolButton onClick={initializeHistory} icon={AiOutlineClear} />
