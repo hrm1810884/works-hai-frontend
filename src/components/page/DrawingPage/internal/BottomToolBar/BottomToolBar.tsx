@@ -1,7 +1,9 @@
 import { FC } from "react";
 import { IoMdSend } from "react-icons/io";
 
+import { isDrawnValidly } from "@/model/drawing.selector";
 import { useCanvas } from "@/states/Canvas";
+import { guardUndef } from "@/utils";
 import { Now } from "@/utils/switchByEnv";
 
 import { ButtonWithIcon } from "@/components/common/ui/";
@@ -15,7 +17,7 @@ type Props = {
 export const BottomToolBar: FC<Props> = (props) => {
     const { onClick: openModal } = props;
 
-    const { densityValidation } = useCanvas();
+    const { whitePixelsProportionRef } = useCanvas();
 
     /**
      * TODO: 開発が進み次第削除する
@@ -34,20 +36,16 @@ export const BottomToolBar: FC<Props> = (props) => {
                 ) : (
                     <>
                         <div className={textSpanStyle}>
-                            <div>
-                                キャンバス周辺部分の余白の割合:{" "}
-                                {Math.round(densityValidation.whitePixelsProportion * 1000) / 10}%
-                            </div>
-                            <div>30%を下回ると完了ボタンが押せるようになります</div>
+                            <p>{`キャンバス周辺部分の余白の割合: ${Math.round(guardUndef(whitePixelsProportionRef.current) * 1000) / 10}%`}</p>
+                            <p>30%を下回ると完了ボタンが押せるようになります</p>
                         </div>
-                        {densityValidation.validated ? (
-                            <ButtonWithIcon
-                                type="submit"
-                                text="完了"
-                                icon={IoMdSend}
-                                onClick={openModal}
-                            />
-                        ) : null}
+                        <ButtonWithIcon
+                            type="submit"
+                            text="完了"
+                            icon={IoMdSend}
+                            onClick={openModal}
+                            disabled={isDrawnValidly(guardUndef(whitePixelsProportionRef.current))}
+                        />
                     </>
                 )}
             </div>

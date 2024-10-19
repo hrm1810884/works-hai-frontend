@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { FC, useEffect } from "react";
 
+import { useCanvas } from "@/states/Canvas";
+
 import { useDrawingCanvas, usePaintingState } from "./hooks";
 
 import { canvasStyle } from "./Canvas.css";
@@ -9,9 +11,6 @@ type Props = { className?: string };
 
 export const Canvas: FC<Props> = ({ className }) => {
     const {
-        canvasRef,
-        canvasContext,
-        updateCanvasContext,
         handlers: {
             handleMouseDown,
             handleDraw,
@@ -22,25 +21,23 @@ export const Canvas: FC<Props> = ({ className }) => {
         },
     } = useDrawingCanvas();
 
+    const { canvasRef, getCanvasContext, clearCanvas } = useCanvas();
+
     const {
         mutators: { resetPainting },
     } = usePaintingState();
 
     useEffect(() => {
-        updateCanvasContext();
         if (canvasRef?.current) {
             canvasRef.current.width = canvasRef?.current.clientWidth;
             canvasRef.current.height = canvasRef?.current.clientHeight;
-            (canvasRef?.current.getContext("2d") as any).fillStyle = "white";
-            canvasRef?.current
-                .getContext("2d")
-                ?.fillRect(0, 0, canvasRef?.current.clientWidth, canvasRef?.current.clientHeight);
+            clearCanvas();
         }
-    }, [canvasRef, updateCanvasContext]);
+    }, [canvasRef, clearCanvas]);
 
     useEffect(() => {
         const canvas = canvasRef?.current;
-
+        const canvasContext = getCanvasContext(canvasRef.current);
         if (canvasContext && canvas) {
             canvas.addEventListener("touchstart", handleTouchStart, {
                 passive: false,
@@ -56,7 +53,7 @@ export const Canvas: FC<Props> = ({ className }) => {
             canvas?.removeEventListener("touchmove", handleMobileDraw);
             canvas?.removeEventListener("touchend", handleTouchEnd);
         };
-    }, [canvasContext, canvasRef, handleMobileDraw, handleTouchEnd, handleTouchStart]);
+    }, [getCanvasContext, canvasRef, handleMobileDraw, handleTouchEnd, handleTouchStart]);
 
     return (
         <canvas

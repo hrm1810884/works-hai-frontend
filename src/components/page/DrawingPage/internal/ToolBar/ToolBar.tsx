@@ -5,6 +5,7 @@ import { BsBorderWidth } from "react-icons/bs";
 
 import { ICON_SIZE } from "@/model/consts";
 import { useBrush } from "@/states/Brush";
+import { useCanvas } from "@/states/Canvas";
 import { useHistory } from "@/states/History";
 
 import { ColorPicker, LineWidthMenu, ToolButton } from "../ToolButton";
@@ -15,14 +16,20 @@ type props = {};
 
 export const ToolBar: FC<props> = () => {
     const {
-        mutator: { undoHistory, redoHistory, initializeHistory },
+        mutator: { undoHistory, redoHistory },
         flag: { isNewestHistory, isOldestHistory },
     } = useHistory();
+
+    const { clearCanvas } = useCanvas();
 
     const {
         brush,
         mutator: { setBrushType },
     } = useBrush();
+
+    const {
+        mutator: { incrementHistory },
+    } = useHistory();
 
     return (
         <div className={toolBarStyle}>
@@ -35,7 +42,13 @@ export const ToolBar: FC<props> = () => {
                 <ToolButton onClick={redoHistory} icon={BiRedo} isDisabled={isNewestHistory} />
 
                 {/* Clear canvas */}
-                <ToolButton onClick={initializeHistory} icon={AiOutlineClear} />
+                <ToolButton
+                    onClick={() => {
+                        clearCanvas();
+                        incrementHistory({ points: [], brush });
+                    }}
+                    icon={AiOutlineClear}
+                />
             </div>
 
             {/* Tools */}

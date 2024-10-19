@@ -6,6 +6,7 @@ import { LiaBrushSolid } from "react-icons/lia";
 
 import { useCanvas } from "@/states/Canvas";
 import { stageSwitcher } from "@/utils";
+import { getDrawingLink } from "@/utils/getDrawingLink";
 
 import { useConfirm } from "./hooks";
 
@@ -31,15 +32,14 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
         stage,
         handler: { handlePreClick, handlePostClick },
     } = useConfirm();
-
-    const { getDrawingLink } = useCanvas();
+    const { canvasRef } = useCanvas();
 
     useEffect(() => {
         if (isOpen) {
-            const canvasSrc = getDrawingLink();
+            const canvasSrc = getDrawingLink(canvasRef.current);
             setImgSrc(canvasSrc);
         }
-    }, [isOpen, getDrawingLink, setImgSrc]);
+    }, [isOpen, canvasRef, setImgSrc]);
 
     return (
         <Modal
