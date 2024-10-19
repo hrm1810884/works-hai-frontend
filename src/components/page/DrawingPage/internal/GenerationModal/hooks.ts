@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { match } from "ts-pattern";
 
-import { useHistory } from "@/states/History";
+import { useCanvas } from "@/states/Canvas";
 import { useGenerationUsecase, useInitUsecase, useUploadUsecase } from "@/usecase";
 import { guardUndef, showToast } from "@/utils";
 
@@ -12,9 +12,7 @@ export const useConfirm = () => {
     const { generateDrawing } = useGenerationUsecase();
     const { refetch } = useInitUsecase();
 
-    const {
-        mutator: { initializeHistory },
-    } = useHistory();
+    const { clearCanvas } = useCanvas();
     const [imgSrc, setImgSrc] = useState<string>("no-image.png");
     const [stage, setStage] = useState<ConfirmStage>("pre");
 
@@ -39,10 +37,10 @@ export const useConfirm = () => {
     }, [uploadDrawing, generateDrawing]);
 
     const handlePostClick = useCallback(async () => {
-        initializeHistory();
+        clearCanvas();
         setStage("pre");
         await refetch();
-    }, [initializeHistory, refetch]);
+    }, [clearCanvas, refetch]);
 
     return {
         imgSrc,
