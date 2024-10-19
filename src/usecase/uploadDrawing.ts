@@ -3,15 +3,16 @@ import { useCallback } from "react";
 import { useCanvas } from "@/states/Canvas";
 import { useUserContext } from "@/states/User";
 import { guardUndef } from "@/utils";
+import { getDrawingLink } from "@/utils/getDrawingLink";
 import { UsecaseMethod, usecaseResultError, usecaseResultOk } from "@/utils/usecase";
 
 export const useUploadUsecase = () => {
-    const { getDrawingLink } = useCanvas();
     const { saveUrlRef } = useUserContext();
+    const { canvasRef } = useCanvas();
 
     const uploadDrawing = useCallback(async () => {
         try {
-            const drawingUrl = getDrawingLink();
+            const drawingUrl = getDrawingLink(canvasRef.current);
             const presignedUrl = guardUndef(saveUrlRef.current);
             const humanDrawingBlob = await (await fetch(drawingUrl)).blob();
 
@@ -32,7 +33,7 @@ export const useUploadUsecase = () => {
             console.error(error);
             return usecaseResultError(new Error("Failed to upload human drawing"));
         }
-    }, [saveUrlRef, getDrawingLink]) satisfies UsecaseMethod;
+    }, [saveUrlRef, canvasRef]) satisfies UsecaseMethod;
 
     return { uploadDrawing };
 };

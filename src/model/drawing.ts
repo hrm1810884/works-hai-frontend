@@ -21,6 +21,12 @@ export type Brush<T extends BrushType> = {
 };
 
 /**
+ * MEMO: Brand にしてもいいかも
+ */
+export const DRAWN_THRESHOLD = 0.7 as const;
+export type WhitePixelsProportion = number;
+
+/**
  * 履歴を表すモデル
  */
 

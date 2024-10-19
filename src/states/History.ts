@@ -1,9 +1,15 @@
 import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 
-import { BrushType, CanvasSnapshot, HistoryItem, HistoryManager, MAX_HISTORY_ITEMS } from "@/model";
+import { BrushType, HistoryItem, HistoryManager, MAX_HISTORY_ITEMS } from "@/model";
 
-import { getLatestSnapshotIndex, getMinIndexAfterSnapshot } from "@/model/drawing.selector";
+import {
+    createSnapshot,
+    getCanvasContext,
+    getLatestSnapshotIndex,
+    getMinIndexAfterSnapshot,
+    isClearCanvas,
+} from "@/model/drawing.selector";
 import { guardUndef } from "@/utils";
 
 import { useCanvas } from "./Canvas";
@@ -21,35 +27,10 @@ const historyManagerAtom = atom<HistoryManager>({
 
 export const useHistory = () => {
     const [historyManager, setHistoryManager] = useAtom(historyManagerAtom);
-    const { canvasContext } = useCanvas();
 
     const { currentIndex, historyItems, snapshots } = historyManager;
 
-    const createSnapshot = useCallback(() => {
-        if (canvasContext) {
-            const imageData = canvasContext.getImageData(
-                0,
-                0,
-                canvasContext.canvas.width,
-                canvasContext.canvas.height
-            );
-            return { imageData, timestamp: Date.now() } as CanvasSnapshot;
-        }
-    }, [canvasContext]);
-
-    const initializeHistory = useCallback(() => {
-        if (canvasContext) {
-            canvasContext.clearRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
-            canvasContext.fillStyle = "white";
-            canvasContext.fillRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
-
-            setHistoryManager({
-                currentIndex: 0,
-                historyItems: [initHistory],
-                snapshots: [],
-            });
-        }
-    }, [canvasContext, setHistoryManager]);
+    const { canvasRef, clearCanvas } = useCanvas();
 
     const redrawHistory = useCallback(
         (manager: HistoryManager) => {
@@ -58,6 +39,8 @@ export const useHistory = () => {
                 getMinIndexAfterSnapshot(snapshotIndex),
                 manager.currentIndex + 1
             );
+
+            const canvasContext = getCanvasContext(canvasRef.current);
             if (canvasContext) {
                 canvasContext.clearRect(
                     0,
@@ -80,24 +63,28 @@ export const useHistory = () => {
 
                 // スナップショット以降の履歴を描画
                 toRedraw.forEach((historyItem) => {
-                    canvasContext.lineWidth = historyItem.brush.width;
-                    if (historyItem.brush.type === "PENCIL") {
-                        canvasContext.strokeStyle = historyItem.brush.color;
-                    } else if (historyItem.brush.type === "ERASER") {
-                        canvasContext.strokeStyle = "white";
-                    }
-                    canvasContext.lineCap = "round";
-                    canvasContext.lineJoin = "round";
-                    historyItem.points.forEach((point) => {
-                        canvasContext.lineTo(point.x, point.y);
+                    if (isClearCanvas(historyItem)) {
+                        clearCanvas();
+                    } else {
+                        canvasContext.lineWidth = historyItem.brush.width;
+                        if (historyItem.brush.type === "PENCIL") {
+                            canvasContext.strokeStyle = historyItem.brush.color;
+                        } else if (historyItem.brush.type === "ERASER") {
+                            canvasContext.strokeStyle = "white";
+                        }
+                        canvasContext.lineCap = "round";
+                        canvasContext.lineJoin = "round";
+                        historyItem.points.forEach((point) => {
+                            canvasContext.lineTo(point.x, point.y);
+                            canvasContext.stroke();
+                        });
                         canvasContext.stroke();
-                    });
-                    canvasContext.stroke();
-                    canvasContext.beginPath();
+                        canvasContext.beginPath();
+                    }
                 });
             }
         },
-        [canvasContext]
+        [canvasRef, clearCanvas]
     );
 
     const undoHistory = useCallback(() => {
@@ -124,7 +111,7 @@ export const useHistory = () => {
             const newIndex = currentIndex + 1;
             const newSnapshots =
                 newIndex % MAX_HISTORY_ITEMS === 0
-                    ? [...snapshots, guardUndef(createSnapshot())]
+                    ? [...snapshots, guardUndef(createSnapshot(canvasRef.current))]
                     : snapshots;
             setHistoryManager({
                 currentIndex: newIndex,
@@ -132,12 +119,11 @@ export const useHistory = () => {
                 snapshots: newSnapshots,
             });
         },
-        [snapshots, historyItems, setHistoryManager, currentIndex, createSnapshot]
+        [snapshots, historyItems, setHistoryManager, currentIndex, canvasRef]
     );
 
     return {
         mutator: {
-            initializeHistory,
             undoHistory,
             redoHistory,
             incrementHistory,
