@@ -8,7 +8,7 @@ import { useViewer, useViewerTransform } from "./hooks";
 
 import { ControlButton, ViewerCard, ViewerGrid } from "./components";
 
-import { controlWrapper, wrapper } from "./page.css";
+import { controlWrapper, wrapper, viewerGrid } from "./page.css";
 
 export const ViewerPage = () => {
     const { data } = useViewer();
@@ -60,7 +60,8 @@ export const ViewerPage = () => {
                     <>
                         <Control resetTransform={resetTransform} />
                         <TransformComponent>
-                            <ViewerGrid>
+                            <ViewerGrid
+                            className={viewerGrid}>
                                 {data.map((img, index) => (
                                     <ViewerCard
                                         key={index}

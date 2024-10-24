@@ -79,7 +79,9 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                         <ButtonWithIcon
                             text="終了する"
                             icon={FaCircleCheck}
-                            onClick={async () => await handlePostClick()}
+                            onClick={() => {
+                                handlePostClick().then(()=>{handleClose();});
+                            }}
                         />
                     ),
                 })}
