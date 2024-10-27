@@ -22,25 +22,23 @@ export default function ClientProviders({ children }: { children: React.ReactNod
     }
     const [queryClient] = React.useState(() => new QueryClient());
     return (
-        <>
-            <QueryClientProvider client={queryClient}>
-                <Provider store={store}>
-                    <ToastContainer
-                        position="top-center"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        pauseOnHover
-                        theme="light"
-                        icon={false}
-                        transition={Flip}
-                    />
-                    {children}
-                </Provider>
-            </QueryClientProvider>
-        </>
+        <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    pauseOnHover
+                    theme="light"
+                    icon={false}
+                    transition={Flip}
+                />
+                {children}
+            </Provider>
+        </QueryClientProvider>
     );
 }

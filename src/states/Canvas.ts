@@ -9,11 +9,10 @@ import { getCanvasContext } from "@/model/drawing.selector";
 
 const canvasRefAtom =
     atom<MutableRefObject<HTMLCanvasElement | null>>(createRef<HTMLCanvasElement>());
-const whitePixelsProportionRefAtom =
-    atom<MutableRefObject<WhitePixelsProportion | null>>(createRef<WhitePixelsProportion>());
+const whitePixelsProportionAtom = atom<WhitePixelsProportion>(1);
 
 export const useCanvas = () => {
-    const [whitePixelsProportionRef, _] = useAtom(whitePixelsProportionRefAtom);
+    const [whitePixelsProportion, setWthitePixelsPortion] = useAtom(whitePixelsProportionAtom);
     const [canvasRef, __] = useAtom(canvasRefAtom);
 
     const clearCanvas = useCallback(() => {
@@ -62,16 +61,16 @@ export const useCanvas = () => {
                 }
             }
 
-            const whitePixelsProportion: number = whitePixelCount / totalCounts;
+            const whitePixelsProportion = whitePixelCount / totalCounts;
 
-            whitePixelsProportionRef.current = whitePixelsProportion;
+            setWthitePixelsPortion(whitePixelsProportion);
         },
-        [whitePixelsProportionRef]
+        [setWthitePixelsPortion]
     );
 
     return {
         canvasRef,
-        whitePixelsProportionRef,
+        whitePixelsProportion,
         getCanvasContext,
         clearCanvas,
         updateWhitePixelsProportion,

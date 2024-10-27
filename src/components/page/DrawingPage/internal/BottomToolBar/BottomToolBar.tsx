@@ -3,7 +3,6 @@ import { IoMdSend } from "react-icons/io";
 
 import { isDrawnValidly } from "@/model/drawing.selector";
 import { useCanvas } from "@/states/Canvas";
-import { guardUndef } from "@/utils";
 import { Now } from "@/utils/switchByEnv";
 
 import { ButtonWithIcon } from "@/components/common/ui/";
@@ -17,7 +16,7 @@ type Props = {
 export const BottomToolBar: FC<Props> = (props) => {
     const { onClick: openModal } = props;
 
-    const { whitePixelsProportionRef } = useCanvas();
+    const { whitePixelsProportion } = useCanvas();
 
     /**
      * TODO: 開発が進み次第削除する
@@ -36,7 +35,7 @@ export const BottomToolBar: FC<Props> = (props) => {
                 ) : (
                     <>
                         <div className={textSpanStyle}>
-                            <p>{`キャンバス周辺部分の余白の割合: ${Math.round(guardUndef(whitePixelsProportionRef.current) * 1000) / 10}%`}</p>
+                            <p>{`キャンバス周辺部分の余白の割合: ${(whitePixelsProportion * 100).toFixed(1)}%`}</p>
                             <p>30%を下回ると完了ボタンが押せるようになります</p>
                         </div>
                         <ButtonWithIcon
@@ -44,7 +43,7 @@ export const BottomToolBar: FC<Props> = (props) => {
                             text="完了"
                             icon={IoMdSend}
                             onClick={openModal}
-                            disabled={isDrawnValidly(guardUndef(whitePixelsProportionRef.current))}
+                            disabled={!isDrawnValidly(whitePixelsProportion)}
                         />
                     </>
                 )}
