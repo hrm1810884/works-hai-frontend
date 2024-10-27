@@ -1,7 +1,6 @@
 import { guardUndef } from "@/utils";
 
 import {
-    BrushType,
     CanvasSnapshot,
     DRAWN_THRESHOLD,
     HistoryItem,
@@ -17,7 +16,7 @@ export function getLatestSnapshotIndex(historyIndex: number) {
     return Math.floor(historyIndex / MAX_HISTORY_ITEMS) - 1;
 }
 
-export function isClearCanvas<B extends BrushType>(history: HistoryItem<B>) {
+export function isClearCanvas(history: HistoryItem) {
     return history.points.length === 0;
 }
 

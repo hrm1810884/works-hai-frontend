@@ -1,7 +1,7 @@
 import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 
-import { BrushType, HistoryItem, HistoryManager, MAX_HISTORY_ITEMS } from "@/model";
+import { HistoryItem, HistoryManager, MAX_HISTORY_ITEMS } from "@/model";
 
 import {
     createSnapshot,
@@ -12,16 +12,17 @@ import {
 } from "@/model/drawing.selector";
 import { guardUndef } from "@/utils";
 
+import { defaultBrush } from "./Brush";
 import { useCanvas } from "./Canvas";
 
-const initHistory: HistoryItem<"PENCIL"> = {
+const initHistory: HistoryItem = {
     points: [],
-    brush: { type: "PENCIL", width: 1, color: "white" },
+    brush: defaultBrush,
 };
 
 const historyManagerAtom = atom<HistoryManager>({
     currentIndex: 0,
-    historyItems: [initHistory] as HistoryItem<BrushType>[],
+    historyItems: [initHistory] as HistoryItem[],
     snapshots: [],
 });
 
@@ -66,7 +67,7 @@ export const useHistory = () => {
                     if (isClearCanvas(historyItem)) {
                         clearCanvas();
                     } else {
-                        canvasContext.lineWidth = historyItem.brush.width;
+                        canvasContext.lineWidth = historyItem.brush.width[historyItem.brush.type];
                         if (historyItem.brush.type === "PENCIL") {
                             canvasContext.strokeStyle = historyItem.brush.color;
                         } else if (historyItem.brush.type === "ERASER") {
@@ -107,7 +108,7 @@ export const useHistory = () => {
     }, [setHistoryManager, redrawHistory, historyManager]);
 
     const incrementHistory = useCallback(
-        (newHistoryItem: HistoryItem<BrushType>) => {
+        (newHistoryItem: HistoryItem) => {
             const newIndex = currentIndex + 1;
             const newSnapshots =
                 newIndex % MAX_HISTORY_ITEMS === 0

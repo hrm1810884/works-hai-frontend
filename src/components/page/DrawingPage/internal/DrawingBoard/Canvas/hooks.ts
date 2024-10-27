@@ -80,7 +80,7 @@ export const useDrawingCanvas = () => {
             if (canvasContext && canvasRef?.current) {
                 setPoints([...points, { x: x, y: y }]);
 
-                canvasContext.lineWidth = brush.width;
+                canvasContext.lineWidth = brush.width[brush.type];
                 if (brush.type === "PENCIL") {
                     canvasContext.strokeStyle = brush.color;
                 } else if (brush.type === "ERASER") {
@@ -173,7 +173,7 @@ export const useDrawingCanvas = () => {
                 if (canvasContext && canvasRef?.current) {
                     setPoints([...points, { x: x, y: y }]);
 
-                    canvasContext.lineWidth = brush.width;
+                    canvasContext.lineWidth = brush.width[brush.type];
                     if (brush.type === "PENCIL") {
                         canvasContext.strokeStyle = brush.color;
                     } else if (brush.type === "ERASER") {
