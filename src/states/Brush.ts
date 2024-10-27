@@ -1,10 +1,14 @@
 import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 
-import { Brush, BrushType, LineWidth, lineWidthData } from "@/model";
+import { Brush, BrushType } from "@/model";
 
-const defaultBrush: Brush<"PENCIL"> = { type: "PENCIL", width: 3, color: "#000000" };
-const brushAtom = atom<Brush<BrushType>>(defaultBrush);
+export const defaultBrush: Brush = {
+    type: "PENCIL",
+    width: { PENCIL: 3, ERASER: 4 },
+    color: "#000000",
+};
+const brushAtom = atom<Brush>(defaultBrush);
 export const useBrush = () => {
     const [brush, setBrush] = useAtom(brushAtom);
 
@@ -26,25 +30,13 @@ export const useBrush = () => {
 
     const setBrushWidth = useCallback(
         (width: number) => {
-            setBrush((prev) => {
-                // 型ガードを使って幅が正しい型であることを確認
-                const isValidWidth = <T extends BrushType>(
-                    type: T,
-                    width: number
-                ): width is LineWidth<T> => {
-                    return (lineWidthData[type] as readonly number[]).includes(width);
-                };
-
-                if (isValidWidth(prev.type, width)) {
-                    return {
-                        ...prev,
-                        width: width as LineWidth<typeof prev.type>, // 正しい幅を設定
-                    };
-                } else {
-                    console.warn(`Invalid width: ${width} for brush type: ${prev.type}`);
-                    return prev;
-                }
-            });
+            setBrush((prev) => ({
+                ...prev,
+                width: {
+                    ...prev.width,
+                    [prev.type]: width,
+                },
+            }));
         },
         [setBrush]
     );
@@ -54,7 +46,6 @@ export const useBrush = () => {
             setBrush((prev) => ({
                 ...prev,
                 type: type,
-                width: lineWidthData[type][0],
             }));
         },
         [setBrush]

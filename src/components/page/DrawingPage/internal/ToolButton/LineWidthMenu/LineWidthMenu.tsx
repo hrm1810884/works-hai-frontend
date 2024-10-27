@@ -34,7 +34,7 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
                         onClick={() => {
                             setBrushWidth(val);
                         }}
-                        className={menuItemStyle({ selected: val === brush.width })}
+                        className={menuItemStyle({ selected: val === brush.width[brush.type] })}
                     >
                         <div className={lineWidthBar} style={{ height: val + "px" }}></div>
                     </Menu.Item>
