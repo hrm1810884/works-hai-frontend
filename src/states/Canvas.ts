@@ -48,10 +48,12 @@ export const useCanvas = () => {
 
                 const h: number = Math.floor(i / 4 / width);
                 const w: number = (i / 4) % width;
-                if (h >= borderHeight && h < height - borderHeight) {
-                    continue;
-                }
-                if (w >= borderWidth && w < width - borderWidth) {
+                if (
+                    h >= borderHeight &&
+                    h < height - borderHeight &&
+                    w >= borderWidth &&
+                    w < width - borderWidth
+                ) {
                     continue;
                 }
 
