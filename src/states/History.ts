@@ -33,6 +33,14 @@ export const useHistory = () => {
 
     const { canvasRef, clearCanvas } = useCanvas();
 
+    const initializeHistory = useCallback(() => {
+        setHistoryManager({
+            currentIndex: 0,
+            historyItems: [initHistory],
+            snapshots: [],
+        });
+    }, [setHistoryManager]);
+
     const redrawHistory = useCallback(
         (manager: HistoryManager) => {
             const snapshotIndex = getLatestSnapshotIndex(manager.currentIndex);
@@ -129,6 +137,7 @@ export const useHistory = () => {
             redoHistory,
             incrementHistory,
             redrawHistory,
+            initializeHistory,
         },
         flag: {
             isOldestHistory: currentIndex === 0,
