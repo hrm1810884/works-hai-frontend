@@ -10,7 +10,7 @@ import { IconButton } from "@/components/common/ui";
 
 import { vars } from "@/styles";
 
-import { lineWidthBar, menuItemStyle } from "./LineWidthMenu.css";
+import { lineWidthBar, menuItemStyle, menuDropdownStyle } from "./LineWidthMenu.css";
 
 type props = { icon: IconType };
 
@@ -24,7 +24,7 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
             <Menu.Target>
                 <IconButton variant="transparent" color={vars.colors.white} icon={icon} />
             </Menu.Target>
-            <Menu.Dropdown>
+            <Menu.Dropdown className={menuDropdownStyle}>
                 <Menu.Label>Line Width</Menu.Label>
                 {lineWidthData[brush.type].map((val, index) => (
                     <Menu.Item

@@ -3,6 +3,11 @@ import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "@/styles";
 
+export const menuDropdownStyle = style({
+    top: 100, // "100vw",
+    left: "25vh",
+});
+
 export const menuItemStyle = recipe({
     base: {
         selectors: {
