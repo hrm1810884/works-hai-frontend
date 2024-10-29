@@ -6,8 +6,8 @@ export type AbsoluteVector = {
 };
 
 type CalculationResult = {
-    toLatestImageCenter: AbsoluteVector,
-    toGridCenter: AbsoluteVector
+    toLatestImageCenter: AbsoluteVector;
+    toGridCenter: AbsoluteVector;
 };
 
 // n >= 0
@@ -17,7 +17,7 @@ const NthBottomRightCornerIndex = (n: number) => (2 * n) ** 2 + (2 * n + 1) * 3;
 const NthTopRightCornerIndex = (n: number) => (2 * n) ** 2 + (2 * n + 1) * 4 + 1;
 /**
  * HOW TO DEVIDE
- * 
+ *
  * +-----------------------...-----------------+
  * |(end)                  <-       topRight   |
  * +-----------------+-----...-----+-----------+
@@ -68,48 +68,48 @@ const calculateAbsoluteVectorFromTopLeftCorner = (arrayLength: number): Calculat
 
     if (topRightCorner <= arrayLength) {
         return {
-            "toLatestImageCenter": {
-                "height": 0.5 * VIEWER_CARD_SIZE_NUMBER,
-                "width": (nextTopLeftCorner - arrayLength - 0.5) * VIEWER_CARD_SIZE_NUMBER
+            toLatestImageCenter: {
+                height: 0.5 * VIEWER_CARD_SIZE_NUMBER,
+                width: (nextTopLeftCorner - arrayLength - 0.5) * VIEWER_CARD_SIZE_NUMBER,
             },
-            "toGridCenter": {
-                "height": (n + 1.5) * VIEWER_CARD_SIZE_NUMBER,
-                "width": (n + 1) * VIEWER_CARD_SIZE_NUMBER,
-            }
-        }
-    } else if (bottomRightCorner <= arrayLength ) {
+            toGridCenter: {
+                height: (n + 1.5) * VIEWER_CARD_SIZE_NUMBER,
+                width: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
+            },
+        };
+    } else if (bottomRightCorner <= arrayLength) {
         return {
-            "toLatestImageCenter": {
-                "height": (topRightCorner - arrayLength - 0.5) * VIEWER_CARD_SIZE_NUMBER,
-                "width": (2 * n + 1.5) * VIEWER_CARD_SIZE_NUMBER
+            toLatestImageCenter: {
+                height: (topRightCorner - arrayLength - 0.5) * VIEWER_CARD_SIZE_NUMBER,
+                width: (2 * n + 1.5) * VIEWER_CARD_SIZE_NUMBER,
             },
-            "toGridCenter": {
-                "height": (n + 1) * VIEWER_CARD_SIZE_NUMBER,
-                "width": (n + 1) * VIEWER_CARD_SIZE_NUMBER,
-            }
-        }
+            toGridCenter: {
+                height: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
+                width: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
+            },
+        };
     } else if (bottomLeftCorner <= arrayLength) {
         return {
-            "toLatestImageCenter": {
-                "height": (2 * n + 1.5) * VIEWER_CARD_SIZE_NUMBER,
-                "width": (arrayLength - bottomLeftCorner + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+            toLatestImageCenter: {
+                height: (2 * n + 1.5) * VIEWER_CARD_SIZE_NUMBER,
+                width: (arrayLength - bottomLeftCorner + 0.5) * VIEWER_CARD_SIZE_NUMBER,
             },
-            "toGridCenter": {
-                "height": (n + 1) * VIEWER_CARD_SIZE_NUMBER,
-                "width": (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
-            }
-        }
+            toGridCenter: {
+                height: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
+                width: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+            },
+        };
     } else {
         return {
-            "toLatestImageCenter": {
-                "height": (arrayLength - topLeftCorner + 0.5) * VIEWER_CARD_SIZE_NUMBER,
-                "width": 0.5 * VIEWER_CARD_SIZE_NUMBER
+            toLatestImageCenter: {
+                height: (arrayLength - topLeftCorner + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+                width: 0.5 * VIEWER_CARD_SIZE_NUMBER,
             },
-            "toGridCenter": {
-                "height": (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
-                "width": (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
-            }
-        }
+            toGridCenter: {
+                height: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+                width: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+            },
+        };
     }
 };
 
@@ -119,15 +119,6 @@ export const getAbsoluteVectorToShiftForCentering = (
 ): AbsoluteVector => {
     const absoluteVectorFromTopLeftCorner: CalculationResult =
         calculateAbsoluteVectorFromTopLeftCorner(arrayLength);
-
-    // const absoluteVectorFromTopLeftToLatestImageCenter =
-    //     calculateAbsoluteVectorFromTopLeftToLatestImageCenter(arrayLength);
-
-    console.log(
-        absoluteVectorFromTopLeftCorner
-    );
-
-    console.log(innerHeight, innerWidth);
 
     return {
         height: innerHeight / 2 - absoluteVectorFromTopLeftCorner.toLatestImageCenter.height,

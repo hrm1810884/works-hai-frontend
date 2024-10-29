@@ -36,7 +36,7 @@ paths:
                                 properties:
                                     url:
                                         type: string
-                                        example: "http://hogehoge"
+                                        example: "https://placehold.jp/512x512.png"
                                 required:
                                     - url
                 "400":

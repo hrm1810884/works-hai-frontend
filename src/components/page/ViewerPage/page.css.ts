@@ -20,6 +20,4 @@ export const controlWrapper = style({
 export const viewerGrid = style({
     minWidth: "100vw",
     minHeight: "100vh",
-    // display: "flex",
-    // justifyContent: "center"
-})
+});

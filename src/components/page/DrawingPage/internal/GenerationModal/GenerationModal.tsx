@@ -1,16 +1,18 @@
 import { Center, Modal } from "@mantine/core";
 import Image from "next/image";
-import { FC, useEffect, useTransition } from "react";
+import { FC, useEffect } from "react";
 import { FaCircleCheck } from "react-icons/fa6";
 import { LiaBrushSolid } from "react-icons/lia";
 
 import { useCanvas } from "@/states/Canvas";
+import { useOverlayLoadingState } from "@/states/Loader";
 import { stageSwitcher } from "@/utils";
 import { getDrawingLink } from "@/utils/getDrawingLink";
 
 import { useConfirm } from "./hooks";
 
 import { ButtonWithIcon } from "@/components/common/ui";
+import { OverlayLoading } from "@/components/common/ui/OverlayLoading";
 
 import {
     imageStyle,
@@ -25,7 +27,6 @@ type props = {
 };
 
 export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
-    const [isPending, startTransition] = useTransition();
     const {
         imgSrc,
         setImgSrc,
@@ -33,6 +34,8 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
         handler: { handlePreClick, handlePostClick },
     } = useConfirm();
     const { canvasRef } = useCanvas();
+
+    const { runWithLoading } = useOverlayLoadingState();
 
     useEffect(() => {
         if (isOpen) {
@@ -45,6 +48,8 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
         <Modal
             opened={isOpen}
             onClose={handleClose}
+            closeOnClickOutside={false}
+            closeOnEscape={false}
             title={stageSwitcher(stage, {
                 pre: "こちらでよろしいでしょうか？",
                 post: "生成が完了しました",
@@ -55,6 +60,7 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                 header: modalHeaderStyle,
             }}
         >
+            <OverlayLoading />
             <div className={imageStyle}>
                 <Image
                     fill
@@ -71,16 +77,16 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                         <ButtonWithIcon
                             text="生成する"
                             icon={LiaBrushSolid}
-                            disabled={isPending}
-                            onClick={() => startTransition(async () => await handlePreClick())}
+                            onClick={runWithLoading(handlePreClick)}
                         />
                     ),
                     post: (
                         <ButtonWithIcon
                             text="終了する"
                             icon={FaCircleCheck}
-                            onClick={() => {
-                                handlePostClick().then(()=>{handleClose();});
+                            onClick={async () => {
+                                await handlePostClick();
+                                handleClose();
                             }}
                         />
                     ),

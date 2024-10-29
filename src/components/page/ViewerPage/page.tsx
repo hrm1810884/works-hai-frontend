@@ -5,10 +5,9 @@ import { SlReload } from "react-icons/sl";
 import { TransformComponent, TransformWrapper, useControls } from "react-zoom-pan-pinch";
 
 import { useViewer, useViewerTransform } from "./hooks";
+import { ControlButton, ViewerCard, ViewerGrid } from "./internal";
 
-import { ControlButton, ViewerCard, ViewerGrid } from "./components";
-
-import { controlWrapper, wrapper, viewerGrid } from "./page.css";
+import { controlWrapper, viewerGrid, wrapper } from "./page.css";
 
 export const ViewerPage = () => {
     const { data } = useViewer();
@@ -60,8 +59,7 @@ export const ViewerPage = () => {
                     <>
                         <Control resetTransform={resetTransform} />
                         <TransformComponent>
-                            <ViewerGrid
-                            className={viewerGrid}>
+                            <ViewerGrid className={viewerGrid}>
                                 {data.map((img, index) => (
                                     <ViewerCard
                                         key={index}

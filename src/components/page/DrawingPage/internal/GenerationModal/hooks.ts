@@ -10,7 +10,7 @@ type ConfirmStage = "pre" | "post";
 export const useConfirm = () => {
     const { uploadDrawing } = useUploadUsecase();
     const { generateDrawing } = useGenerationUsecase();
-    const { refetch } = useInitUsecase();
+    const { refetch: refetchInit } = useInitUsecase();
 
     const { clearCanvas } = useCanvas();
     const [imgSrc, setImgSrc] = useState<string>("no-image.png");
@@ -39,8 +39,8 @@ export const useConfirm = () => {
     const handlePostClick = useCallback(async () => {
         clearCanvas();
         setStage("pre");
-        await refetch();
-    }, [clearCanvas, refetch]);
+        await refetchInit();
+    }, [clearCanvas, refetchInit]);
 
     return {
         imgSrc,
