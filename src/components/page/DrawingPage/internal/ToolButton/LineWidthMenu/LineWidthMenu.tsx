@@ -30,9 +30,7 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
             </Menu.Target>
             <Menu.Dropdown>
                 <Menu.Label>Line Width</Menu.Label>
-                <Menu.Item
-                // className={menuItemStyle({ selected: val === brush.width[brush.type] })}
-                >
+                <Menu.Item>
                     <Slider
                         color={vars.colors.teal[6]}
                         defaultValue={8}
@@ -45,27 +43,22 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
                     />
                     <div style={{
                         display: "flex",
-                        alignItems: "center"
+                        alignItems: "center",
+                        justifyContent: "space-around",
+                        height: "24px"
                         }}>
                         <div>{brushRadius.toFixed(1)} px </div>
-                        <div className={lineWidthBar} style={{ height: `${brushRadius}px` }}></div>
+                        <div className={lineWidthBar} style={{
+                            height: `${brushRadius}px`,
+                            display: "flex",
+                            width: "48px",
+                            backgroundColor: brush.color,
+                            borderRadius: "3px"
+                        }}
+                        ></div>
                     </div>
                     
                 </Menu.Item>
-
-                {/* {lineWidthData[brush.type].map((val, index) => (
-                    <Menu.Item
-                        id={`line-width-${index}`}
-                        leftSection={`${val} px`}
-                        key={index}
-                        onClick={() => {
-                            setBrushWidth(val);
-                        }}
-                        className={menuItemStyle({ selected: val === brush.width[brush.type] })}
-                    >
-                        <div className={lineWidthBar} style={{ height: val + "px" }}></div>
-                    </Menu.Item>
-                ))} */}
             </Menu.Dropdown>
         </Menu>
     );
