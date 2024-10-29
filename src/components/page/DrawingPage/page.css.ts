@@ -23,5 +23,5 @@ export const drawingWrapperStyle = style({
     aspectRatio: "1 / 1",
     maxHeight: "100vmin",
     overflow: "hidden",
-    backgroundColor: vars.colors.gray[1],
+    backgroundColor: vars.colors.dark[9],
 });
