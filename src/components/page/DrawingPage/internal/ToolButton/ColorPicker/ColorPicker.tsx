@@ -1,19 +1,17 @@
 import { FC } from "react";
 
-import { useBrush } from "@/states/Brush";
+import { Brush } from "@/model";
 
 import { colorPaletteStyle, iconStyle } from "./ColorPicker.css";
 
 type props = {
     width: string;
     height: string;
+    brush: Brush;
+    setBrushColor: (_color: string) => void;
 };
 
-export const ColorPicker: FC<props> = ({ width, height }) => {
-    const {
-        brush,
-        mutator: { setBrushColor },
-    } = useBrush();
+export const ColorPicker: FC<props> = ({ width, height, brush, setBrushColor }) => {
     return (
         <div
             className={iconStyle}
