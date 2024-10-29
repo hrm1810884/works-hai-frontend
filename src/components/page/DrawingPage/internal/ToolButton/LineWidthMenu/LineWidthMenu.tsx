@@ -3,15 +3,13 @@ import { Slider } from "@mantine/core";
 import { FC, useState } from "react";
 import { IconType } from "react-icons/lib";
 
-import { lineWidthData } from "@/model";
-
 import { useBrush } from "@/states/Brush";
 
 import { IconButton } from "@/components/common/ui";
 
 import { vars } from "@/styles";
 
-import { lineWidthBar, menuItemStyle } from "./LineWidthMenu.css";
+import { lineWidthBar } from "./LineWidthMenu.css";
 
 type props = { icon: IconType };
 
@@ -41,23 +39,26 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
                         onChange={setBrushRadius}
                         onChangeEnd={setBrushWidth}
                     />
-                    <div style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-around",
-                        height: "24px"
-                        }}>
-                        <div>{brushRadius.toFixed(1)} px </div>
-                        <div className={lineWidthBar} style={{
-                            height: `${brushRadius}px`,
+                    <div
+                        style={{
                             display: "flex",
-                            width: "48px",
-                            backgroundColor: brush.color,
-                            borderRadius: "3px"
+                            alignItems: "center",
+                            justifyContent: "space-around",
+                            height: "24px",
                         }}
+                    >
+                        <div>{brushRadius.toFixed(1)} px </div>
+                        <div
+                            className={lineWidthBar}
+                            style={{
+                                height: `${brushRadius}px`,
+                                display: "flex",
+                                width: "48px",
+                                backgroundColor: brush.color,
+                                borderRadius: "3px",
+                            }}
                         ></div>
                     </div>
-                    
                 </Menu.Item>
             </Menu.Dropdown>
         </Menu>
