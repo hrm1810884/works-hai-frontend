@@ -13,6 +13,7 @@ export const pageWrapperStyle = style({
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
+    touchAction: "none",
 });
 
 export const drawingWrapperStyle = style({
