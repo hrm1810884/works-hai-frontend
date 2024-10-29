@@ -1,10 +1,9 @@
-import { useCallback, useMemo, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { ViewerDrawingData } from "@/model";
 
 import { useViewerData } from "@/usecase/getViwerData";
-
-import { getAbsoluteVectorToShiftForCentering, AbsoluteVector } from "./util";
+import { AbsoluteVector, getAbsoluteVectorToShiftForCentering } from "@/utils/viewer";
 
 export const useViewer = () => {
     const { data, refetch } = useViewerData();

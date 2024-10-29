@@ -1,3 +1,4 @@
+export { delay } from "./delay";
 export { getBaseUrl } from "./getBaseUrl";
 export { guardUndef } from "./guardUndef";
 export * from "./result";
