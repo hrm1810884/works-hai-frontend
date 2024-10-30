@@ -13,6 +13,7 @@ export const pageWrapperStyle = style({
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
+    touchAction: "none", // NOTE: iPadのスクロール余白を制御するため
 });
 
 export const drawingWrapperStyle = style({
@@ -22,5 +23,5 @@ export const drawingWrapperStyle = style({
     aspectRatio: "1 / 1",
     maxHeight: "100vmin",
     overflow: "hidden",
-    backgroundColor: vars.colors.gray[1],
+    backgroundColor: vars.colors.dark[9],
 });
