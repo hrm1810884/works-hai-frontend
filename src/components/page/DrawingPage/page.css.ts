@@ -13,7 +13,7 @@ export const pageWrapperStyle = style({
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
-    touchAction: "none",
+    touchAction: "none", // NOTE: iPadのスクロール余白を制御するため
 });
 
 export const drawingWrapperStyle = style({
