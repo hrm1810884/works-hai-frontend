@@ -24,8 +24,17 @@ export const menuItemStyle = recipe({
     },
 });
 
-export const lineWidthBar = style({
+const LINE_WIDTH_BAR_HEIGHT = 48;
+
+export const lineWidthBarStyle = style({
     display: "flex",
-    width: "16px",
+    width: LINE_WIDTH_BAR_HEIGHT,
+    borderRadius: vars.radius.sm,
     backgroundColor: vars.colors.gray[5],
+});
+export const subContainerStyle = style({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+    padding: vars.spacing.xs,
 });

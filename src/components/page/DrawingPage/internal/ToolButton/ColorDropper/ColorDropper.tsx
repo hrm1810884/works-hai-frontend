@@ -7,10 +7,10 @@ import { vars } from "@/styles";
 
 type props = {
     icon: IconType;
-    setBrushColor: (_color: string) => void;
+    onColorChange: (_color: string) => void;
 };
 
-export const ColorDropper: FC<props> = ({ icon, setBrushColor }) => {
+export const ColorDropper: FC<props> = ({ icon, onColorChange: handleColorChange }) => {
     const changePickedColor = async () => {
         if (!("EyeDropper" in window)) {
             console.error(`Your browser does not support the EyeDropper API`);
@@ -21,7 +21,7 @@ export const ColorDropper: FC<props> = ({ icon, setBrushColor }) => {
 
         try {
             const pickedColor = await eyeDropper.open();
-            setBrushColor(pickedColor.sRGBHex);
+            handleColorChange(pickedColor.sRGBHex);
         } catch (e) {
             console.error(`Error: ${e}`);
         }
