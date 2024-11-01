@@ -2,18 +2,9 @@ import { style } from "@vanilla-extract/css";
 
 import { vars } from "@/styles/theme";
 
-export const modalStyle = style({
-    width: "100%",
-});
-
 export const modalHeaderStyle = style({
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
     width: "100%",
-    color: "#000000",
+    color: vars.colors.black,
 });
 
 export const modalContentStyle = style({
@@ -22,9 +13,7 @@ export const modalContentStyle = style({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    minWidth: "80vw",
-    // gap: vars.spacing.lg,
-    // backgroundColor: vars.colors.warn[2], // .gray[0],
+    flex: "auto",
 });
 
 export const modalBodyStyle = style({
@@ -32,7 +21,8 @@ export const modalBodyStyle = style({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    height: "80vh",
+    width: "80vw",
     gap: vars.spacing.md,
     // backgroundColor: vars.colors.dark[9],
 });

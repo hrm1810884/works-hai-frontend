@@ -1,3 +1,3 @@
-import { ViewPage } from "@/components/page";
+import { ViewPage } from "@/page/ViewerPage";
 
 export default ViewPage;

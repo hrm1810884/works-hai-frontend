@@ -55,22 +55,29 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                 post: "生成が完了しました",
             })}
             classNames={{
-                content: modalContentStyle,
                 body: modalBodyStyle,
                 header: modalHeaderStyle,
+                content: modalContentStyle,
             }}
         >
             <OverlayLoading />
-            <div className={imageStyle}>
-                <Image
-                    fill
-                    sizes="100%"
-                    objectFit="contain"
-                    src={imgSrc}
-                    alt="canvas image"
-                    className={imageStyle}
-                />
-            </div>
+            {stageSwitcher(stage, {
+                pre: (
+                    <div className={imageStyle}>
+                        <Image
+                            fill
+                            sizes="100%"
+                            objectFit="contain"
+                            src={imgSrc}
+                            alt="canvas image"
+                            className={imageStyle}
+                        />
+                    </div>
+                ),
+                post: (
+                    <iframe src="/view" style={{ width: "100%", height: "100%", border: "none" }} />
+                ),
+            })}
             <Center>
                 {stageSwitcher(stage, {
                     pre: (

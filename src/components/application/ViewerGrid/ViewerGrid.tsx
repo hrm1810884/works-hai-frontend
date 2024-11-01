@@ -3,7 +3,7 @@ import React, { FC } from "react";
 
 import { VIEWER_CARD_SIZE } from "@/model/";
 
-import { useViewer } from "../../hooks";
+import { useViewer } from "../../../page/ViewerPage/hooks";
 
 import { gridStyle } from "./ViewerGrid.css";
 

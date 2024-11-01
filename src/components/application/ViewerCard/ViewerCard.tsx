@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FC } from "react";
 
-import { useViewer } from "../../hooks";
+import { useViewer } from "../../../page/ViewerPage/hooks";
 
 import { container } from "./ViewerCard.css";
 

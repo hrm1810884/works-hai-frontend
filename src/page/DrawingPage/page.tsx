@@ -2,7 +2,12 @@
 
 import { useModal } from "@/states/Modal";
 
-import { BottomToolBar, DrawingBoard, GenerationModal, ToolBar } from "./internal";
+import {
+    BottomToolBar,
+    DrawingBoard,
+    GenerationModal,
+    ToolBar,
+} from "../../components/application";
 
 import { drawingWrapperStyle, pageWrapperStyle } from "./page.css";
 

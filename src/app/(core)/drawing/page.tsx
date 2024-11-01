@@ -1,3 +1,3 @@
-import { DrawingPage } from "@/components/page";
+import { DrawingPage } from "@/page/DrawingPage";
 
 export default DrawingPage;
