@@ -5,8 +5,10 @@ import { SlReload } from "react-icons/sl";
 import { TransformComponent, TransformWrapper, useControls } from "react-zoom-pan-pinch";
 
 import { useViewer, useViewerTransform } from "./hooks";
-import { ControlButton, ViewerCard, ViewerGrid } from "./internal";
 
+import { ViewerCard } from "@/components/application/ViewerCard";
+import { ViewerGrid } from "@/components/application/ViewerGrid";
+import { IconButton } from "@/components/common/ui";
 import { controlWrapper, viewerGrid, wrapper } from "./page.css";
 
 export const ViewerPage = () => {
@@ -20,9 +22,9 @@ export const ViewerPage = () => {
         const { zoomIn, zoomOut } = useControls();
         return (
             <div className={controlWrapper}>
-                <ControlButton onClick={() => zoomIn()} icon={FiPlus} />
-                <ControlButton onClick={() => zoomOut()} icon={FiMinus} />
-                <ControlButton onClick={() => resetTransform()} icon={SlReload} />
+                <IconButton onClick={() => zoomIn()} variant="white" icon={FiPlus} />
+                <IconButton onClick={() => zoomOut()} variant="white" icon={FiMinus} />
+                <IconButton onClick={() => resetTransform()} variant="white" icon={SlReload} />
             </div>
         );
     };
