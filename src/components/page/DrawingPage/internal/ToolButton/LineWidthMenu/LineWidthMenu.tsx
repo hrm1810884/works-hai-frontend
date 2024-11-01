@@ -1,8 +1,6 @@
-import { Menu } from "@mantine/core";
-import { FC } from "react";
+import { Menu, Slider } from "@mantine/core";
+import { FC, useState } from "react";
 import { IconType } from "react-icons/lib";
-
-import { lineWidthData } from "@/model";
 
 import { useBrush } from "@/states/Brush";
 
@@ -10,15 +8,20 @@ import { IconButton } from "@/components/common/ui";
 
 import { vars } from "@/styles";
 
-import { lineWidthBar, menuItemStyle } from "./LineWidthMenu.css";
+import { lineWidthBarStyle, subContainerStyle } from "./LineWidthMenu.css";
 
 type props = { icon: IconType };
+
+const DEFAULT_LINE_WIDTH = 8;
 
 export const LineWidthMenu: FC<props> = ({ icon }) => {
     const {
         brush,
         mutator: { setBrushWidth },
     } = useBrush();
+
+    const [sliderValue, setSliderValue] = useState(DEFAULT_LINE_WIDTH);
+
     return (
         <Menu shadow="md" width={200}>
             <Menu.Target>
@@ -26,19 +29,28 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
             </Menu.Target>
             <Menu.Dropdown>
                 <Menu.Label>Line Width</Menu.Label>
-                {lineWidthData[brush.type].map((val, index) => (
-                    <Menu.Item
-                        id={`line-width-${index}`}
-                        leftSection={`${val} px`}
-                        key={index}
-                        onClick={() => {
-                            setBrushWidth(val);
-                        }}
-                        className={menuItemStyle({ selected: val === brush.width[brush.type] })}
-                    >
-                        <div className={lineWidthBar} style={{ height: val + "px" }}></div>
-                    </Menu.Item>
-                ))}
+                <Menu.Item>
+                    <Slider
+                        color={vars.colors.teal[6]}
+                        defaultValue={DEFAULT_LINE_WIDTH}
+                        min={1}
+                        step={0.1}
+                        max={24}
+                        value={sliderValue}
+                        onChange={setSliderValue}
+                        onChangeEnd={setBrushWidth}
+                    />
+                    <div className={subContainerStyle}>
+                        <p>{`${sliderValue.toFixed(1)} px `}</p>
+                        <div
+                            className={lineWidthBarStyle}
+                            style={{
+                                height: `${sliderValue}px`,
+                                backgroundColor: brush.color,
+                            }}
+                        ></div>
+                    </div>
+                </Menu.Item>
             </Menu.Dropdown>
         </Menu>
     );
