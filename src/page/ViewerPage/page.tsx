@@ -23,9 +23,9 @@ export const ViewerPage = () => {
         const { zoomIn, zoomOut } = useControls();
         return (
             <div className={controlWrapper}>
-                <IconButton onClick={() => zoomIn()} variant="white" icon={FiPlus} />
-                <IconButton onClick={() => zoomOut()} variant="white" icon={FiMinus} />
-                <IconButton onClick={() => resetTransform()} variant="white" icon={SlReload} />
+                <IconButton onClick={() => zoomIn()} variant="transparent" color="white" icon={FiPlus} />
+                <IconButton onClick={() => zoomOut()} variant="transparent" color="white" icon={FiMinus} />
+                <IconButton onClick={() => resetTransform()} variant="transparent" color="white" icon={SlReload} />
             </div>
         );
     };

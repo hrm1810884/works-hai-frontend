@@ -36,7 +36,7 @@ export const BottomToolBar: FC<Props> = (props) => {
                     <>
                         <div className={textSpanStyle}>
                             <p>{`キャンバス周辺部分の余白の割合: ${(whitePixelsProportion * 100).toFixed(1)}%`}</p>
-                            <p>30%を下回ると完了ボタンが押せるようになります</p>
+                            <p>30%以下で完了ボタンが押せるようになります</p>
                         </div>
                         <ButtonWithIcon
                             type="submit"
