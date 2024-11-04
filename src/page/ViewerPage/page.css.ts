@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+
 import { vars } from "@/styles";
 
 export const wrapper = style({
@@ -8,7 +9,7 @@ export const wrapper = style({
     alignItems: "center",
     width: "100vw",
     height: "100vh",
-    backgroundColor: vars.colors.background[7]
+    backgroundColor: vars.colors.background[7],
 });
 
 export const controlWrapper = style({
