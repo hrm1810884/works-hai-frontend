@@ -2,27 +2,24 @@ import { FC } from "react";
 
 import { Brush } from "@/model";
 
-import { colorPaletteStyle, iconStyle } from "./ColorPicker.css";
+import { colorPaletteStyle, iconStyle, wrapperStyle } from "./ColorPicker.css";
 
 type props = {
-    width: string;
-    height: string;
     brush: Brush;
     setBrushColor: (_color: string) => void;
 };
 
-export const ColorPicker: FC<props> = ({ width, height, brush, setBrushColor }) => {
+export const ColorPicker: FC<props> = ({ brush, setBrushColor }) => {
     return (
-        <div
-            className={iconStyle}
-            style={{ width: width, height: height, backgroundColor: brush.color }}
-        >
-            <input
-                type="color"
-                className={colorPaletteStyle}
-                value={brush.color}
-                onChange={(e) => setBrushColor(e.target.value as string)}
-            ></input>
+        <div className={wrapperStyle}>
+            <div className={iconStyle} style={{ backgroundColor: brush.color }}>
+                <input
+                    type="color"
+                    className={colorPaletteStyle}
+                    value={brush.color}
+                    onChange={(e) => setBrushColor(e.target.value as string)}
+                />
+            </div>
         </div>
     );
 };

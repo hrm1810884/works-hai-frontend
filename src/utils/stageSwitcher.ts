@@ -1,8 +1,12 @@
-type IsUnion<T, S = T> = T extends T ? ([S] extends [T] ? false : true) : never;
+type ValuesAreSameType<C> = C[keyof C] extends infer T
+    ? [T] extends [C[keyof C]]
+        ? true
+        : false
+    : false;
 
 export const stageSwitcher = <S extends keyof any, C extends Record<S, any>>(
     stage: S,
-    dict: IsUnion<C[keyof C]> extends true ? never : C
-): C extends Record<S, infer R> ? R : never => {
+    dict: ValuesAreSameType<C> extends true ? C : never
+): C[S] => {
     return dict[stage];
 };

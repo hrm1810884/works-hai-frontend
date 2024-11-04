@@ -3,7 +3,6 @@ import { AiOutlineClear } from "react-icons/ai";
 import { BiEraser, BiPencil, BiRedo, BiUndo } from "react-icons/bi";
 import { BsBorderWidth } from "react-icons/bs";
 
-import { ICON_SIZE } from "@/model/consts";
 import { useBrush } from "@/states/Brush";
 import { useCanvas } from "@/states/Canvas";
 import { useHistory } from "@/states/History";
@@ -79,12 +78,7 @@ export const ToolBar: FC<props> = () => {
                 {/* <ColorDropper icon={BiSolidEyedropper} onColorChange={setBrushColor} /> */}
 
                 {/* Color */}
-                <ColorPicker
-                    width={ICON_SIZE}
-                    height={ICON_SIZE}
-                    brush={brush}
-                    setBrushColor={setBrushColor}
-                />
+                <ColorPicker brush={brush} setBrushColor={setBrushColor} />
             </div>
         </div>
     );

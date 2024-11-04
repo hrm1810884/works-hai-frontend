@@ -50,6 +50,7 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
             onClose={handleClose}
             closeOnClickOutside={false}
             closeOnEscape={false}
+            withCloseButton={stageSwitcher(stage, { pre: true, post: false })}
             title={stageSwitcher(stage, {
                 pre: "こちらでよろしいでしょうか？",
                 post: "生成が完了しました",

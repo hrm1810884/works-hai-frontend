@@ -6,6 +6,7 @@ export const menuItemStyle = style({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    padding: vars.spacing.sm,
 });
 
 const LINE_WIDTH_BAR_WIDTH = 48;
