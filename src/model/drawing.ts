@@ -7,18 +7,12 @@ export type canvasContext = CanvasRenderingContext2D | undefined | null;
 
 export type BrushType = "PENCIL" | "ERASER";
 
-export const lineWidthData = {
-    PENCIL: [1, 3, 5, 7] as const,
-    ERASER: [2, 4, 6, 8] as const,
-} as const satisfies Record<BrushType, number[]>;
-
-export type LineWidth<T extends BrushType> = (typeof lineWidthData)[T][number];
-
+export type BrushWidth = {
+    [K in BrushType]: number;
+};
 export type Brush = {
     type: BrushType;
-    width: {
-        [K in BrushType]: LineWidth<K>; //NOTE: どちらの描画モードでも全てのモードの幅を持つ
-    };
+    width: BrushWidth;
     color: string;
 };
 
