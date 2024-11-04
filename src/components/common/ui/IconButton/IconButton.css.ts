@@ -1,3 +1,4 @@
+import { vars } from "@/styles";
 import { style } from "@vanilla-extract/css";
 
 export const iconButtonStyle = style({
@@ -7,4 +8,5 @@ export const iconButtonStyle = style({
     padding: "10px",
     width: "fit-content",
     height: "fit-content",
+    backgroundColor: vars.colors.dark[9]
 });
