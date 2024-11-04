@@ -12,17 +12,8 @@ const canvasRefAtom =
 const whitePixelsProportionAtom = atom<WhitePixelsProportion>(1);
 
 export const useCanvas = () => {
-    const [whitePixelsProportion, setWthitePixelsPortion] = useAtom(whitePixelsProportionAtom);
+    const [whitePixelsProportion, setWhitePixelsPortion] = useAtom(whitePixelsProportionAtom);
     const [canvasRef, __] = useAtom(canvasRefAtom);
-
-    const clearCanvas = useCallback(() => {
-        const canvasContext = getCanvasContext(canvasRef.current);
-        if (canvasContext) {
-            canvasContext.clearRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
-            canvasContext.fillStyle = "white";
-            canvasContext.fillRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
-        }
-    }, [canvasRef]);
 
     // Function to calculate the proportion of white pixels in the canvas
     const updateWhitePixelsProportion = useCallback(
@@ -65,10 +56,20 @@ export const useCanvas = () => {
 
             const whitePixelsProportion = whitePixelCount / totalCounts;
 
-            setWthitePixelsPortion(whitePixelsProportion);
+            setWhitePixelsPortion(whitePixelsProportion);
         },
-        [setWthitePixelsPortion]
+        [setWhitePixelsPortion]
     );
+
+    const clearCanvas = useCallback(() => {
+        const canvasContext = getCanvasContext(canvasRef.current);
+        if (canvasContext) {
+            canvasContext.clearRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
+            canvasContext.fillStyle = "white";
+            canvasContext.fillRect(0, 0, canvasContext.canvas.width, canvasContext.canvas.height);
+            updateWhitePixelsProportion(canvasContext.canvas);
+        }
+    }, [canvasRef, updateWhitePixelsProportion]);
 
     return {
         canvasRef,
