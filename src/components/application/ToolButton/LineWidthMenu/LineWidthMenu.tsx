@@ -1,18 +1,18 @@
 import { Menu, Slider } from "@mantine/core";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { IconType } from "react-icons/lib";
 
-import { useBrush } from "@/states/Brush";
+import { BrushWidth } from "@/model";
+
+import { DEFAULT_LINE_WIDTH, useBrush } from "@/states/Brush";
 
 import { IconButton } from "@/components/common/ui";
 
 import { vars } from "@/styles";
 
-import { lineWidthBarStyle, subContainerStyle } from "./LineWidthMenu.css";
+import { lineWidthBarStyle, menuItemStyle, subContainerStyle } from "./LineWidthMenu.css";
 
 type props = { icon: IconType };
-
-const DEFAULT_LINE_WIDTH = 8;
 
 export const LineWidthMenu: FC<props> = ({ icon }) => {
     const {
@@ -20,12 +20,28 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
         mutator: { setBrushWidth },
     } = useBrush();
 
-    const [sliderValue, setSliderValue] = useState(DEFAULT_LINE_WIDTH);
+    const [sliderValue, setSliderValue] = useState<BrushWidth>({
+        PENCIL: DEFAULT_LINE_WIDTH,
+        ERASER: DEFAULT_LINE_WIDTH,
+    });
+
+    const handleSliderChange = useCallback(
+        (value: number) => {
+            setSliderValue((prev) => ({
+                ...prev,
+                [brush.type]: value,
+            }));
+        },
+        [setSliderValue, brush.type]
+    );
 
     return (
         <Menu shadow="md" width={200}>
             <Menu.Target>
-                <IconButton variant="transparent" color={vars.colors.white} icon={icon} />
+                <div className={menuItemStyle}>
+                    <p>{sliderValue[brush.type]}</p>
+                    <IconButton variant="transparent" color={vars.colors.white} icon={icon} />
+                </div>
             </Menu.Target>
             <Menu.Dropdown>
                 <Menu.Label>Line Width</Menu.Label>
@@ -36,16 +52,16 @@ export const LineWidthMenu: FC<props> = ({ icon }) => {
                         min={1}
                         step={0.1}
                         max={24}
-                        value={sliderValue}
-                        onChange={setSliderValue}
+                        value={sliderValue[brush.type]}
+                        onChange={handleSliderChange}
                         onChangeEnd={setBrushWidth}
                     />
                     <div className={subContainerStyle}>
-                        <p>{`${sliderValue.toFixed(1)} px `}</p>
+                        <p>{`${sliderValue[brush.type].toFixed(1)} px `}</p>
                         <div
                             className={lineWidthBarStyle}
                             style={{
-                                height: `${sliderValue}px`,
+                                height: `${sliderValue[brush.type]}px`,
                                 backgroundColor: brush.color,
                             }}
                         ></div>

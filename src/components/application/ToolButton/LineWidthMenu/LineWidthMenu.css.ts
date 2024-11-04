@@ -1,34 +1,19 @@
-import { style } from "@vanilla-extract/css";
-import { recipe } from "@vanilla-extract/recipes";
+import { globalStyle, style } from "@vanilla-extract/css";
 
 import { vars } from "@/styles";
 
-export const menuItemStyle = recipe({
-    base: {
-        selectors: {
-            "&[data-hovered='true']": {
-                backgroundColor: vars.colors.gray[4],
-            },
-        },
-    },
-
-    variants: {
-        selected: {
-            true: { backgroundColor: vars.colors.gray[2] },
-            false: { backgroundColor: "transparent" },
-        },
-    },
-
-    defaultVariants: {
-        selected: false,
-    },
+export const menuItemStyle = style({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: vars.spacing.sm,
 });
 
-const LINE_WIDTH_BAR_HEIGHT = 48;
+const LINE_WIDTH_BAR_WIDTH = 48;
 
 export const lineWidthBarStyle = style({
     display: "flex",
-    width: LINE_WIDTH_BAR_HEIGHT,
+    width: LINE_WIDTH_BAR_WIDTH,
     borderRadius: vars.radius.sm,
     backgroundColor: vars.colors.gray[5],
 });
@@ -37,4 +22,12 @@ export const subContainerStyle = style({
     alignItems: "center",
     justifyContent: "space-around",
     padding: vars.spacing.xs,
+});
+
+globalStyle(`${menuItemStyle} *`, {
+    padding: 0,
+    margin: 0,
+    fontSize: vars.fontSizes.xs,
+    lineHeight: vars.lineHeights.xs,
+    color: vars.colors.white,
 });

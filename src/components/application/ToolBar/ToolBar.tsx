@@ -1,14 +1,13 @@
 import { FC } from "react";
 import { AiOutlineClear } from "react-icons/ai";
-import { BiEraser, BiPencil, BiRedo, BiSolidEyedropper, BiUndo } from "react-icons/bi";
+import { BiEraser, BiPencil, BiRedo, BiUndo } from "react-icons/bi";
 import { BsBorderWidth } from "react-icons/bs";
 
-import { ICON_SIZE } from "@/model/consts";
 import { useBrush } from "@/states/Brush";
 import { useCanvas } from "@/states/Canvas";
 import { useHistory } from "@/states/History";
 
-import { ColorDropper, ColorPicker, LineWidthMenu, ToolButton } from "../ToolButton";
+import { ColorPicker, LineWidthMenu, ToolButton } from "../ToolButton";
 
 import { toolBarStyle, toolButtonsContainerStyle } from "./ToolBar.css";
 
@@ -75,15 +74,11 @@ export const ToolBar: FC<props> = () => {
                 <LineWidthMenu icon={BsBorderWidth} />
 
                 {/* Color Dropper */}
-                <ColorDropper icon={BiSolidEyedropper} onColorChange={setBrushColor} />
+                {/* MEMO: iOSに対応していないためコメントアウト */}
+                {/* <ColorDropper icon={BiSolidEyedropper} onColorChange={setBrushColor} /> */}
 
                 {/* Color */}
-                <ColorPicker
-                    width={ICON_SIZE}
-                    height={ICON_SIZE}
-                    brush={brush}
-                    setBrushColor={setBrushColor}
-                />
+                <ColorPicker brush={brush} setBrushColor={setBrushColor} />
             </div>
         </div>
     );

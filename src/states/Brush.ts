@@ -3,9 +3,10 @@ import { useCallback } from "react";
 
 import { Brush, BrushType } from "@/model";
 
+export const DEFAULT_LINE_WIDTH = 8;
 export const defaultBrush: Brush = {
     type: "PENCIL",
-    width: { PENCIL: 3, ERASER: 4 },
+    width: { PENCIL: DEFAULT_LINE_WIDTH, ERASER: DEFAULT_LINE_WIDTH },
     color: "#000000",
 };
 const brushAtom = atom<Brush>(defaultBrush);
