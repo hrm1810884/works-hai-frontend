@@ -71,6 +71,7 @@ export const ViewerPage = () => {
                 initialScale={1}
                 initialPositionX={absoluteVectorToShiftForCentering.width} // data[data.length-1].position.x}
                 initialPositionY={absoluteVectorToShiftForCentering.height} // {data[data.length-1].position.y}
+                minScale={0}
                 limitToBounds={false}
             >
                 {({ resetTransform }) => (
