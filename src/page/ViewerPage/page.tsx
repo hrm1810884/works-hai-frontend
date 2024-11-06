@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { SlReload } from "react-icons/sl";
 import { TransformComponent, TransformWrapper, useControls } from "react-zoom-pan-pinch";
@@ -15,6 +15,17 @@ import { controlWrapper, viewerGrid, wrapper } from "./page.css";
 export const ViewerPage = () => {
     const { data } = useViewer();
     const absoluteVectorToShiftForCentering = useViewerTransform();
+
+    const transformRef = useRef<{ resetTransform: () => void } | null>(null);
+    const handleResetTransform = () => {
+        transformRef.current?.resetTransform();
+    };
+    useEffect(() => {
+        // 画像データがすべてロードされた後にresetTransformを呼び出す
+        if (data.length > 0) {
+            handleResetTransform();
+        }
+    }, [data]);
 
     type ControlProps = {
         resetTransform: () => void;
@@ -72,6 +83,10 @@ export const ViewerPage = () => {
                 initialPositionX={absoluteVectorToShiftForCentering.width} // data[data.length-1].position.x}
                 initialPositionY={absoluteVectorToShiftForCentering.height} // {data[data.length-1].position.y}
                 limitToBounds={false}
+                onInit={({ resetTransform }) => {
+                    transformRef.current = { resetTransform };
+                    handleResetTransform();
+                }} // 初回レンダリング時に resetTransform を transformRef に保持
             >
                 {({ resetTransform }) => (
                     <>
