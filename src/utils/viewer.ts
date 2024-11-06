@@ -8,6 +8,7 @@ export type AbsoluteVector = {
 type CalculationResult = {
     toLatestImageCenter: AbsoluteVector;
     toGridCenter: AbsoluteVector;
+    toTopCenter: AbsoluteVector;
 };
 
 // n >= 0
@@ -76,6 +77,10 @@ const calculateAbsoluteVectorFromTopLeftCorner = (arrayLength: number): Calculat
                 height: (n + 1.5) * VIEWER_CARD_SIZE_NUMBER,
                 width: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
             },
+            toTopCenter: {
+                height: 0.5 * VIEWER_CARD_SIZE_NUMBER,
+                width: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
+            },
         };
     } else if (bottomRightCorner <= arrayLength) {
         return {
@@ -85,6 +90,10 @@ const calculateAbsoluteVectorFromTopLeftCorner = (arrayLength: number): Calculat
             },
             toGridCenter: {
                 height: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
+                width: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
+            },
+            toTopCenter: {
+                height: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
                 width: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
             },
         };
@@ -98,6 +107,10 @@ const calculateAbsoluteVectorFromTopLeftCorner = (arrayLength: number): Calculat
                 height: (n + 1) * VIEWER_CARD_SIZE_NUMBER,
                 width: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
             },
+            toTopCenter: {
+                height: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+                width: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+            },
         };
     } else {
         return {
@@ -106,6 +119,10 @@ const calculateAbsoluteVectorFromTopLeftCorner = (arrayLength: number): Calculat
                 width: 0.5 * VIEWER_CARD_SIZE_NUMBER,
             },
             toGridCenter: {
+                height: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+                width: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
+            },
+            toTopCenter: {
                 height: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
                 width: (n + 0.5) * VIEWER_CARD_SIZE_NUMBER,
             },
@@ -121,7 +138,14 @@ export const getAbsoluteVectorToShiftForCentering = (
         calculateAbsoluteVectorFromTopLeftCorner(arrayLength);
 
     return {
-        height: innerHeight / 2 - absoluteVectorFromTopLeftCorner.toLatestImageCenter.height,
-        width: innerWidth / 2 - absoluteVectorFromTopLeftCorner.toLatestImageCenter.width,
+        height:
+            arrayLength < 13
+                ? innerHeight / 2 - absoluteVectorFromTopLeftCorner.toLatestImageCenter.height
+                : innerHeight / 2 - absoluteVectorFromTopLeftCorner.toLatestImageCenter.height,
+        width:
+            arrayLength < 13
+                ? innerWidth / 2 - absoluteVectorFromTopLeftCorner.toLatestImageCenter.width
+                : -absoluteVectorFromTopLeftCorner.toLatestImageCenter.width +
+                  absoluteVectorFromTopLeftCorner.toTopCenter.width,
     };
 };

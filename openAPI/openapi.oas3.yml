@@ -229,7 +229,164 @@ paths:
                                             position: { x: 1, y: -2 },
                                             url: "https://placehold.jp/512x512.png?text=11",
                                         },
+                                        {
+                                            position: { x: 2, y: -2 },
+                                            url: "https://placehold.jp/512x512.png?text=12",
+                                        },
+                                        {
+                                            position: { x: 2, y: -1 },
+                                            url: "https://placehold.jp/512x512.png?text=13",
+                                        },
+                                        {
+                                            position: { x: 2, y: 0 },
+                                            url: "https://placehold.jp/512x512.png?text=14",
+                                        },
+                                        {
+                                            position: { x: 2, y: 1 },
+                                            url: "https://placehold.jp/512x512.png?text=15",
+                                        },
+                                        {
+                                            position: { x: 2, y: 2 },
+                                            url: "https://placehold.jp/512x512.png?text=16",
+                                        },
+                                        {
+                                            position: { x: 1, y: 2 },
+                                            url: "https://placehold.jp/512x512.png?text=17",
+                                        },
+                                        {
+                                            position: { x: 0, y: 2 },
+                                            url: "https://placehold.jp/512x512.png?text=18",
+                                        },
+                                        {
+                                            position: { x: -1, y: 2 },
+                                            url: "https://placehold.jp/512x512.png?text=19",
+                                        },
+                                        {
+                                            position: { x: -2, y: 2 },
+                                            url: "https://placehold.jp/512x512.png?text=20",
+                                        },
+                                        {
+                                            position: { x: -2, y: 1 },
+                                            url: "https://placehold.jp/512x512.png?text=21",
+                                        },
+                                        {
+                                            position: { x: -2, y: 0 },
+                                            url: "https://placehold.jp/512x512.png?text=22",
+                                        },
+                                        {
+                                            position: { x: -2, y: -1 },
+                                            url: "https://placehold.jp/512x512.png?text=23",
+                                        },
+                                        {
+                                            position: { x: -2, y: -2 },
+                                            url: "https://placehold.jp/512x512.png?text=24",
+                                        },
+                                        {
+                                            position: { x: -2, y: -3 },
+                                            url: "https://placehold.jp/512x512.png?text=25",
+                                        },
+                                        {
+                                            position: { x: -1, y: -3 },
+                                            url: "https://placehold.jp/512x512.png?text=26",
+                                        },
+                                        {
+                                            position: { x: 0, y: -3 },
+                                            url: "https://placehold.jp/512x512.png?text=27",
+                                        },
+                                        {
+                                            position: { x: 1, y: -3 },
+                                            url: "https://placehold.jp/512x512.png?text=28",
+                                        },
+                                        {
+                                            position: { x: 2, y: -3 },
+                                            url: "https://placehold.jp/512x512.png?text=29",
+                                        },
+                                        {
+                                            position: { x: 3, y: -3 },
+                                            url: "https://placehold.jp/512x512.png?text=30",
+                                        },
+                                        {
+                                            position: { x: 3, y: -2 },
+                                            url: "https://placehold.jp/512x512.png?text=31",
+                                        },
+                                        {
+                                            position: { x: 3, y: -1 },
+                                            url: "https://placehold.jp/512x512.png?text=32",
+                                        },
+                                        {
+                                            position: { x: 3, y: 0 },
+                                            url: "https://placehold.jp/512x512.png?text=33",
+                                        },
+                                        {
+                                            position: { x: 3, y: 1 },
+                                            url: "https://placehold.jp/512x512.png?text=34",
+                                        },
+                                        {
+                                            position: { x: 3, y: 2 },
+                                            url: "https://placehold.jp/512x512.png?text=35",
+                                        },
+                                        {
+                                            position: { x: 3, y: 3 },
+                                            url: "https://placehold.jp/512x512.png?text=36",
+                                        },
+                                        {
+                                            position: { x: 2, y: 3 },
+                                            url: "https://placehold.jp/512x512.png?text=37",
+                                        },
+                                        {
+                                            position: { x: 1, y: 3 },
+                                            url: "https://placehold.jp/512x512.png?text=38",
+                                        },
+                                        {
+                                            position: { x: 0, y: 3 },
+                                            url: "https://placehold.jp/512x512.png?text=39",
+                                        },
+                                        {
+                                            position: { x: -1, y: 3 },
+                                            url: "https://placehold.jp/512x512.png?text=40",
+                                        },
+                                        {
+                                            position: { x: -2, y: 3 },
+                                            url: "https://placehold.jp/512x512.png?text=41",
+                                        },
+                                        {
+                                            position: { x: -3, y: 3 },
+                                            url: "https://placehold.jp/512x512.png?text=42",
+                                        },
+                                        {
+                                            position: { x: -3, y: 2 },
+                                            url: "https://placehold.jp/512x512.png?text=43",
+                                        },
+                                        {
+                                            position: { x: -3, y: 1 },
+                                            url: "https://placehold.jp/512x512.png?text=44",
+                                        },
+                                        {
+                                            position: { x: -3, y: 0 },
+                                            url: "https://placehold.jp/512x512.png?text=45",
+                                        },
+                                        {
+                                            position: { x: -3, y: -1 },
+                                            url: "https://placehold.jp/512x512.png?text=46",
+                                        },
+                                        {
+                                            position: { x: -3, y: -2 },
+                                            url: "https://placehold.jp/512x512.png?text=47",
+                                        },
+                                        {
+                                            position: { x: -3, y: -3 },
+                                            url: "https://placehold.jp/512x512.png?text=48",
+                                        },
+                                        {
+                                            position: { x: -3, y: -4 },
+                                            url: "https://placehold.jp/512x512.png?text=49",
+                                        },
+                                        {
+                                            position: { x: -2, y: -4 },
+                                            url: "https://placehold.jp/512x512.png?text=50",
+                                        },
                                     ]
+
                 "400":
                     description: Bad Request
                     content:

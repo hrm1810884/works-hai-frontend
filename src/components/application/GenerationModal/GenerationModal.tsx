@@ -76,7 +76,10 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose: handleClose }) => {
                     </div>
                 ),
                 post: (
-                    <iframe src="/view" style={{ width: "100%", height: "100%", border: "none" }} />
+                    <iframe
+                        src="/view"
+                        style={{ width: "790px", height: "1024px", border: "none" }}
+                    />
                 ),
             })}
             <Center>
