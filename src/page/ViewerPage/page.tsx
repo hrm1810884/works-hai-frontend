@@ -83,6 +83,7 @@ export const ViewerPage = () => {
                 initialPositionX={absoluteVectorToShiftForCentering.width} // data[data.length-1].position.x}
                 initialPositionY={absoluteVectorToShiftForCentering.height} // {data[data.length-1].position.y}
                 limitToBounds={false}
+                minScale={0} // 無限ズームアウトを可能にする
                 onInit={({ resetTransform }) => {
                     transformRef.current = { resetTransform };
                     handleResetTransform();
